@@ -3,30 +3,29 @@ const router = express.Router();
 const { run, get, all } = require('../database/db');
 const { authenticateToken } = require('../middleware/auth');
 const multer = require('multer');
+const path = require('path');
+const fs = require('fs');
 
-// ── Cloudinary setup ──────────────────────────────────────────────────────────
-const cloudinary = require('cloudinary').v2;
-const { CloudinaryStorage } = require('multer-storage-cloudinary');
+// ── Local disk storage ────────────────────────────────────────────────────────
+const uploadsDir = path.join(__dirname, '../public/uploads');
+if (!fs.existsSync(uploadsDir)) fs.mkdirSync(uploadsDir, { recursive: true });
 
-cloudinary.config({
-  cloud_name:  process.env.CLOUDINARY_CLOUD_NAME,
-  api_key:     process.env.CLOUDINARY_API_KEY,
-  api_secret:  process.env.CLOUDINARY_API_SECRET,
-});
-
-// Storage: upload directly to Cloudinary, no local disk needed
-const cloudStorage = new CloudinaryStorage({
-  cloudinary,
-  params: async (req, file) => ({
-    folder: '13pills',
-    allowed_formats: ['jpg', 'jpeg', 'png', 'webp', 'svg', 'gif', 'ico'],
-    transformation: [{ quality: 'auto', fetch_format: 'auto' }],
-  }),
+const diskStorage = multer.diskStorage({
+  destination: (req, file, cb) => cb(null, uploadsDir),
+  filename: (req, file, cb) => {
+    const prefix = file.fieldname === 'favicon' ? 'favicon' : 'image';
+    const ext = path.extname(file.originalname).toLowerCase() || '.jpg';
+    cb(null, `${prefix}-${Date.now()}${ext}`);
+  }
 });
 
 const upload = multer({
-  storage: cloudStorage,
+  storage: diskStorage,
   limits: { fileSize: 5 * 1024 * 1024 }, // 5MB
+  fileFilter: (req, file, cb) => {
+    const allowed = /jpeg|jpg|png|webp|svg|gif|ico/;
+    cb(null, allowed.test(path.extname(file.originalname).toLowerCase()));
+  }
 });
 
 // ── GET all settings ──────────────────────────────────────────────────────────
@@ -53,7 +52,7 @@ router.put('/', authenticateToken, async (req, res) => {
 async function handleUpload(req, res, settingKey) {
   try {
     if (!req.file) return res.status(400).json({ error: 'No file received' });
-    const url = req.file.path; // Cloudinary returns the URL in req.file.path
+    const url = `/uploads/${req.file.filename}`;
     await run('INSERT OR REPLACE INTO settings (key, value) VALUES (?, ?)', [settingKey, url]);
     res.json({ success: true, url });
   } catch (e) {
@@ -72,7 +71,7 @@ router.post('/upload/favicon', authenticateToken, upload.single('favicon'),
 router.post('/upload/product-image', authenticateToken, upload.single('image'), (req, res) => {
   try {
     if (!req.file) return res.status(400).json({ error: 'No file received' });
-    res.json({ success: true, url: req.file.path });
+    res.json({ success: true, url: `/uploads/${req.file.filename}` });
   } catch (e) {
     res.status(500).json({ error: e.message });
   }
@@ -81,7 +80,7 @@ router.post('/upload/product-image', authenticateToken, upload.single('image'), 
 router.post('/upload/banner', authenticateToken, upload.single('image'), (req, res) => {
   try {
     if (!req.file) return res.status(400).json({ error: 'No file received' });
-    res.json({ success: true, url: req.file.path });
+    res.json({ success: true, url: `/uploads/${req.file.filename}` });
   } catch (e) {
     res.status(500).json({ error: e.message });
   }

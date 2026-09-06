@@ -1,9 +1,29 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="fr">
 <head>
   <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Catégories - Admin MediShop</title>
+  <title>Breed Management - Admin Paw Puppies</title>
   <link rel="stylesheet" href="/css/admin.css">
+  <link href="https://cdn.quilljs.com/1.3.7/quill.snow.css" rel="stylesheet">
+  <script src="https://cdn.quilljs.com/1.3.7/quill.min.js"></script>
+  <style>
+    .ql-container { font-family:'Segoe UI',sans-serif; font-size:14px; min-height:200px; }
+    .ql-toolbar { border-color:var(--border)!important; background:#f8fafc; }
+    .ql-container { border-color:var(--border)!important; }
+    .ql-editor { min-height:200px; line-height:1.7; }
+    .suit-grid { display:grid; grid-template-columns:1fr 1fr; gap:6px; margin-top:6px; }
+    .suit-item { display:flex; align-items:center; gap:8px; font-size:13px; cursor:pointer; }
+    .suit-item input { accent-color:var(--primary); cursor:pointer; }
+    .gallery-strip { display:flex; flex-wrap:wrap; gap:8px; margin-top:8px; }
+    .gallery-thumb { position:relative; }
+    .gallery-thumb img { width:70px; height:70px; object-fit:cover; border-radius:6px; border:1px solid var(--border); }
+    .gallery-thumb .rm { position:absolute; top:-6px; right:-6px; background:#e53e3e; color:#fff; border:none; border-radius:50%; width:18px; height:18px; font-size:12px; cursor:pointer; line-height:1; display:flex; align-items:center; justify-content:center; }
+    .spec-grid { display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-top:4px; }
+    .spec-field { display:flex; flex-direction:column; gap:4px; }
+    .spec-field label { font-size:11px; font-weight:700; color:#718096; text-transform:uppercase; letter-spacing:0.4px; }
+    .spec-field input { padding:7px 10px; border:1px solid var(--border); font-size:13px; outline:none; font-family:inherit; }
+    .spec-field input:focus { border-color:var(--primary); }
+  </style>
 </head>
 <body>
 <div class="admin-layout">
@@ -14,7 +34,7 @@
       <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M9 3H5a2 2 0 0 0-2 2v4m6-6h10a2 2 0 0 1 2 2v4M9 3v18m0 0h10a2 2 0 0 0 2-2V9M9 21H5a2 2 0 0 1-2-2V9m0 0h18"/></svg>
     </div>
     <div>
-      <div class="logo-text sidebar-site-name">MediShop</div>
+      <div class="logo-text sidebar-site-name">Paw Puppies</div>
       <div class="logo-sub">Administration</div>
     </div>
   </div>
@@ -32,9 +52,17 @@
       <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg>
       Catégories
     </a>
+    <a class="nav-item" data-href="/admin/reviews.html" href="/admin/reviews.html">
+      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+      Customer Reviews
+    </a>
     <a class="nav-item" data-href="/admin/orders.html" href="/admin/orders.html">
       <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
       Commandes
+    </a>
+    <a class="nav-item" data-href="/admin/messages.html" href="/admin/messages.html">
+      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+      Messages <span id="sidebar-unread-badge" style="display:none;background:#e53e3e;color:#fff;font-size:10px;font-weight:700;padding:1px 6px;border-radius:10px;margin-left:6px"></span>
     </a>
     <div class="nav-section">Configuration</div>
     <a class="nav-item" data-href="/admin/settings.html" href="/admin/settings.html">
@@ -62,7 +90,7 @@
     <button class="sidebar-toggle" id="sidebar-toggle" aria-label="Menu">
       <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
     </button>
-    <span class="topbar-title">Gestion des catégories</span>
+    <span class="topbar-title">Breed Management</span>
   </div>
   <div class="topbar-actions">
     <span class="admin-badge">
@@ -80,7 +108,7 @@
         <div class="card-body" style="padding:0">
           <div class="table-wrapper">
             <table>
-              <thead><tr><th>Icône</th><th>Nom</th><th>Slug</th><th>Description</th><th>Produits</th><th>Actif</th><th>Actions</th></tr></thead>
+              <thead><tr><th>Photo</th><th>Name</th><th>Slug</th><th>Description</th><th>Collections</th><th>Listings</th><th>Active</th><th>Actions</th></tr></thead>
               <tbody id="cats-table"></tbody>
             </table>
           </div>
@@ -91,28 +119,113 @@
 </div>
 
 <div class="modal-overlay" id="cat-modal">
-  <div class="modal" style="max-width:500px">
+  <div class="modal" style="max-width:800px">
     <div class="modal-header">
-      <h2 id="modal-title">Ajouter une catégorie</h2>
+      <h2 id="modal-title">Add Breed</h2>
       <button class="modal-close" onclick="closeModal('cat-modal')">×</button>
     </div>
     <div class="modal-body">
       <input type="hidden" id="cat-id">
+
+      <!-- Basic info -->
       <div class="form-row">
-        <div class="form-group"><label>Nom *</label><input type="text" id="c-name" placeholder="ex: Analgésiques"></div>
-        <div class="form-group"><label>Icône (emoji)</label><input type="text" id="c-icon" placeholder="💊" maxlength="10"></div>
+        <div class="form-group"><label>Breed Name *</label><input type="text" id="c-name" placeholder="ex: Golden Retriever"></div>
+        <div class="form-group"><label>Display Order</label><input type="number" id="c-order" min="0" value="0"></div>
       </div>
       <div class="form-row one">
-        <div class="form-group"><label>Description</label><textarea id="c-desc" rows="2" placeholder="Description de la catégorie..."></textarea></div>
+        <div class="form-group"><label>Short Description <span style="font-weight:400;color:#718096;font-size:11px">— shown in breed grid card</span></label>
+          <input type="text" id="c-desc" placeholder="Brief one-line description..."></div>
       </div>
+
+      <!-- Cover photo + gallery -->
       <div class="form-row">
-        <div class="form-group"><label>Ordre d'affichage</label><input type="number" id="c-order" min="0" value="0"></div>
-        <label style="display:flex;align-items:center;gap:10px;font-size:14px;margin-top:24px"><input type="checkbox" id="c-active" checked> Active</label>
+        <div class="form-group">
+          <label>Cover Photo</label>
+          <input type="file" id="c-photo-file" accept="image/*" onchange="uploadBreedPhoto('cover')">
+          <div id="c-photo-preview" style="margin-top:8px"></div>
+          <input type="hidden" id="c-image-url" value="">
+        </div>
+        <div class="form-group">
+          <label>Gallery Photos <span style="font-weight:400;color:#718096;font-size:11px">— multiple photos for the breed page</span></label>
+          <input type="file" id="c-gallery-file" accept="image/*" multiple onchange="uploadBreedPhoto('gallery')">
+          <div class="gallery-strip" id="c-gallery-strip"></div>
+          <input type="hidden" id="c-gallery-json" value="[]">
+        </div>
+      </div>
+
+      <!-- Collections + Size tags -->
+      <div class="form-row">
+        <div class="form-group">
+          <label>Collections</label>
+          <div style="display:flex;flex-direction:column;gap:7px;margin-top:4px">
+            <label class="suit-item"><input type="checkbox" class="tag-check" value="guard"> 🛡️ Best Guard Dogs</label>
+            <label class="suit-item"><input type="checkbox" class="tag-check" value="hypoallergenic"> 🌿 Hypoallergenic</label>
+            <label class="suit-item"><input type="checkbox" class="tag-check" value="apartment"> 🏠 Best Apartment Dogs</label>
+            <label class="suit-item"><input type="checkbox" class="tag-check" value="family"> 👨‍👩‍👧 Best Family Breeds</label>
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Size</label>
+          <div style="display:flex;flex-direction:column;gap:7px;margin-top:4px">
+            <label class="suit-item"><input type="checkbox" class="tag-check" value="small"> Small Breed</label>
+            <label class="suit-item"><input type="checkbox" class="tag-check" value="medium"> Medium Breed</label>
+            <label class="suit-item"><input type="checkbox" class="tag-check" value="large"> Large Breed</label>
+            <label class="suit-item"><input type="checkbox" class="tag-check" value="xlarge"> Extra Large</label>
+            <label class="suit-item"><input type="checkbox" class="tag-check" value="giant"> Giant Breed</label>
+          </div>
+        </div>
+      </div>
+
+      <!-- Breed specs -->
+      <div class="form-row one" style="background:#f8fafc;padding:14px;border:1px solid var(--border);margin-top:4px">
+        <div style="font-size:13px;font-weight:700;color:#4a5568;margin-bottom:12px">📋 Breed Specifications</div>
+        <div class="spec-grid">
+          <div class="spec-field"><label>Size Category</label><input type="text" id="spec-size" placeholder="ex: Small / Medium"></div>
+          <div class="spec-field"><label>Height</label><input type="text" id="spec-height" placeholder="ex: 23-30 cm"></div>
+          <div class="spec-field"><label>Weight</label><input type="text" id="spec-weight" placeholder="ex: 3-5 kg"></div>
+          <div class="spec-field"><label>Lifespan</label><input type="text" id="spec-lifespan" placeholder="ex: 10-14 ans"></div>
+          <div class="spec-field"><label>Coat Type</label><input type="text" id="spec-coat" placeholder="ex: Dense, rough"></div>
+          <div class="spec-field"><label>Colors</label><input type="text" id="spec-colors" placeholder="ex: Black, tan, grey"></div>
+          <div class="spec-field"><label>Exercise / Day</label><input type="text" id="spec-exercise" placeholder="ex: 30-40 min"></div>
+          <div class="spec-field"><label>Energy Level</label><input type="text" id="spec-energy" placeholder="ex: Moderate"></div>
+        </div>
+      </div>
+
+      <!-- Suitability -->
+      <div class="form-row one" style="margin-top:8px">
+        <div class="form-group">
+          <label>Suitability <span style="font-weight:400;color:#718096;font-size:11px">— check all that apply</span></label>
+          <div class="suit-grid">
+            <label class="suit-item"><input type="checkbox" class="suit-check" value="good_with_children"> Good with children</label>
+            <label class="suit-item"><input type="checkbox" class="suit-check" value="good_with_pets"> Good with other pets</label>
+            <label class="suit-item"><input type="checkbox" class="suit-check" value="apartment_friendly"> Apartment friendly</label>
+            <label class="suit-item"><input type="checkbox" class="suit-check" value="good_for_beginners"> Good for beginners</label>
+            <label class="suit-item"><input type="checkbox" class="suit-check" value="low_shedding"> Low shedding</label>
+            <label class="suit-item"><input type="checkbox" class="suit-check" value="easy_to_train"> Easy to train</label>
+            <label class="suit-item"><input type="checkbox" class="suit-check" value="hypoallergenic"> Hypoallergenic</label>
+            <label class="suit-item"><input type="checkbox" class="suit-check" value="guard_dog"> Good guard dog</label>
+            <label class="suit-item"><input type="checkbox" class="suit-check" value="barks_rarely"> Barks rarely</label>
+            <label class="suit-item"><input type="checkbox" class="suit-check" value="needs_company"> Needs company</label>
+          </div>
+        </div>
+      </div>
+
+      <!-- Full description (Quill) -->
+      <div class="form-row one" style="margin-top:8px">
+        <div class="form-group">
+          <label>Full Description <span style="font-weight:400;color:#718096;font-size:11px">— rich text, shown on the breed detail page</span></label>
+          <div id="c-full-desc-editor"></div>
+          <input type="hidden" id="c-full-desc">
+        </div>
+      </div>
+
+      <div class="form-row">
+        <label class="suit-item" style="margin-top:10px"><input type="checkbox" id="c-active" checked> Active (visible on site)</label>
       </div>
     </div>
     <div class="modal-footer">
-      <button class="btn btn-outline" onclick="closeModal('cat-modal')">Annuler</button>
-      <button class="btn btn-primary" onclick="saveCategory()">💾 Enregistrer</button>
+      <button class="btn btn-outline" onclick="closeModal('cat-modal')">Cancel</button>
+      <button class="btn btn-primary" onclick="saveCategory()">💾 Save Breed</button>
     </div>
   </div>
 </div>
@@ -120,80 +233,220 @@
 <div class="toast" id="admin-toast"></div>
 <script src="/admin/admin-common.js"></script>
 <script>
-(async () => { if (!await requireAuth()) return; loadSidebarBranding(); loadCategories(); })();
+let quillDesc;
+
+(async () => {
+  if (!await requireAuth()) return;
+  loadSidebarBranding();
+  loadUnreadBadge();
+
+  quillDesc = new Quill('#c-full-desc-editor', {
+    theme: 'snow',
+    placeholder: 'Write the full breed description here — history, temperament, care, health...',
+    modules: {
+      toolbar: [
+        [{ header: [1,2,3,false] }],
+        ['bold','italic','underline'],
+        [{ list:'ordered' },{ list:'bullet' }],
+        ['clean']
+      ]
+    }
+  });
+
+  loadCategories();
+})();
 
 async function loadCategories() {
-  const cats = await fetch('/api/categories/all', { headers: { Authorization: `Bearer ${getToken()}` } }).then(r => r.json());
+  const cats = await fetch('/api/categories/all', { headers:{ Authorization:`Bearer ${getToken()}` } }).then(r=>r.json());
   document.getElementById('cats-table').innerHTML = cats.length ? cats.map(c => `
     <tr>
-      <td style="font-size:28px">${c.image_url || '📂'}</td>
-      <td><strong>${c.name}</strong></td>
-      <td><code style="font-size:12px;background:var(--bg);padding:2px 6px;border-radius:4px">${c.slug}</code></td>
-      <td style="font-size:13px;color:#718096;max-width:200px">${c.description || '-'}</td>
-      <td>${c.product_count || 0}</td>
-      <td><label class="toggle"><input type="checkbox" ${c.is_active ? 'checked' : ''} onchange="toggleActive(${c.id},this.checked)"><span class="toggle-slider"></span></label></td>
+      <td>
+        ${c.image_url
+          ? `<img src="${c.image_url}" style="width:52px;height:52px;object-fit:cover;border-radius:8px;border:1px solid var(--border)">`
+          : `<div style="width:52px;height:52px;background:var(--bg);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:28px">🐾</div>`}
+      </td>
+      <td><strong>${c.name}</strong><div style="font-size:11px;color:#718096;margin-top:2px">${c.description||''}</div></td>
+      <td><code style="font-size:11px;background:var(--bg);padding:2px 6px">${c.slug}</code></td>
+      <td style="font-size:12px;color:#718096">
+        ${c.tags ? c.tags.split(',').filter(Boolean).map(t=>
+          `<span style="background:#e8f5e9;color:#2e7d32;padding:2px 7px;border-radius:10px;font-size:11px;margin:1px;display:inline-block">${t.trim()}</span>`
+        ).join(''):'—'}
+      </td>
+      <td style="font-size:12px">${c.product_count||0}</td>
+      <td><label class="toggle"><input type="checkbox" ${c.is_active?'checked':''} onchange="toggleActive(${c.id},this.checked)"><span class="toggle-slider"></span></label></td>
       <td>
         <button class="btn btn-outline btn-sm" onclick="editCat(${c.id})">✏️</button>
         <button class="btn btn-danger btn-sm" onclick="deleteCat(${c.id},'${c.name.replace(/'/g,"\\'")}')">🗑️</button>
       </td>
-    </tr>
-  `).join('') : '<tr><td colspan="7" style="text-align:center;padding:30px;color:#718096">Aucune catégorie</td></tr>';
+    </tr>`).join('')
+  : '<tr><td colspan="7" style="text-align:center;padding:30px;color:#718096">No breeds found. Add your first breed!</td></tr>';
 }
 
 async function toggleActive(id, val) {
-  await fetch(`/api/categories/${id}`, { method: 'PUT', headers: authHeaders(), body: JSON.stringify({ is_active: val ? 1 : 0 }) });
+  await fetch(`/api/categories/${id}`,{method:'PUT',headers:authHeaders(),body:JSON.stringify({is_active:val?1:0})});
 }
 
 function openAddModal() {
-  document.getElementById('modal-title').textContent = '➕ Ajouter une catégorie';
+  document.getElementById('modal-title').textContent = '➕ Add Breed';
   document.getElementById('cat-id').value = '';
   document.getElementById('c-name').value = '';
-  document.getElementById('c-icon').value = '';
   document.getElementById('c-desc').value = '';
   document.getElementById('c-order').value = 0;
   document.getElementById('c-active').checked = true;
+  document.getElementById('c-image-url').value = '';
+  document.getElementById('c-gallery-json').value = '[]';
+  document.getElementById('c-photo-preview').innerHTML = '';
+  document.getElementById('c-gallery-strip').innerHTML = '';
+  document.querySelectorAll('.tag-check,.suit-check').forEach(cb=>cb.checked=false);
+  ['spec-size','spec-height','spec-weight','spec-lifespan','spec-coat','spec-colors','spec-exercise','spec-energy'].forEach(id=>{
+    document.getElementById(id).value='';
+  });
+  quillDesc.setContents([]);
   openModal('cat-modal');
 }
 
-let allCats = [];
 async function editCat(id) {
-  const cats = await fetch('/api/categories/all', { headers: { Authorization: `Bearer ${getToken()}` } }).then(r => r.json());
-  const c = cats.find(c => c.id === id);
+  const cats = await fetch('/api/categories/all',{headers:{Authorization:`Bearer ${getToken()}`}}).then(r=>r.json());
+  const c = cats.find(c=>c.id===id);
   if (!c) return;
-  document.getElementById('modal-title').textContent = '✏️ Modifier la catégorie';
+  document.getElementById('modal-title').textContent = '✏️ Edit Breed';
   document.getElementById('cat-id').value = c.id;
-  document.getElementById('c-name').value = c.name || '';
-  document.getElementById('c-icon').value = c.image_url || '';
-  document.getElementById('c-desc').value = c.description || '';
-  document.getElementById('c-order').value = c.sort_order || 0;
+  document.getElementById('c-name').value = c.name||'';
+  document.getElementById('c-desc').value = c.description||'';
+  document.getElementById('c-order').value = c.sort_order||0;
   document.getElementById('c-active').checked = !!c.is_active;
+  document.getElementById('c-image-url').value = c.image_url||'';
+
+  // Cover photo preview
+  const prev = document.getElementById('c-photo-preview');
+  if (c.image_url && c.image_url.startsWith('http')) {
+    prev.innerHTML = `<img src="${c.image_url}" style="width:80px;height:80px;object-fit:cover;border-radius:8px;border:1px solid var(--border)">`;
+  } else { prev.innerHTML=''; }
+
+  // Gallery
+  let gallery = [];
+  try { gallery = JSON.parse(c.gallery||'[]'); } catch {}
+  document.getElementById('c-gallery-json').value = JSON.stringify(gallery);
+  renderGallery(gallery);
+
+  // Tags
+  const tags = (c.tags||'').split(',').map(t=>t.trim()).filter(Boolean);
+  document.querySelectorAll('.tag-check').forEach(cb=>{ cb.checked=tags.includes(cb.value); });
+
+  // Suitability
+  let suit = [];
+  try { suit = JSON.parse(c.suitability||'[]'); } catch {}
+  document.querySelectorAll('.suit-check').forEach(cb=>{ cb.checked=suit.includes(cb.value); });
+
+  // Specs
+  let specs = {};
+  try { specs = JSON.parse(c.breed_specs||'{}'); } catch {}
+  document.getElementById('spec-size').value     = specs.size||'';
+  document.getElementById('spec-height').value   = specs.height||'';
+  document.getElementById('spec-weight').value   = specs.weight||'';
+  document.getElementById('spec-lifespan').value = specs.lifespan||'';
+  document.getElementById('spec-coat').value     = specs.coat||'';
+  document.getElementById('spec-colors').value   = specs.colors||'';
+  document.getElementById('spec-exercise').value = specs.exercise||'';
+  document.getElementById('spec-energy').value   = specs.energy||'';
+
+  // Full description
+  const fd = c.full_description||'';
+  if (fd.startsWith('<')) { quillDesc.root.innerHTML = fd; }
+  else if (fd) { quillDesc.setText(fd); }
+  else { quillDesc.setContents([]); }
+
   openModal('cat-modal');
 }
 
+// ── Photo upload (cover or gallery) ──
+async function uploadBreedPhoto(type) {
+  const fileInput = type==='cover' ? document.getElementById('c-photo-file') : document.getElementById('c-gallery-file');
+  const files = fileInput.files;
+  if (!files.length) return;
+  showToast('⏳ Uploading...','');
+
+  for (const file of files) {
+    const result = await uploadFile(file,'/api/settings/upload/product-image');
+    if (result.url) {
+      if (type==='cover') {
+        document.getElementById('c-image-url').value = result.url;
+        document.getElementById('c-photo-preview').innerHTML =
+          `<img src="${result.url}" style="width:80px;height:80px;object-fit:cover;border-radius:8px;border:1px solid var(--border)">`;
+      } else {
+        const gallery = JSON.parse(document.getElementById('c-gallery-json').value||'[]');
+        gallery.push(result.url);
+        document.getElementById('c-gallery-json').value = JSON.stringify(gallery);
+        renderGallery(gallery);
+      }
+    }
+  }
+  showToast('✅ Uploaded','success');
+  fileInput.value='';
+}
+
+function renderGallery(imgs) {
+  document.getElementById('c-gallery-strip').innerHTML = imgs.map((url,i)=>`
+    <div class="gallery-thumb">
+      <img src="${url}" alt="Photo ${i+1}">
+      <button class="rm" onclick="removeGalleryImg(${i})">×</button>
+    </div>`).join('');
+}
+function removeGalleryImg(idx) {
+  const g = JSON.parse(document.getElementById('c-gallery-json').value||'[]');
+  g.splice(idx,1);
+  document.getElementById('c-gallery-json').value=JSON.stringify(g);
+  renderGallery(g);
+}
+
+// ── Save ──
 async function saveCategory() {
   const name = document.getElementById('c-name').value.trim();
-  if (!name) { showToast('❌ Le nom est requis', 'error'); return; }
-  const id = document.getElementById('cat-id').value;
-  const payload = {
-    name, image_url: document.getElementById('c-icon').value.trim(),
-    description: document.getElementById('c-desc').value,
-    sort_order: parseInt(document.getElementById('c-order').value) || 0,
-    is_active: document.getElementById('c-active').checked ? 1 : 0
+  if (!name) { showToast('❌ Breed name required','error'); return; }
+
+  const tags  = [...document.querySelectorAll('.tag-check:checked')].map(cb=>cb.value);
+  const suit  = [...document.querySelectorAll('.suit-check:checked')].map(cb=>cb.value);
+  const specs = {
+    size:     document.getElementById('spec-size').value.trim(),
+    height:   document.getElementById('spec-height').value.trim(),
+    weight:   document.getElementById('spec-weight').value.trim(),
+    lifespan: document.getElementById('spec-lifespan').value.trim(),
+    coat:     document.getElementById('spec-coat').value.trim(),
+    colors:   document.getElementById('spec-colors').value.trim(),
+    exercise: document.getElementById('spec-exercise').value.trim(),
+    energy:   document.getElementById('spec-energy').value.trim()
   };
-  const url = id ? `/api/categories/${id}` : '/api/categories';
-  const method = id ? 'PUT' : 'POST';
-  const res = await fetch(url, { method, headers: authHeaders(), body: JSON.stringify(payload) });
+  const fullDesc = quillDesc.root.innerHTML.trim()==='<p><br></p>' ? '' : quillDesc.root.innerHTML;
+  const id = document.getElementById('cat-id').value;
+
+  const payload = {
+    name,
+    description:       document.getElementById('c-desc').value.trim(),
+    full_description:  fullDesc,
+    breed_specs:       JSON.stringify(specs),
+    suitability:       JSON.stringify(suit),
+    gallery:           document.getElementById('c-gallery-json').value||'[]',
+    image_url:         document.getElementById('c-image-url').value.trim(),
+    sort_order:        parseInt(document.getElementById('c-order').value)||0,
+    is_active:         document.getElementById('c-active').checked?1:0,
+    tags:              tags.join(',')
+  };
+
+  const res  = await fetch(id?`/api/categories/${id}`:'/api/categories',{method:id?'PUT':'POST',headers:authHeaders(),body:JSON.stringify(payload)});
   const data = await res.json();
-  if (data.success !== false && !data.error) { closeModal('cat-modal'); showToast('✅ Catégorie enregistrée', 'success'); loadCategories(); }
-  else showToast(`❌ ${data.error}`, 'error');
+  if (data.success!==false&&!data.error) {
+    closeModal('cat-modal');
+    showToast('✅ Breed saved','success');
+    loadCategories();
+  } else { showToast(`❌ ${data.error}`,'error'); }
 }
 
-async function deleteCat(id, name) {
-  if (!confirmDelete(`Supprimer "${name}" ?`)) return;
-  const res = await fetch(`/api/categories/${id}`, { method: 'DELETE', headers: authHeaders() });
+async function deleteCat(id,name) {
+  if (!confirmDelete(`Delete "${name}"?`)) return;
+  const res  = await fetch(`/api/categories/${id}`,{method:'DELETE',headers:authHeaders()});
   const data = await res.json();
-  if (data.success) { showToast('✅ Supprimé', 'success'); loadCategories(); }
-  else showToast(`❌ ${data.error}`, 'error');
+  if (data.success) { showToast('✅ Deleted','success'); loadCategories(); }
+  else showToast(`❌ ${data.error}`,'error');
 }
 </script>
 </body>

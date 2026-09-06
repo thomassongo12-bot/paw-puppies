@@ -1,0 +1,441 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Customer Reviews - Admin Paw Puppies</title>
+  <link rel="stylesheet" href="/css/admin.css">
+  <style>
+    .stars-input { display:flex; gap:6px; }
+    .star-btn {
+      background:none; border:none; font-size:22px; cursor:pointer;
+      color:#ddd; transition:color 0.15s; padding:0;
+    }
+    .star-btn.active, .star-btn:hover { color:#f0a500; }
+    .review-photo-list { display:flex; flex-wrap:wrap; gap:10px; margin-top:10px; }
+    .review-photo-item { position:relative; }
+    .review-photo-item img {
+      width:80px; height:80px; object-fit:cover; border-radius:8px;
+      border:1px solid var(--border);
+    }
+    .review-photo-item .rm-btn {
+      position:absolute; top:-6px; right:-6px;
+      background:#e53e3e; color:#fff; border:none; border-radius:50%;
+      width:20px; height:20px; font-size:13px; cursor:pointer; line-height:1;
+      display:flex; align-items:center; justify-content:center;
+    }
+    .review-row-imgs { display:flex; gap:6px; }
+    .review-row-imgs img { width:44px; height:44px; object-fit:cover; border-radius:6px; border:1px solid var(--border); }
+    .rating-display { color:#f0a500; font-size:15px; letter-spacing:1px; }
+  </style>
+</head>
+<body>
+<div class="admin-layout">
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-logo">
+      <img class="sidebar-logo-img" style="display:none;height:36px;width:auto;object-fit:contain" alt="Logo">
+      <div class="logo-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 64 64" fill="none">
+          <ellipse cx="32" cy="40" rx="18" ry="14" fill="currentColor" opacity=".8"/>
+          <ellipse cx="18" cy="24" rx="5.5" ry="7" fill="currentColor"/>
+          <ellipse cx="46" cy="24" rx="5.5" ry="7" fill="currentColor"/>
+          <ellipse cx="26" cy="18" rx="4.5" ry="6" fill="currentColor"/>
+          <ellipse cx="38" cy="18" rx="4.5" ry="6" fill="currentColor"/>
+        </svg>
+      </div>
+      <div>
+        <div class="logo-text sidebar-site-name">Paw Puppies</div>
+        <div class="logo-sub">Administration</div>
+      </div>
+    </div>
+    <nav class="sidebar-nav">
+      <div class="nav-section">Principal</div>
+      <a class="nav-item" href="/admin/">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+        Dashboard
+      </a>
+      <a class="nav-item" href="/admin/products.html">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 3H5a2 2 0 0 0-2 2v4m6-6h10a2 2 0 0 1 2 2v4M9 3v18m0 0h10a2 2 0 0 0 2-2V9M9 21H5a2 2 0 0 1-2-2V9m0 0h18"/></svg>
+        Puppy Listings
+      </a>
+      <a class="nav-item" href="/admin/categories.html">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg>
+        Categories
+      </a>
+      <a class="nav-item active" href="/admin/reviews.html">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+        Customer Reviews
+      </a>
+      <a class="nav-item" href="/admin/orders.html">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+        Orders
+      </a>
+      <a class="nav-item" data-href="/admin/messages.html" href="/admin/messages.html">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+        Messages <span id="sidebar-unread-badge" style="display:none;background:#e53e3e;color:#fff;font-size:10px;font-weight:700;padding:1px 6px;border-radius:10px;margin-left:6px"></span>
+      </a>
+      <div class="nav-section">Configuration</div>
+      <a class="nav-item" href="/admin/settings.html">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+        Settings
+      </a>
+      <div class="nav-section">Quick Access</div>
+      <a class="nav-item" href="/reviews.html" target="_blank">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+        View Reviews Page
+      </a>
+      <a class="nav-item" href="/" target="_blank">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/></svg>
+        View Site
+      </a>
+      <a class="nav-item" onclick="logout()" style="cursor:pointer">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+        Logout
+      </a>
+    </nav>
+  </aside>
+
+  <main class="admin-main">
+    <div class="admin-topbar">
+      <div class="topbar-left">
+        <button class="sidebar-toggle" id="sidebar-toggle" aria-label="Menu">
+          <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+        </button>
+        <span class="topbar-title">Customer Reviews</span>
+      </div>
+      <div class="topbar-actions">
+        <span class="admin-badge">
+          <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+          <span class="admin-user-name">Admin</span>
+        </span>
+        <button class="btn btn-primary" onclick="openAddModal()">
+          <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+          Add Review
+        </button>
+      </div>
+    </div>
+
+    <div class="admin-content">
+      <div class="card">
+        <div class="card-header">
+          <div class="search-bar-admin" style="margin:0;flex:1">
+            <input type="text" id="search" placeholder="Search by author, breed, country..." oninput="loadReviews()">
+            <select id="status-filter" onchange="loadReviews()">
+              <option value="">All statuses</option>
+              <option value="1">Published</option>
+              <option value="0">Hidden</option>
+            </select>
+          </div>
+        </div>
+        <div class="card-body" style="padding:0">
+          <div class="table-wrapper">
+            <table>
+              <thead>
+                <tr>
+                  <th style="width:48px">Photo</th>
+                  <th>Puppy / Author</th>
+                  <th>Breed</th>
+                  <th>Location</th>
+                  <th>Rating</th>
+                  <th>Date</th>
+                  <th>Published</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody id="reviews-table"></tbody>
+            </table>
+          </div>
+          <div style="padding:16px;display:flex;gap:8px" id="pagination"></div>
+        </div>
+      </div>
+    </div>
+  </main>
+</div>
+
+<!-- ADD / EDIT MODAL -->
+<div class="modal-overlay" id="review-modal">
+  <div class="modal" style="max-width:680px">
+    <div class="modal-header">
+      <h2 id="modal-title">Add Review</h2>
+      <button class="modal-close" onclick="closeModal('review-modal')">×</button>
+    </div>
+    <div class="modal-body">
+      <input type="hidden" id="review-id">
+
+      <!-- Row 1 -->
+      <div class="form-row">
+        <div class="form-group">
+          <label>Puppy Name *</label>
+          <input type="text" id="r-puppy-name" placeholder="ex: Sunny – F2">
+        </div>
+        <div class="form-group">
+          <label>Breed</label>
+          <input type="text" id="r-breed" placeholder="ex: Cavapoo">
+        </div>
+      </div>
+
+      <!-- Row 2 -->
+      <div class="form-row">
+        <div class="form-group">
+          <label>Author (customer name) *</label>
+          <input type="text" id="r-author" placeholder="ex: Sarah">
+        </div>
+        <div class="form-group">
+          <label>Location</label>
+          <input type="text" id="r-location" placeholder="ex: London, United Kingdom">
+        </div>
+      </div>
+
+      <!-- Row 3 -->
+      <div class="form-row">
+        <div class="form-group">
+          <label>Country</label>
+          <input type="text" id="r-country" placeholder="ex: United Kingdom">
+        </div>
+        <div class="form-group">
+          <label>Review Date</label>
+          <input type="date" id="r-date">
+        </div>
+      </div>
+
+      <!-- Stars -->
+      <div class="form-row one">
+        <div class="form-group">
+          <label>Rating</label>
+          <div class="stars-input" id="stars-input">
+            <button type="button" class="star-btn active" data-val="1" onclick="setStars(1)">★</button>
+            <button type="button" class="star-btn active" data-val="2" onclick="setStars(2)">★</button>
+            <button type="button" class="star-btn active" data-val="3" onclick="setStars(3)">★</button>
+            <button type="button" class="star-btn active" data-val="4" onclick="setStars(4)">★</button>
+            <button type="button" class="star-btn active" data-val="5" onclick="setStars(5)">★</button>
+          </div>
+          <input type="hidden" id="r-stars" value="5">
+        </div>
+      </div>
+
+      <!-- Review text -->
+      <div class="form-row one">
+        <div class="form-group">
+          <label>Review Text *</label>
+          <textarea id="r-text" rows="5" placeholder="Customer's review text..."></textarea>
+        </div>
+      </div>
+
+      <!-- Dog photo upload -->
+      <div class="form-row one">
+        <div class="form-group">
+          <label>Dog Photo(s) <span style="font-weight:400;color:#718096;font-size:12px">— upload one or more photos of the dog</span></label>
+          <input type="file" id="r-image-file" accept="image/*" onchange="uploadReviewImage()" multiple>
+          <div class="review-photo-list" id="r-photo-list"></div>
+          <input type="hidden" id="r-images-json" value="[]">
+        </div>
+      </div>
+
+      <!-- Published toggle -->
+      <div class="form-row one">
+        <label style="display:flex;align-items:center;gap:10px;font-size:14px">
+          <input type="checkbox" id="r-active" checked> Published (visible on site)
+        </label>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-outline" onclick="closeModal('review-modal')">Cancel</button>
+      <button class="btn btn-primary" onclick="saveReview()">💾 Save Review</button>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="admin-toast"></div>
+<script src="/admin/admin-common.js"></script>
+<script>
+let currentPage = 1, editingId = null;
+
+(async () => {
+  if (!await requireAuth()) return;
+  loadSidebarBranding();
+  loadUnreadBadge();
+  loadReviews();
+})();
+
+async function loadReviews(page = 1) {
+  currentPage = page;
+  const search = document.getElementById('search').value.trim();
+  const status = document.getElementById('status-filter').value;
+
+  const q = new URLSearchParams({ page, limit: 15 });
+  if (search) q.set('search', search);
+
+  const data = await fetch(`/api/reviews/all`, { headers: { Authorization: `Bearer ${getToken()}` } }).then(r => r.json());
+
+  let reviews = Array.isArray(data) ? data : [];
+
+  // Client-side filters
+  if (search) {
+    const s = search.toLowerCase();
+    reviews = reviews.filter(r =>
+      (r.author||'').toLowerCase().includes(s) ||
+      (r.breed||'').toLowerCase().includes(s) ||
+      (r.country||'').toLowerCase().includes(s) ||
+      (r.location||'').toLowerCase().includes(s) ||
+      (r.puppy_name||'').toLowerCase().includes(s)
+    );
+  }
+  if (status !== '') reviews = reviews.filter(r => String(r.is_active) === status);
+
+  const tbody = document.getElementById('reviews-table');
+  tbody.innerHTML = reviews.length ? reviews.map(r => {
+    const imgs = Array.isArray(r.images) ? r.images : [];
+    const stars = '★'.repeat(r.stars || 5) + '☆'.repeat(5 - (r.stars || 5));
+    return `
+    <tr>
+      <td>
+        ${imgs[0]
+          ? `<img src="${imgs[0]}" style="width:44px;height:44px;object-fit:cover;border-radius:6px;border:1px solid var(--border)">`
+          : `<div style="width:44px;height:44px;background:var(--bg);border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:20px">🐾</div>`}
+      </td>
+      <td>
+        <strong>${r.puppy_name || '—'}</strong>
+        <div style="font-size:12px;color:#718096">${r.author}</div>
+      </td>
+      <td><span style="font-size:13px">${r.breed || '—'}</span></td>
+      <td><span style="font-size:13px">${r.location || '—'}</span></td>
+      <td><span class="rating-display" style="font-size:14px">${stars}</span></td>
+      <td style="font-size:12px;color:#718096">${r.review_date || '—'}</td>
+      <td><label class="toggle"><input type="checkbox" ${r.is_active ? 'checked' : ''} onchange="toggleActive(${r.id},this.checked)"><span class="toggle-slider"></span></label></td>
+      <td>
+        <button class="btn btn-outline btn-sm" onclick="editReview(${r.id})">✏️</button>
+        <button class="btn btn-danger btn-sm" onclick="deleteReview(${r.id},'${(r.puppy_name||r.author).replace(/'/g,"\\'")}')">🗑️</button>
+      </td>
+    </tr>`;
+  }).join('') : `<tr><td colspan="8" style="text-align:center;padding:30px;color:#718096">No reviews found</td></tr>`;
+}
+
+async function toggleActive(id, val) {
+  await fetch(`/api/reviews/${id}`, {
+    method: 'PUT',
+    headers: authHeaders(),
+    body: JSON.stringify({ is_active: val ? 1 : 0 })
+  });
+}
+
+// ── Stars ────────────────────────────────────────────────────────────────────
+function setStars(n) {
+  document.getElementById('r-stars').value = n;
+  document.querySelectorAll('.star-btn').forEach(b => {
+    b.classList.toggle('active', parseInt(b.dataset.val) <= n);
+  });
+}
+
+// ── Photo upload ─────────────────────────────────────────────────────────────
+async function uploadReviewImage() {
+  const files = document.getElementById('r-image-file').files;
+  if (!files.length) return;
+  showToast('⏳ Uploading...', '');
+
+  for (const file of files) {
+    const result = await uploadFile(file, '/api/settings/upload/product-image');
+    if (result.url) {
+      const imgs = JSON.parse(document.getElementById('r-images-json').value || '[]');
+      imgs.push(result.url);
+      document.getElementById('r-images-json').value = JSON.stringify(imgs);
+      renderPhotos(imgs);
+    }
+  }
+  showToast('✅ Photo(s) uploaded', 'success');
+  document.getElementById('r-image-file').value = '';
+}
+
+function renderPhotos(imgs) {
+  document.getElementById('r-photo-list').innerHTML = imgs.map((url, i) => `
+    <div class="review-photo-item">
+      <img src="${url}" alt="Dog photo ${i+1}">
+      <button class="rm-btn" onclick="removePhoto(${i})">×</button>
+    </div>`).join('');
+}
+
+function removePhoto(idx) {
+  const imgs = JSON.parse(document.getElementById('r-images-json').value || '[]');
+  imgs.splice(idx, 1);
+  document.getElementById('r-images-json').value = JSON.stringify(imgs);
+  renderPhotos(imgs);
+}
+
+// ── Open add modal ────────────────────────────────────────────────────────────
+function openAddModal() {
+  editingId = null;
+  document.getElementById('modal-title').textContent = '➕ Add Review';
+  document.getElementById('review-id').value = '';
+  ['r-puppy-name','r-breed','r-author','r-location','r-country','r-text'].forEach(id => {
+    document.getElementById(id).value = '';
+  });
+  document.getElementById('r-date').value = new Date().toISOString().split('T')[0];
+  document.getElementById('r-active').checked = true;
+  document.getElementById('r-images-json').value = '[]';
+  document.getElementById('r-photo-list').innerHTML = '';
+  setStars(5);
+  openModal('review-modal');
+}
+
+// ── Edit ──────────────────────────────────────────────────────────────────────
+async function editReview(id) {
+  const r = await fetch(`/api/reviews/${id}`, { headers: { Authorization: `Bearer ${getToken()}` } }).then(res => res.json());
+  editingId = id;
+  document.getElementById('modal-title').textContent = '✏️ Edit Review';
+  document.getElementById('r-puppy-name').value = r.puppy_name || '';
+  document.getElementById('r-breed').value      = r.breed || '';
+  document.getElementById('r-author').value     = r.author || '';
+  document.getElementById('r-location').value   = r.location || '';
+  document.getElementById('r-country').value    = r.country || '';
+  document.getElementById('r-date').value       = r.review_date || '';
+  document.getElementById('r-text').value       = r.text || '';
+  document.getElementById('r-active').checked   = !!r.is_active;
+  setStars(r.stars || 5);
+  const imgs = Array.isArray(r.images) ? r.images : [];
+  document.getElementById('r-images-json').value = JSON.stringify(imgs);
+  renderPhotos(imgs);
+  openModal('review-modal');
+}
+
+// ── Save ──────────────────────────────────────────────────────────────────────
+async function saveReview() {
+  const author = document.getElementById('r-author').value.trim();
+  const text   = document.getElementById('r-text').value.trim();
+  if (!author || !text) { showToast('❌ Author and text required', 'error'); return; }
+
+  const payload = {
+    puppy_name:  document.getElementById('r-puppy-name').value.trim(),
+    breed:       document.getElementById('r-breed').value.trim(),
+    author,
+    location:    document.getElementById('r-location').value.trim(),
+    country:     document.getElementById('r-country').value.trim(),
+    review_date: document.getElementById('r-date').value,
+    stars:       parseInt(document.getElementById('r-stars').value),
+    text,
+    images:      JSON.parse(document.getElementById('r-images-json').value || '[]'),
+    is_active:   document.getElementById('r-active').checked
+  };
+
+  const url    = editingId ? `/api/reviews/${editingId}` : '/api/reviews';
+  const method = editingId ? 'PUT' : 'POST';
+  const res    = await fetch(url, { method, headers: authHeaders(), body: JSON.stringify(payload) });
+  const data   = await res.json();
+
+  if (data.success !== false && !data.error) {
+    closeModal('review-modal');
+    showToast('✅ Review saved', 'success');
+    loadReviews(currentPage);
+  } else {
+    showToast(`❌ ${data.error}`, 'error');
+  }
+}
+
+// ── Delete ────────────────────────────────────────────────────────────────────
+async function deleteReview(id, name) {
+  if (!confirmDelete(`Delete review for "${name}"?`)) return;
+  const res  = await fetch(`/api/reviews/${id}`, { method: 'DELETE', headers: authHeaders() });
+  const data = await res.json();
+  if (data.success) { showToast('✅ Review deleted', 'success'); loadReviews(currentPage); }
+  else showToast(`❌ ${data.error}`, 'error');
+}
+</script>
+</body>
+</html>

@@ -174,6 +174,26 @@ async function loadSidebarBranding() {
   } catch {}
 }
 
+// Load unread messages count badge in sidebar
+async function loadUnreadBadge() {
+  try {
+    const token = getToken();
+    if (!token) return;
+    const res = await fetch('/api/messages?limit=1', { headers: { Authorization: `Bearer ${token}` } });
+    if (!res.ok) return;
+    const data = await res.json();
+    const badge = document.getElementById('sidebar-unread-badge');
+    if (badge) {
+      if (data.unreadCount > 0) {
+        badge.textContent = data.unreadCount;
+        badge.style.display = 'inline';
+      } else {
+        badge.style.display = 'none';
+      }
+    }
+  } catch {}
+}
+
 
 // Auth check
 function getToken() { return localStorage.getItem('admin_token'); }

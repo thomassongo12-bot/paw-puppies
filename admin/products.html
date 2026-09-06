@@ -1,8 +1,8 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="fr">
 <head>
   <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Produits - Admin MediShop</title>
+  <title>Products - Admin Paw Puppies</title>
   <link rel="stylesheet" href="/css/admin.css">
   <!-- Quill.js WYSIWYG editor -->
   <link href="https://cdn.quilljs.com/1.3.7/quill.snow.css" rel="stylesheet">
@@ -28,7 +28,7 @@
       <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M9 3H5a2 2 0 0 0-2 2v4m6-6h10a2 2 0 0 1 2 2v4M9 3v18m0 0h10a2 2 0 0 0 2-2V9M9 21H5a2 2 0 0 1-2-2V9m0 0h18"/></svg>
     </div>
     <div>
-      <div class="logo-text sidebar-site-name">MediShop</div>
+      <div class="logo-text sidebar-site-name">Paw Puppies</div>
       <div class="logo-sub">Administration</div>
     </div>
   </div>
@@ -40,15 +40,23 @@
     </a>
     <a class="nav-item" data-href="/admin/products.html" href="/admin/products.html">
       <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 3H5a2 2 0 0 0-2 2v4m6-6h10a2 2 0 0 1 2 2v4M9 3v18m0 0h10a2 2 0 0 0 2-2V9M9 21H5a2 2 0 0 1-2-2V9m0 0h18"/></svg>
-      Produits
+      Puppy Listings
     </a>
     <a class="nav-item" data-href="/admin/categories.html" href="/admin/categories.html">
       <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg>
       Catégories
     </a>
+    <a class="nav-item" data-href="/admin/reviews.html" href="/admin/reviews.html">
+      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+      Customer Reviews
+    </a>
     <a class="nav-item" data-href="/admin/orders.html" href="/admin/orders.html">
       <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
       Commandes
+    </a>
+    <a class="nav-item" data-href="/admin/messages.html" href="/admin/messages.html">
+      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+      Messages <span id="sidebar-unread-badge" style="display:none;background:#e53e3e;color:#fff;font-size:10px;font-weight:700;padding:1px 6px;border-radius:10px;margin-left:6px"></span>
     </a>
     <div class="nav-section">Configuration</div>
     <a class="nav-item" data-href="/admin/settings.html" href="/admin/settings.html">
@@ -77,7 +85,7 @@
     <button class="sidebar-toggle" id="sidebar-toggle" aria-label="Menu">
       <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
     </button>
-    <span class="topbar-title">Gestion des produits</span>
+    <span class="topbar-title">Manage Listings</span>
   </div>
   <div class="topbar-actions">
     <span class="admin-badge">
@@ -86,7 +94,7 @@
     </span>
     <button class="btn btn-primary" onclick="openAddModal()">
       <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
-      Ajouter un produit
+      Add a Puppy Listing
     </button>
   </div>
 </div>
@@ -94,7 +102,7 @@
       <div class="card">
         <div class="card-header">
           <div class="search-bar-admin" style="margin:0;flex:1">
-            <input type="text" id="search" placeholder="Rechercher un produit..." oninput="loadProducts()">
+            <input type="text" id="search" placeholder="Search puppies..." oninput="loadProducts()">
             <select id="cat-filter" onchange="loadProducts()"><option value="">Toutes catégories</option></select>
             <select id="status-filter" onchange="loadProducts()">
               <option value="">Tous statuts</option>
@@ -119,96 +127,136 @@
 
 <!-- ADD/EDIT MODAL -->
 <div class="modal-overlay" id="product-modal">
-  <div class="modal" style="max-width:740px">
+  <div class="modal" style="max-width:760px;width:100%">
     <div class="modal-header">
-      <h2 id="modal-title">Ajouter un produit</h2>
+      <h2 id="modal-title">Add a Puppy Listing</h2>
       <button class="modal-close" onclick="closeModal('product-modal')">×</button>
     </div>
     <div class="modal-body">
       <input type="hidden" id="product-id">
+
+      <!-- Row 1: Name + Gender -->
       <div class="form-row">
-        <div class="form-group"><label>Nom du produit *</label><input type="text" id="p-name" placeholder="ex: Doliprane 1000mg"></div>
-        <div class="form-group"><label>Marque</label><input type="text" id="p-brand" placeholder="ex: Sanofi"></div>
-      </div>
-      <div class="form-row">
-        <div class="form-group"><label>Catégorie</label><select id="p-category"></select></div>
-        <div class="form-group"><label>SKU / Référence</label><input type="text" id="p-sku" placeholder="ex: DOL-1000-8"></div>
-      </div>
-      <div class="form-row">
-        <div class="form-group"><label>Dosage</label><input type="text" id="p-dosage" placeholder="ex: 1000mg"></div>
-        <div class="form-group"><label>Conditionnement</label><input type="text" id="p-package" placeholder="ex: Boîte de 8 comprimés"></div>
-      </div>
-      <div class="form-row three">
-        <div class="form-group"><label>Prix (€) *</label><input type="number" id="p-price" step="0.01" min="0" placeholder="0.00"></div>
-        <div class="form-group"><label>Prix promo (€)</label><input type="number" id="p-sale-price" step="0.01" min="0" placeholder="Laisser vide si aucune promo"></div>
-        <div class="form-group"><label>Stock</label><input type="number" id="p-stock" min="0" placeholder="0"></div>
+        <div class="form-group">
+          <label>Puppy Name *</label>
+          <input type="text" id="p-name" placeholder="ex: Crown Jewel — Labrador Retriever">
+        </div>
+        <div class="form-group">
+          <label>Gender</label>
+          <input type="text" id="p-brand" placeholder="ex: Male / Female">
+        </div>
       </div>
 
-      <!-- VARIANTS -->
-      <div class="form-row one" style="border:1px solid var(--border);padding:16px;background:#f8fafc;margin-bottom:0">
-        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">
-          <div style="font-size:13px;font-weight:700;color:#4a5568;display:flex;align-items:center;gap:8px">
-            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg>
-            Options de quantité / variantes
-          </div>
-          <button type="button" class="btn btn-outline btn-sm" onclick="addVariant()">
-            <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
-            Ajouter une option
-          </button>
+      <!-- Row 2: Breed Category + Date of Birth -->
+      <div class="form-row">
+        <div class="form-group">
+          <label>Breed Category</label>
+          <select id="p-category"></select>
         </div>
-        <p style="font-size:12px;color:#a0aec0;margin-bottom:12px">Si renseigné, le client devra choisir une option avant d'ajouter au panier. Le prix unitaire est remplacé par le prix de la variante. Réduisez le prix/unité pour les grandes quantités.</p>
-        <div id="variants-list" style="display:flex;flex-direction:column;gap:8px"></div>
-        <input type="hidden" id="p-variants-json" value="[]">
+        <div class="form-group">
+          <label>Date of Birth</label>
+          <input type="text" id="p-sku" placeholder="ex: 7 May 2026">
+        </div>
       </div>
-      <div class="form-row one">
-        <div class="form-group"><label>Description courte</label><input type="text" id="p-short-desc" placeholder="Description affichée dans la liste"></div>
+
+      <!-- Row 3: Colour + Age -->
+      <div class="form-row">
+        <div class="form-group">
+          <label>Colour</label>
+          <input type="text" id="p-dosage" placeholder="ex: Cream, Black &amp; Tan">
+        </div>
+        <div class="form-group">
+          <label>Age</label>
+          <input type="text" id="p-package" placeholder="ex: 15 weeks">
+        </div>
       </div>
+
+      <!-- Row 4: Price + Sale Price -->
+      <div class="form-row">
+        <div class="form-group">
+          <label>Price (£) *</label>
+          <input type="number" id="p-price" step="0.01" min="0" placeholder="0.00">
+        </div>
+        <div class="form-group">
+          <label>Sale Price (£)</label>
+          <input type="number" id="p-sale-price" step="0.01" min="0" placeholder="Leave empty if no promo">
+        </div>
+      </div>
+
+      <!-- Short Description -->
       <div class="form-row one">
         <div class="form-group">
-          <label>Description complète <span style="font-weight:400;color:#718096;font-size:12px">— supporte titres, listes, gras, italique</span></label>
+          <label>Short Description <span style="font-weight:400;color:#718096;font-size:11px">— shown in listing grid</span></label>
+          <input type="text" id="p-short-desc" placeholder="ex: Male cream Labrador, 15 weeks old, health-checked">
+        </div>
+      </div>
+
+      <!-- Full Description (Quill) -->
+      <div class="form-row one">
+        <div class="form-group">
+          <label>Full Description <span style="font-weight:400;color:#718096;font-size:12px">— supports headings, lists, bold, italic</span></label>
           <div id="p-desc-editor"></div>
           <input type="hidden" id="p-desc">
         </div>
       </div>
+
+      <!-- SEO Tags -->
       <div class="form-row one">
         <div class="form-group">
-          <label>Tags SEO <span style="font-weight:400;color:#718096;font-size:12px">— mots-clés séparés par Entrée ou virgule</span></label>
+          <label>SEO Tags <span style="font-weight:400;color:#718096;font-size:12px">— keywords separated by Enter or comma</span></label>
           <div id="tags-container" style="display:flex;flex-wrap:wrap;gap:6px;align-items:center;padding:8px 10px;border:1px solid var(--border);min-height:42px;cursor:text;background:#fff" onclick="document.getElementById('tag-input').focus()">
-            <input type="text" id="tag-input" placeholder="Ajouter un tag..." style="border:none;outline:none;font-size:13px;flex:1;min-width:120px;padding:0;font-family:inherit;background:transparent">
+            <input type="text" id="tag-input" placeholder="Add a tag..." style="border:none;outline:none;font-size:13px;flex:1;min-width:120px;padding:0;font-family:inherit;background:transparent">
           </div>
           <input type="hidden" id="p-tags-json" value="[]">
-          <p style="font-size:11px;color:#a0aec0;margin-top:4px">Ex: paracétamol, analgésique, fièvre, douleur, sans ordonnance</p>
+          <p style="font-size:11px;color:#a0aec0;margin-top:4px">Ex: labrador, golden retriever, puppy, cream, male, family dog</p>
         </div>
       </div>
+
+      <!-- SEO Meta -->
       <div class="form-row one" style="background:#f8fafc;padding:14px;margin-top:4px;border:1px solid var(--border)">
         <div style="font-size:13px;font-weight:700;color:#4a5568;margin-bottom:10px;display:flex;align-items:center;gap:8px">
           <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-          SEO — Balises meta
+          SEO — Meta tags
         </div>
         <div class="form-row one" style="margin-bottom:10px">
-          <div class="form-group"><label>Meta titre <span style="font-weight:400;color:#718096;font-size:11px">(recommandé : 50-60 caractères)</span></label><input type="text" id="p-meta-title" placeholder="ex: Doliprane 1000mg - Analgésique et antipyrétique | 13-Pills" maxlength="80"></div>
+          <div class="form-group">
+            <label>Meta title <span style="font-weight:400;color:#718096;font-size:11px">(recommended: 50-60 chars)</span></label>
+            <input type="text" id="p-meta-title" placeholder="ex: Crown Jewel - Labrador Retriever Puppy for Sale | Paw Puppies" maxlength="80">
+          </div>
         </div>
         <div class="form-row one">
-          <div class="form-group"><label>Meta description <span style="font-weight:400;color:#718096;font-size:11px">(recommandé : 150-160 caractères)</span></label><textarea id="p-meta-desc" rows="2" placeholder="ex: Achetez Doliprane 1000mg en ligne. Paracétamol analgésique et antipyrétique. Livraison discrète, sans ordonnance." maxlength="200"></textarea></div>
+          <div class="form-group">
+            <label>Meta description <span style="font-weight:400;color:#718096;font-size:11px">(recommended: 150-160 chars)</span></label>
+            <textarea id="p-meta-desc" rows="2" placeholder="ex: Buy a healthy Labrador Retriever puppy online. Health guarantee, microchipped, vaccinated. Fast worldwide delivery." maxlength="200"></textarea>
+          </div>
         </div>
       </div>
+
+      <!-- Images -->
       <div class="form-row one">
         <div class="form-group">
-          <label>Image(s) du produit</label>
-          <input type="file" id="p-image-file" accept="image/*" onchange="uploadProductImage()">
+          <label>Puppy Photos <span style="font-weight:400;color:#718096;font-size:12px">— upload multiple photos</span></label>
+          <input type="file" id="p-image-file" accept="image/*" onchange="uploadProductImage()" multiple>
           <div id="p-image-preview" style="display:flex;gap:8px;flex-wrap:wrap;margin-top:8px"></div>
           <input type="hidden" id="p-images-json" value="[]">
         </div>
       </div>
+
+      <!-- Checkboxes -->
       <div class="form-row three">
-        <label style="display:flex;align-items:center;gap:10px;font-size:14px"><input type="checkbox" id="p-active" checked> Actif</label>
-        <label style="display:flex;align-items:center;gap:10px;font-size:14px"><input type="checkbox" id="p-featured"> Vedette</label>
-        <label style="display:flex;align-items:center;gap:10px;font-size:14px"><input type="checkbox" id="p-rx"> Ordonnance requise</label>
+        <label style="display:flex;align-items:center;gap:10px;font-size:14px"><input type="checkbox" id="p-active" checked> Active</label>
+        <label style="display:flex;align-items:center;gap:10px;font-size:14px"><input type="checkbox" id="p-featured"> Featured</label>
+        <label style="display:flex;align-items:center;gap:10px;font-size:14px"><input type="checkbox" id="p-rx"> ⭐ Vet Recommended</label>
       </div>
+
+      <!-- Hidden variants json (kept for API compatibility) -->
+      <input type="hidden" id="p-variants-json" value="[]">
+      <div id="variants-list" style="display:none"></div>
+
     </div>
     <div class="modal-footer">
-      <button class="btn btn-outline" onclick="closeModal('product-modal')">Annuler</button>
-      <button class="btn btn-primary" onclick="saveProduct()">💾 Enregistrer</button>
+      <button class="btn btn-outline" onclick="closeModal('product-modal')">Cancel</button>
+      <button class="btn btn-primary" onclick="saveProduct()">💾 Save Listing</button>
     </div>
   </div>
 </div>
@@ -249,6 +297,7 @@ let quill; // Quill editor instance
 (async () => {
   if (!await requireAuth()) return;
   loadSidebarBranding();
+  loadUnreadBadge();
 
   // Init Quill after DOM is ready
   quill = new Quill('#p-desc-editor', {
@@ -297,7 +346,7 @@ async function loadProducts(page = 1) {
       <td>
         <div style="display:flex;align-items:center;gap:10px">
           <div style="width:40px;height:40px;background:var(--bg);border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:20px;overflow:hidden;flex-shrink:0">
-            ${p.images && p.images[0] ? `<img src="${p.images[0]}" style="width:100%;height:100%;object-fit:cover" onerror="this.parentElement.textContent='💊'">` : '💊'}
+            ${p.images && p.images[0] ? `<img src="${p.images[0]}" style="width:100%;height:100%;object-fit:cover" onerror="this.parentElement.textContent='🐾'">` : '🐾'}
           </div>
           <div>
             <strong>${p.name}</strong>
@@ -319,7 +368,7 @@ async function loadProducts(page = 1) {
         <button class="btn btn-danger btn-sm" onclick="deleteProduct(${p.id},'${p.name.replace(/'/g,"\\'")}')">🗑️</button>
       </td>
     </tr>
-  `).join('') : '<tr><td colspan="7" style="text-align:center;padding:30px;color:#718096">Aucun produit trouvé</td></tr>';
+  `).join('') : '<tr><td colspan="7" style="text-align:center;padding:30px;color:#718096">No listings found�</td></tr>';
 
   renderPagination('pagination', data.totalPages, page, 'loadProducts');
 }
@@ -330,9 +379,9 @@ async function toggleField(id, field, value) {
 
 function openAddModal() {
   editingId = null;
-  document.getElementById('modal-title').textContent = '➕ Ajouter un produit';
+  document.getElementById('modal-title').textContent = '➕ Add a Puppy Listing';
   document.getElementById('product-id').value = '';
-  ['p-name','p-brand','p-sku','p-dosage','p-package','p-price','p-sale-price','p-stock','p-short-desc','p-meta-title','p-meta-desc'].forEach(id => document.getElementById(id).value = '');
+  ['p-name','p-brand','p-sku','p-dosage','p-package','p-price','p-sale-price','p-short-desc','p-meta-title','p-meta-desc'].forEach(id => document.getElementById(id).value = '');
   document.getElementById('p-category').value = '';
   document.getElementById('p-active').checked = true;
   document.getElementById('p-featured').checked = false;
@@ -348,7 +397,7 @@ function openAddModal() {
 async function editProduct(id) {
   const p = await fetch(`/api/products/${id}`, { headers: { Authorization: `Bearer ${getToken()}` } }).then(r => r.json());
   editingId = id;
-  document.getElementById('modal-title').textContent = '✏️ Modifier le produit';
+  document.getElementById('modal-title').textContent = '✏️ Edit Listing';
   document.getElementById('p-name').value = p.name || '';
   document.getElementById('p-brand').value = p.brand || '';
   document.getElementById('p-sku').value = p.sku || '';
@@ -356,7 +405,6 @@ async function editProduct(id) {
   document.getElementById('p-package').value = p.package_size || '';
   document.getElementById('p-price').value = p.price || '';
   document.getElementById('p-sale-price').value = p.sale_price || '';
-  document.getElementById('p-stock').value = p.stock || 0;
   document.getElementById('p-short-desc').value = p.short_description || '';
   document.getElementById('p-desc').value = p.description || '';
   document.getElementById('p-category').value = p.category_id || '';
@@ -402,7 +450,7 @@ function removeImage(idx) {
 async function uploadProductImage() {
   const file = document.getElementById('p-image-file').files[0];
   if (!file) return;
-  showToast('⏳ Upload en cours...', '');
+  showToast('⏳ ? Uploading...', '');
   const result = await uploadFile(file, '/api/settings/upload/product-image');
   if (result.url) {
     const imgs = JSON.parse(document.getElementById('p-images-json').value || '[]');
@@ -410,13 +458,13 @@ async function uploadProductImage() {
     document.getElementById('p-images-json').value = JSON.stringify(imgs);
     renderImagePreviews(imgs);
     showToast('✅ Image uploadée', 'success');
-  } else { showToast('❌ Erreur upload', 'error'); }
+  } else { showToast('❌ ? Upload error', 'error'); }
 }
 
 async function saveProduct() {
   const name = document.getElementById('p-name').value.trim();
   const price = document.getElementById('p-price').value;
-  if (!name || !price) { showToast('❌ Nom et prix requis', 'error'); return; }
+  if (!name || !price) { showToast('❌ Name and price are required', 'error'); return; }
 
   const payload = {
     name, brand: document.getElementById('p-brand').value,
@@ -425,7 +473,7 @@ async function saveProduct() {
     package_size: document.getElementById('p-package').value,
     price: parseFloat(price),
     sale_price: document.getElementById('p-sale-price').value ? parseFloat(document.getElementById('p-sale-price').value) : null,
-    stock: parseInt(document.getElementById('p-stock').value) || 0,
+    stock: 1, // always available — no stock management for puppies
     category_id: document.getElementById('p-category').value || null,
     short_description: document.getElementById('p-short-desc').value,
     description: quill.root.innerHTML.trim() === '<p><br></p>' ? '' : quill.root.innerHTML,
@@ -445,16 +493,16 @@ async function saveProduct() {
   const data = await res.json();
   if (data.success !== false && !data.error) {
     closeModal('product-modal');
-    showToast('✅ Produit enregistré', 'success');
+    showToast('✅ Listing saved', 'success');
     loadProducts(currentPage);
   } else { showToast(`❌ ${data.error}`, 'error'); }
 }
 
 async function deleteProduct(id, name) {
-  if (!confirmDelete(`Supprimer "${name}" ?`)) return;
+  if (!confirmDelete(`Delete "${name}"?`)) return;
   const res = await fetch(`/api/products/${id}`, { method: 'DELETE', headers: authHeaders() });
   const data = await res.json();
-  if (data.success) { showToast('✅ Produit supprimé', 'success'); loadProducts(currentPage); }
+  if (data.success) { showToast('✅ Listing deleted�', 'success'); loadProducts(currentPage); }
   else showToast(`❌ ${data.error}`, 'error');
 }
 
@@ -477,7 +525,7 @@ function renderTags(tags) {
   tags.forEach((tag, i) => {
     const chip = document.createElement('span');
     chip.className = 'tag-chip';
-    chip.innerHTML = `${tag}<button type="button" onclick="removeTag(${i})" title="Supprimer">×</button>`;
+    chip.innerHTML = `${tag}<button type="button" onclick="removeTag(${i})" title="Remove">×</button>`;
     container.insertBefore(chip, input);
   });
 }
@@ -512,7 +560,7 @@ function getVariants() {
 function renderVariants(variants) {
   const list = document.getElementById('variants-list');
   if (!variants.length) {
-    list.innerHTML = '<p style="font-size:13px;color:#a0aec0;padding:8px 0">Aucune option — le produit utilisera le prix et stock standard ci-dessus.</p>';
+    list.innerHTML = '<p style="font-size:13px;color:#a0aec0;padding:8px 0">No options � the puppy will use the standard price and stock above.</p>';
     return;
   }
   list.innerHTML = variants.map((v, i) => `
@@ -546,7 +594,7 @@ function renderVariants(variants) {
           style="width:100%;padding:6px 8px;border:1px solid var(--border);font-size:13px;outline:none;font-family:inherit">
       </div>
       <button type="button" onclick="removeVariant(${i})"
-        style="background:none;border:none;color:#e53e3e;cursor:pointer;padding:4px;display:flex;align-items:center" title="Supprimer">
+        style="background:none;border:none;color:#e53e3e;cursor:pointer;padding:4px;display:flex;align-items:center" title="Remove">
         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/><path d="M10 11v6"/><path d="M14 11v6"/></svg>
       </button>
     </div>

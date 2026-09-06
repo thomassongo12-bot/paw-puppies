@@ -48,28 +48,79 @@ router.get('/:id', authenticateToken, async (req, res) => {
 });
 
 router.post('/', async (req, res) => {
-  const { customer_name, customer_email, customer_phone, shipping_address, items, payment_method, notes } = req.body;
-  if (!customer_name||!customer_email||!shipping_address||!items?.length) return res.status(400).json({ error: 'Données manquantes' });
-  const subtotal = items.reduce((s,i)=>s+(i.price*i.quantity),0);
-  const ft = parseFloat((await get("SELECT value FROM settings WHERE key='free_shipping_threshold'"))?.value||50);
-  const sc = parseFloat((await get("SELECT value FROM settings WHERE key='shipping_cost'"))?.value||4.99);
-  const shipping = subtotal>=ft?0:sc;
-  const order_number = orderNum();
   try {
-    const r = await run('INSERT INTO orders (order_number,customer_name,customer_email,customer_phone,shipping_address,items,subtotal,shipping_cost,total,payment_method,notes) VALUES (?,?,?,?,?,?,?,?,?,?,?)',
-      [order_number,customer_name,customer_email,customer_phone||'',typeof shipping_address==='object'?JSON.stringify(shipping_address):shipping_address,JSON.stringify(items),subtotal,shipping,subtotal+shipping,payment_method||'cod',notes||'']);
-    for (const item of items) {
-      if (item.id) await run('UPDATE products SET stock=MAX(0,stock-?) WHERE id=?', [item.quantity, item.id]);
+    let { customer_name, customer_email, customer_phone, shipping_address, items, subtotal, shipping_cost, total, payment_method, notes } = req.body;
+
+    if (!customer_name || !customer_email || !shipping_address) {
+      return res.status(400).json({ error: 'Données manquantes' });
     }
-    res.status(201).json({ success: true, order_number, id: r.lastID, total: subtotal+shipping });
-  } catch(e) { res.status(500).json({ error: e.message }); }
+
+    // items can arrive as a JSON string or as an array
+    if (typeof items === 'string') {
+      try { items = JSON.parse(items); } catch { items = []; }
+    }
+    if (!Array.isArray(items)) items = [];
+
+    // For reservations, subtotal/total may be sent directly (as 0)
+    // Otherwise compute from items
+    let computedSubtotal = subtotal !== undefined ? parseFloat(subtotal) : items.reduce((s, i) => s + ((i.price || 0) * (i.quantity || 1)), 0);
+    let computedShipping = shipping_cost !== undefined ? parseFloat(shipping_cost) : 0;
+
+    if (subtotal === undefined) {
+      const ft = parseFloat((await get("SELECT value FROM settings WHERE key='free_shipping_threshold'"))?.value || 50);
+      const sc = parseFloat((await get("SELECT value FROM settings WHERE key='shipping_cost'"))?.value || 4.99);
+      computedShipping = computedSubtotal >= ft ? 0 : sc;
+    }
+
+    const computedTotal = total !== undefined ? parseFloat(total) : computedSubtotal + computedShipping;
+    const order_number = orderNum();
+
+    const r = await run(
+      'INSERT INTO orders (order_number,customer_name,customer_email,customer_phone,shipping_address,items,subtotal,shipping_cost,total,payment_method,notes) VALUES (?,?,?,?,?,?,?,?,?,?,?)',
+      [
+        order_number,
+        customer_name,
+        customer_email,
+        customer_phone || '',
+        typeof shipping_address === 'object' ? JSON.stringify(shipping_address) : shipping_address,
+        JSON.stringify(items),
+        computedSubtotal,
+        computedShipping,
+        computedTotal,
+        payment_method || 'cod',
+        notes || ''
+      ]
+    );
+
+    // Decrement stock only for real purchases (not reservations)
+    if (payment_method !== 'reservation') {
+      for (const item of items) {
+        if (item.id) await run('UPDATE products SET stock=MAX(0,stock-?) WHERE id=?', [item.quantity || 1, item.id]);
+      }
+    }
+
+    res.status(201).json({ success: true, order_number, id: r.lastID, total: computedTotal });
+  } catch (e) {
+    console.error('POST /api/orders error:', e.message);
+    res.status(500).json({ error: e.message });
+  }
 });
 
 router.put('/:id/status', authenticateToken, async (req, res) => {
-  const { status, notes } = req.body;
-  if (!['pending','processing','shipped','delivered','cancelled'].includes(status)) return res.status(400).json({ error: 'Statut invalide' });
-  await run("UPDATE orders SET status=?,notes=COALESCE(?,notes),updated_at=datetime('now') WHERE id=?", [status,notes,req.params.id]);
-  res.json({ success: true });
+  try {
+    const { status, notes } = req.body;
+    if (!['pending','processing','shipped','delivered','cancelled'].includes(status)) {
+      return res.status(400).json({ error: 'Statut invalide' });
+    }
+    await run(
+      "UPDATE orders SET status=?, notes=COALESCE(?,notes), updated_at=datetime('now') WHERE id=?",
+      [status, notes !== undefined ? notes : null, req.params.id]
+    );
+    res.json({ success: true });
+  } catch (e) {
+    console.error('PUT /api/orders/:id/status error:', e.message);
+    res.status(500).json({ error: e.message });
+  }
 });
 
 router.delete('/:id', authenticateToken, async (req, res) => {

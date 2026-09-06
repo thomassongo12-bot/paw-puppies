@@ -1,8 +1,8 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="fr">
 <head>
   <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Commandes - Admin MediShop</title>
+  <title>Orders - Admin Paw Puppies</title>
   <link rel="stylesheet" href="/css/admin.css">
 </head>
 <body>
@@ -14,7 +14,7 @@
       <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M9 3H5a2 2 0 0 0-2 2v4m6-6h10a2 2 0 0 1 2 2v4M9 3v18m0 0h10a2 2 0 0 0 2-2V9M9 21H5a2 2 0 0 1-2-2V9m0 0h18"/></svg>
     </div>
     <div>
-      <div class="logo-text sidebar-site-name">MediShop</div>
+      <div class="logo-text sidebar-site-name">Paw Puppies</div>
       <div class="logo-sub">Administration</div>
     </div>
   </div>
@@ -32,9 +32,17 @@
       <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg>
       Catégories
     </a>
+    <a class="nav-item" data-href="/admin/reviews.html" href="/admin/reviews.html">
+      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+      Customer Reviews
+    </a>
     <a class="nav-item" data-href="/admin/orders.html" href="/admin/orders.html">
       <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
       Commandes
+    </a>
+    <a class="nav-item" data-href="/admin/messages.html" href="/admin/messages.html">
+      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+      Messages <span id="sidebar-unread-badge" style="display:none;background:#e53e3e;color:#fff;font-size:10px;font-weight:700;padding:1px 6px;border-radius:10px;margin-left:6px"></span>
     </a>
     <div class="nav-section">Configuration</div>
     <a class="nav-item" data-href="/admin/settings.html" href="/admin/settings.html">
@@ -102,7 +110,7 @@
 
 <!-- ORDER DETAIL MODAL -->
 <div class="modal-overlay" id="order-modal">
-  <div class="modal" style="max-width:680px">
+  <div class="modal" style="max-width:720px">
     <div class="modal-header">
       <h2 id="order-modal-title">Détail commande</h2>
       <button class="modal-close" onclick="closeModal('order-modal')">×</button>
@@ -131,6 +139,7 @@ const urlParams = new URLSearchParams(location.search);
 (async () => {
   if (!await requireAuth()) return;
   loadSidebarBranding();
+  loadUnreadBadge();
   if (urlParams.get('status')) document.getElementById('status-filter').value = urlParams.get('status');
   loadOrders();
 })();
@@ -169,36 +178,150 @@ async function loadOrders(page = 1) {
 async function viewOrder(id) {
   currentOrderId = id;
   const o = await fetch(`/api/orders/${id}`, { headers: { Authorization: `Bearer ${getToken()}` } }).then(r => r.json());
-  document.getElementById('order-modal-title').textContent = `Commande ${o.order_number}`;
+  document.getElementById('order-modal-title').textContent = `Reservation ${o.order_number}`;
   document.getElementById('new-status').value = o.status;
 
-  const addr = typeof o.shipping_address === 'string' && o.shipping_address.startsWith('{')
-    ? JSON.parse(o.shipping_address) : o.shipping_address;
+  // Parse shipping address — stored as "address, city, zip, country" or JSON
+  let addrLine = o.shipping_address || '';
+  let addrParts = { address: '—', city: '—', zip: '—', country: '—' };
+  if (addrLine.startsWith('{')) {
+    try { addrParts = { ...addrParts, ...JSON.parse(addrLine) }; } catch {}
+  } else if (addrLine.includes(',')) {
+    const parts = addrLine.split(',').map(s => s.trim());
+    // format: "address, city, zip, country"
+    if (parts.length >= 4) {
+      addrParts = { address: parts[0], city: parts[1], zip: parts[2], country: parts.slice(3).join(', ') };
+    } else if (parts.length === 3) {
+      addrParts = { address: parts[0], city: parts[1], zip: '', country: parts[2] };
+    } else if (parts.length === 2) {
+      addrParts = { address: parts[0], city: '', zip: '', country: parts[1] };
+    } else {
+      addrParts.address = addrLine;
+    }
+  } else if (addrLine) {
+    addrParts.address = addrLine;
+  }
+
+  const payLabels = { cod: '💵 Cash on Delivery', bank: '🏦 Bank Transfer', reservation: '📋 Reservation' };
 
   document.getElementById('order-modal-body').innerHTML = `
-    <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-bottom:20px">
-      <div>
-        <h3 style="font-size:14px;margin-bottom:8px;color:var(--primary)">👤 Client</h3>
-        <p><strong>${o.customer_name}</strong></p>
-        <p>${o.customer_email}</p>
-        ${o.customer_phone ? `<p>${o.customer_phone}</p>` : ''}
-      </div>
-      <div>
-        <h3 style="font-size:14px;margin-bottom:8px;color:var(--primary)">🚚 Livraison</h3>
-        <p>${typeof addr === 'object' ? Object.values(addr).join(', ') : addr}</p>
+    <style>
+      .od-section { margin-bottom:20px; }
+      .od-section-title {
+        font-size:11px; font-weight:700; text-transform:uppercase; letter-spacing:0.6px;
+        color:var(--primary); margin-bottom:10px; padding-bottom:6px;
+        border-bottom:1px solid var(--border); display:flex; align-items:center; gap:6px;
+      }
+      .od-grid { display:grid; grid-template-columns:1fr 1fr; gap:10px; }
+      .od-field { background:var(--bg); padding:10px 12px; border-radius:6px; }
+      .od-field-label { font-size:10px; font-weight:700; color:#a0aec0; text-transform:uppercase; letter-spacing:0.4px; margin-bottom:3px; }
+      .od-field-value { font-size:13px; color:#2d3748; font-weight:500; word-break:break-word; }
+      .od-field-value.empty { color:#cbd5e0; font-style:italic; }
+      .od-items-table { width:100%; border-collapse:collapse; font-size:13px; }
+      .od-items-table th { background:var(--bg); padding:8px 10px; text-align:left; font-size:11px; text-transform:uppercase; letter-spacing:0.4px; color:#718096; font-weight:700; }
+      .od-items-table td { padding:10px; border-bottom:1px solid var(--border); vertical-align:middle; }
+      .od-items-table tr:last-child td { border-bottom:none; }
+      .od-totals { display:flex; flex-direction:column; align-items:flex-end; gap:5px; padding:12px 0 0; }
+      .od-totals .od-total-row { display:flex; justify-content:flex-end; gap:16px; font-size:13px; color:#4a5568; }
+      .od-totals .od-total-row.main { font-size:16px; font-weight:800; color:var(--primary); padding-top:6px; border-top:2px solid var(--border); margin-top:4px; }
+      .od-badge-pill { display:inline-block; padding:3px 10px; border-radius:20px; font-size:11px; font-weight:700; }
+    </style>
+
+    <!-- Client -->
+    <div class="od-section">
+      <div class="od-section-title">👤 Customer Information</div>
+      <div class="od-grid">
+        <div class="od-field">
+          <div class="od-field-label">Full Name</div>
+          <div class="od-field-value">${o.customer_name || '—'}</div>
+        </div>
+        <div class="od-field">
+          <div class="od-field-label">Email</div>
+          <div class="od-field-value">${o.customer_email || '—'}</div>
+        </div>
+        <div class="od-field">
+          <div class="od-field-label">Phone</div>
+          <div class="od-field-value ${!o.customer_phone ? 'empty' : ''}">${o.customer_phone || 'Not provided'}</div>
+        </div>
+        <div class="od-field">
+          <div class="od-field-label">Payment Method</div>
+          <div class="od-field-value">${payLabels[o.payment_method] || o.payment_method}</div>
+        </div>
       </div>
     </div>
-    <h3 style="font-size:14px;margin-bottom:10px;color:var(--primary)">📦 Articles</h3>
-    <table style="width:100%;border-collapse:collapse;margin-bottom:16px">
-      <tr style="background:var(--bg)"><th style="padding:8px;text-align:left;font-size:13px">Produit</th><th style="padding:8px;text-align:right;font-size:13px">Qté</th><th style="padding:8px;text-align:right;font-size:13px">Prix</th></tr>
-      ${o.items.map(i => `<tr><td style="padding:8px;border-bottom:1px solid var(--border)">${i.name}</td><td style="padding:8px;text-align:right;border-bottom:1px solid var(--border)">${i.quantity}</td><td style="padding:8px;text-align:right;border-bottom:1px solid var(--border)">${formatPrice(i.price * i.quantity)}</td></tr>`).join('')}
-    </table>
-    <div style="display:flex;flex-direction:column;align-items:flex-end;gap:4px;font-size:14px">
-      <span>Sous-total: <strong>${formatPrice(o.subtotal)}</strong></span>
-      <span>Livraison: <strong>${o.shipping_cost === 0 ? 'Gratuit' : formatPrice(o.shipping_cost)}</strong></span>
-      <span style="font-size:17px;color:var(--primary)">Total: <strong>${formatPrice(o.total)}</strong></span>
+
+    <!-- Adresse -->
+    <div class="od-section">
+      <div class="od-section-title">📍 Shipping Address</div>
+      <div class="od-grid">
+        <div class="od-field" style="grid-column:1/-1">
+          <div class="od-field-label">Street Address</div>
+          <div class="od-field-value ${addrParts.address === '—' ? 'empty' : ''}">${addrParts.address}</div>
+        </div>
+        <div class="od-field">
+          <div class="od-field-label">City</div>
+          <div class="od-field-value ${addrParts.city === '—' || !addrParts.city ? 'empty' : ''}">${addrParts.city || 'Not provided'}</div>
+        </div>
+        <div class="od-field">
+          <div class="od-field-label">Zip / Postal Code</div>
+          <div class="od-field-value ${!addrParts.zip ? 'empty' : ''}">${addrParts.zip || 'Not provided'}</div>
+        </div>
+        <div class="od-field" style="grid-column:1/-1">
+          <div class="od-field-label">Country</div>
+          <div class="od-field-value ${addrParts.country === '—' ? 'empty' : ''}">${addrParts.country}</div>
+        </div>
+      </div>
     </div>
-    ${o.notes ? `<div style="margin-top:14px;padding:12px;background:var(--bg);border-radius:8px;font-size:13px"><strong>Notes:</strong> ${o.notes}</div>` : ''}
+
+    <!-- Articles -->
+    <div class="od-section">
+      <div class="od-section-title">🐾 Reserved Puppy</div>
+      <table class="od-items-table">
+        <thead>
+          <tr>
+            <th>Puppy</th>
+            <th style="text-align:center">Qty</th>
+            <th style="text-align:right">Price</th>
+          </tr>
+        </thead>
+        <tbody>
+          ${o.items.map(i => `
+            <tr>
+              <td><strong>${i.name}</strong></td>
+              <td style="text-align:center">${i.quantity}</td>
+              <td style="text-align:right;font-weight:600">${formatPrice(i.price * i.quantity)}</td>
+            </tr>
+          `).join('')}
+        </tbody>
+      </table>
+      <div class="od-totals">
+        <div class="od-total-row"><span>Subtotal</span><span>${formatPrice(o.subtotal)}</span></div>
+        <div class="od-total-row"><span>Shipping</span><span>${o.shipping_cost === 0 ? '<span style="color:var(--secondary)">Free</span>' : formatPrice(o.shipping_cost)}</span></div>
+        <div class="od-total-row main"><span>Total</span><span>${formatPrice(o.total)}</span></div>
+      </div>
+    </div>
+
+    <!-- Notes -->
+    ${o.notes ? `
+    <div class="od-section">
+      <div class="od-section-title">💬 Customer Message</div>
+      <div style="background:var(--bg);padding:12px 14px;border-radius:6px;font-size:13px;color:#4a5568;line-height:1.7;white-space:pre-wrap">${o.notes}</div>
+    </div>` : ''}
+
+    <!-- Meta -->
+    <div class="od-section" style="margin-bottom:0">
+      <div class="od-section-title">🕐 Order Info</div>
+      <div class="od-grid">
+        <div class="od-field">
+          <div class="od-field-label">Order Number</div>
+          <div class="od-field-value" style="font-family:monospace">${o.order_number}</div>
+        </div>
+        <div class="od-field">
+          <div class="od-field-label">Date Received</div>
+          <div class="od-field-value">${formatDate(o.created_at)}</div>
+        </div>
+      </div>
+    </div>
   `;
   openModal('order-modal');
 }

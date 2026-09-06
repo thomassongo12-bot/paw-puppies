@@ -3,20 +3,18 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Shipping Protection & Order Tracking - Paw Puppies</title>
-  <meta name="description" content="Paw Puppies Shipping Protection covers all shipping and transportation costs for your new puppy. Track your order and get peace of mind.">
-  <meta name="robots" content="index, follow">
+  <title>Easy Ordering - Paw Puppies | How to Reserve Your Puppy</title>
+  <meta name="description" content="Discover how easy it is to order your perfect puppy from Paw Puppies. Step-by-step process from search to arrival.">
   <link id="favicon" rel="icon" href="/img/favicon.png">
   <link rel="stylesheet" href="/css/style.css">
   <style>
-    /* ── PAGE WRAPPER ── */
-    .shipping-page {
+    .eo-page {
       max-width: 900px;
       margin: 0 auto;
       padding: 48px 24px 80px;
     }
 
-    /* ── BREADCRUMB ── */
+    /* Breadcrumb */
     .breadcrumb {
       font-size: 13px;
       color: var(--text-light);
@@ -26,162 +24,118 @@
     .breadcrumb a:hover { text-decoration: underline; }
     .breadcrumb span { margin: 0 6px; }
 
-    /* ── TRACKING SECTION ── */
-    .tracking-section {
-      text-align: center;
-      margin-bottom: 60px;
-    }
-    .tracking-section h1 {
-      font-family: Georgia, 'Times New Roman', serif;
-      font-size: 38px;
-      font-weight: 400;
-      color: #1a202c;
-      margin-bottom: 20px;
-      letter-spacing: -0.5px;
-    }
-    .tracking-section .intro {
-      font-size: 15px;
-      color: #4a5568;
-      line-height: 1.8;
-      max-width: 600px;
-      margin: 0 auto 36px;
-    }
-    .tf-field { margin-bottom: 18px; }
-    .tf-field label {
-      display: block;
-      font-size: 14px;
-      font-weight: 700;
-      color: #2d3748;
-      margin-bottom: 7px;
-    }
-    .tf-field input {
-      width: 100%;
-      padding: 13px 16px;
-      border: 1px solid #cbd5e0;
-      border-radius: 6px;
-      font-size: 14px;
-      color: #2d3748;
-      font-family: inherit;
-      outline: none;
-      background: #fff;
-      transition: border-color 0.2s, box-shadow 0.2s;
-      box-sizing: border-box;
-    }
-    .tf-field input::placeholder { color: #a0aec0; }
-    .tf-field input:focus {
-      border-color: var(--secondary);
-      box-shadow: 0 0 0 3px rgba(90,138,60,0.1);
-    }
-    .tf-submit {
-      width: 100%;
-      background: var(--secondary);
-      color: #fff;
-      border: none;
-      padding: 14px;
-      border-radius: 6px;
-      font-size: 15px;
-      font-weight: 700;
-      cursor: pointer;
-      transition: background 0.2s;
-      margin-top: 6px;
-      font-family: inherit;
-    }
-    .tf-submit:hover { background: var(--secondary-dark); }
-    #tracking-result {
-      display: none;
-      margin-top: 20px;
-      padding: 18px 22px;
-      border-radius: 6px;
-      font-size: 14px;
-      line-height: 1.7;
-      text-align: left;
-    }
-    #tracking-result.found { background:#f0fff4; border:1px solid #9ae6b4; color:#276749; }
-    #tracking-result.not-found { background:#fff5f5; border:1px solid #fed7d7; color:#c53030; }
-
-    /* ── DIVIDER ── */
-    .section-divider {
-      border: none;
-      border-top: 2px solid #e2e8f0;
-      margin: 56px 0;
-    }
-
-    /* ── TWO-COLUMN LAYOUT ── */
-    .sp-layout {
+    /* Two-column layout */
+    .eo-layout {
       display: grid;
       grid-template-columns: 1fr 320px;
       gap: 48px;
       align-items: start;
     }
 
-    /* ── LEFT: Content ── */
-    .sp-content h1 {
-      font-size: 36px;
+    /* Left: accordion content */
+    .eo-content h1 {
+      font-size: 38px;
       font-weight: 800;
       color: #1a3c4e;
-      margin-bottom: 20px;
+      margin-bottom: 32px;
       line-height: 1.2;
     }
-    .sp-content h1 em {
+    .eo-content h1 em {
       font-style: italic;
       color: var(--secondary);
-      font-weight: 800;
     }
-    .sp-content p {
-      font-size: 15px;
+
+    /* Accordion */
+    .accordion { border-top: 1px solid #e2e8f0; }
+    .acc-item { border-bottom: 1px solid #e2e8f0; }
+
+    .acc-trigger {
+      width: 100%;
+      background: none;
+      border: none;
+      padding: 18px 0;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      cursor: pointer;
+      font-family: inherit;
+      text-align: left;
+    }
+    .acc-trigger:hover .acc-label { color: var(--secondary); }
+
+    .acc-label {
+      font-size: 14px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      color: #1a3c4e;
+      transition: color 0.2s;
+    }
+
+    .acc-icon {
+      width: 28px;
+      height: 28px;
+      flex-shrink: 0;
+      color: #1a3c4e;
+      transition: transform 0.3s;
+    }
+    .acc-item.open .acc-icon { transform: rotate(180deg); }
+
+    .acc-body {
+      display: none;
+      padding: 0 0 20px;
+    }
+    .acc-item.open .acc-body { display: block; }
+
+    .acc-body p {
+      font-size: 14px;
       color: #4a5568;
       line-height: 1.85;
-      margin-bottom: 16px;
+      margin-bottom: 12px;
     }
-    .sp-content h2 {
-      font-size: 18px;
-      font-weight: 700;
-      color: #1a3c4e;
-      margin: 28px 0 12px;
-    }
-    .sp-content ul {
+    .acc-body ul {
       list-style: none;
       padding: 0;
-      margin: 0 0 20px;
+      margin: 0 0 12px;
     }
-    .sp-content ul li {
+    .acc-body ul li {
       font-size: 14px;
       color: #4a5568;
       line-height: 1.75;
-      padding: 6px 0 6px 22px;
+      padding: 5px 0 5px 20px;
       position: relative;
       border-bottom: 1px solid #f0f2f5;
     }
-    .sp-content ul li:last-child { border-bottom: none; }
-    .sp-content ul li::before {
+    .acc-body ul li:last-child { border-bottom: none; }
+    .acc-body ul li::before {
       content: '•';
       position: absolute;
-      left: 6px;
-      top: 6px;
+      left: 4px;
       color: var(--secondary);
       font-size: 16px;
     }
-    .sp-content a {
+    .acc-body .step-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--primary-light);
+      border-left: 3px solid var(--primary);
+      border-radius: 0 6px 6px 0;
+      padding: 10px 16px;
+      font-size: 13px;
+      font-weight: 600;
+      color: #1a3c4e;
+      margin-bottom: 14px;
+    }
+    .acc-body .step-badge .step-icon { font-size: 18px; }
+
+    .acc-body a {
       color: var(--secondary);
       text-decoration: underline;
     }
-    .sp-content .highlight-box {
-      background: var(--primary-light);
-      border-left: 4px solid var(--primary);
-      border-radius: 0 8px 8px 0;
-      padding: 16px 20px;
-      margin: 20px 0;
-      font-size: 15px;
-      color: #1a3c4e;
-      font-weight: 600;
-      line-height: 1.6;
-    }
 
-    /* ── RIGHT: Sidebar ── */
-    .sp-sidebar {
-      position: sticky;
-      top: 90px;
-    }
+    /* Right: sidebar */
+    .eo-sidebar { position: sticky; top: 90px; }
 
     .contact-card {
       background: #fff;
@@ -198,35 +152,21 @@
       padding-bottom: 12px;
       border-bottom: 1px solid var(--border);
     }
-    .contact-info-block { margin-bottom: 18px; }
-    .contact-info-block strong {
+    .ci-block { margin-bottom: 16px; }
+    .ci-block strong {
       display: block;
-      font-size: 12px;
+      font-size: 11px;
       font-weight: 700;
       text-transform: uppercase;
       letter-spacing: 0.6px;
       color: #718096;
       margin-bottom: 4px;
     }
-    .contact-info-block p {
-      font-size: 13px;
-      color: #4a5568;
-      line-height: 1.6;
-    }
-    .contact-info-block a {
-      color: var(--secondary);
-      text-decoration: none;
-      font-weight: 600;
-    }
-    .contact-info-block a:hover { text-decoration: underline; }
+    .ci-block p { font-size: 13px; color: #4a5568; line-height: 1.6; }
+    .ci-block a { color: var(--secondary); text-decoration: none; font-weight: 600; }
+    .ci-block a:hover { text-decoration: underline; }
 
-    /* Contact form */
-    .cf-row {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 10px;
-      margin-bottom: 10px;
-    }
+    .cf-row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 10px; }
     .cf-field { margin-bottom: 10px; }
     .cf-field input,
     .cf-field select,
@@ -249,7 +189,6 @@
     .cf-field select:focus,
     .cf-field textarea:focus { border-color: var(--secondary); }
     .cf-field textarea { resize: vertical; min-height: 80px; }
-    .cf-field select { appearance: none; cursor: pointer; }
     .cf-consent {
       display: flex;
       align-items: flex-start;
@@ -288,13 +227,12 @@
     }
 
     @media (max-width: 800px) {
-      .sp-layout { grid-template-columns: 1fr; }
-      .sp-sidebar { position: static; }
+      .eo-layout { grid-template-columns: 1fr; }
+      .eo-sidebar { position: static; }
       .cf-row { grid-template-columns: 1fr; }
     }
     @media (max-width: 500px) {
-      .tracking-section h1 { font-size: 26px; }
-      .sp-content h1 { font-size: 26px; }
+      .eo-content h1 { font-size: 28px; }
     }
   </style>
 </head>
@@ -358,11 +296,11 @@
   </nav>
 </header>
 
-<!-- QUICK SERVICES BAR -->
+<!-- SERVICES BAR -->
 <div class="services-bar">
   <div class="container">
     <div class="services-bar-inner">
-      <a href="/shop.html" class="svc-item">
+      <a href="/easy-ordering.html" class="svc-item active">
         <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
         <span>Easy Ordering</span>
       </a>
@@ -370,7 +308,7 @@
         <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
         <span>Explore Breeds</span>
       </a>
-      <a href="/shipping.html" class="svc-item active">
+      <a href="/shipping.html" class="svc-item">
         <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="3" width="15" height="13" rx="1"/><path d="M16 8h4l3 3v5h-7V8z"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
         <span>Safe Delivery</span>
       </a>
@@ -390,114 +328,181 @@
   </div>
 </div>
 
-<div class="shipping-page">
+<div class="eo-page">
+  <div class="eo-layout">
 
-  <!-- ── ORDER TRACKING ── -->
-  <div class="tracking-section">
-    <h1>Order Tracking</h1>
-    <p class="intro">
-      To track your Paw Puppies order, enter your order ID and billing email below and press "Track". Your order ID was included in your confirmation email.
-    </p>
-    <div class="tracking-form" style="text-align:left;max-width:480px;margin:0 auto">
-      <div class="tf-field">
-        <label>Order ID</label>
-        <input type="text" id="track-id" placeholder="Found in your order confirmation email.">
-      </div>
-      <div class="tf-field">
-        <label>Billing Email</label>
-        <input type="email" id="track-email" placeholder="Email you used at checkout.">
-      </div>
-      <button class="tf-submit" onclick="trackOrder()">Track</button>
-      <div id="tracking-result"></div>
-    </div>
-  </div>
+    <!-- LEFT: Accordion content -->
+    <div class="eo-content">
 
-  <hr class="section-divider">
-
-  <!-- ── SHIPPING PROTECTION + CONTACT ── -->
-  <div class="sp-layout">
-
-    <!-- LEFT: Content -->
-    <div class="sp-content">
-
-      <!-- Breadcrumb -->
       <div class="breadcrumb">
-        <a href="/">Home</a>
-        <span>/</span>
-        Shipping Protection
+        <a href="/">Home</a><span>/</span>Easy Ordering
       </div>
 
-      <h1>Shipping <em>Protection</em></h1>
+      <h1><em>Easy</em> Ordering</h1>
 
-      <p>We realise that bringing a dog into your family is an important decision. So we have gone the extra mile to make choosing a puppy from us <strong>completely worry free</strong>. On top of our <a href="/about.html">Lifetime Health Guarantee</a>, our Shipping Protection service will cover all <strong>the shipping and transportation costs for your new puppy</strong>, including any agent services, veterinary documents, microchip and shipping crate costs. This offer protects you right up to the amount you paid for shipping your original puppy.</p>
+      <div class="accordion">
 
-      <p>Shipping Protection provides coverage if your puppy should sadly pass away, or suffers from one of the conditions listed in our Guarantee.</p>
+        <!-- SEARCH -->
+        <div class="acc-item open">
+          <button class="acc-trigger" onclick="toggleAcc(this)">
+            <span class="acc-label">Search</span>
+            <svg class="acc-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+          </button>
+          <div class="acc-body">
+            <div class="step-badge"><span class="step-icon">🔍</span> Step 1 — Find your perfect puppy</div>
+            <p>Browse our full selection of available puppies at <a href="/shop.html">Available Puppies</a>. Use the filters to narrow down by breed, size, gender or price. Each listing includes photos, a full description, health details and the puppy's date of birth.</p>
+            <p>Not sure which breed is right for you? Visit our <a href="/breeds.html">Explore Breeds</a> section for detailed guides on every breed we work with — temperament, size, suitability and more.</p>
+          </div>
+        </div>
 
-      <div class="highlight-box">
-        With our Lifetime Health Guarantee and Shipping Protection you need only do one thing — choose your new puppy and we will handle everything for you.
-      </div>
+        <!-- RESERVE -->
+        <div class="acc-item">
+          <button class="acc-trigger" onclick="toggleAcc(this)">
+            <span class="acc-label">Reserve</span>
+            <svg class="acc-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+          </button>
+          <div class="acc-body">
+            <div class="step-badge"><span class="step-icon">📋</span> Step 2 — Secure your puppy</div>
+            <p>Once you have found your perfect puppy, click <strong>Reserve Now</strong> on the listing page. Fill in your details — name, email, phone and country — and submit your reservation request.</p>
+            <p>Your reservation is <strong>free to cancel within 24 hours</strong>. Our team will contact you within 24 hours to confirm your reservation and walk you through the next steps.</p>
+          </div>
+        </div>
 
-      <h2>Shipping Protection would be awesome value for you:</h2>
-      <ul>
-        <li>IF you feel that paying shipping for your puppy once was enough and you want the luxury to not pay it again next time.</li>
-        <li>IF you wish to have a dog for many years to come, even decades or more, after your dog passes naturally or by illness.</li>
-        <li>IF you have many dogs, and expect that you will want more from Paw Puppies in the future.</li>
-      </ul>
+        <!-- WAIT -->
+        <div class="acc-item">
+          <button class="acc-trigger" onclick="toggleAcc(this)">
+            <span class="acc-label">Wait</span>
+            <svg class="acc-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+          </button>
+          <div class="acc-body">
+            <div class="step-badge"><span class="step-icon">⏳</span> Step 3 — We prepare everything</div>
+            <p>While you wait for your puppy, our team handles all the preparation. This includes a full veterinary health check, microchipping, vaccinations, and the preparation of all travel documents.</p>
+            <p>We keep you updated every step of the way so you always know how your puppy is doing and when to expect them.</p>
+          </div>
+        </div>
 
-      <h2>It is probably not for you:</h2>
-      <ul>
-        <li>IF this is your first time choosing a dog, and you are not sure you are a lifelong dog owner. Maybe you are just giving dog ownership a try.</li>
-        <li>IF you think that your future circumstances may change, so that having a dog in the future would not be practical or possible.</li>
-      </ul>
+        <!-- UP TO DATE -->
+        <div class="acc-item">
+          <button class="acc-trigger" onclick="toggleAcc(this)">
+            <span class="acc-label">Up to Date</span>
+            <svg class="acc-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+          </button>
+          <div class="acc-body">
+            <div class="step-badge"><span class="step-icon">📱</span> Step 4 — Stay informed</div>
+            <p>You will receive regular updates including new photos and videos of your puppy as they grow. Our team is always available by phone, email or WhatsApp to answer any questions you may have.</p>
+            <ul>
+              <li>Photo and video updates sent directly to you</li>
+              <li>Dedicated support team available Mon–Fri 8am–8pm</li>
+              <li>WhatsApp available for quick questions</li>
+              <li>Full transparency at every stage</li>
+            </ul>
+          </div>
+        </div>
 
-      <p>We have made this service extra easy for you by offering our Shipping Protection as you make your purchase. Once you have chosen your puppy from us and we have calculated the shipping costs, this exclusive protection is offered to you for just a fraction of the original shipping costs.</p>
+        <!-- DOCUMENTS -->
+        <div class="acc-item">
+          <button class="acc-trigger" onclick="toggleAcc(this)">
+            <span class="acc-label">Documents</span>
+            <svg class="acc-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+          </button>
+          <div class="acc-body">
+            <div class="step-badge"><span class="step-icon">📄</span> Step 5 — All paperwork handled</div>
+            <p>We take care of all the documentation required for your puppy's journey to you, including:</p>
+            <ul>
+              <li>EU Pet Passport with full vaccination history</li>
+              <li>Microchip certificate</li>
+              <li>Health certificate issued by an accredited vet</li>
+              <li>Import permits where required</li>
+              <li>Airline-approved travel crate</li>
+            </ul>
+          </div>
+        </div>
 
-      <p>With our <a href="/about.html">Lifetime Health Guarantee</a> and Shipping Protection you need only do one thing, choose your new puppy and we will handle everything for you.</p>
+        <!-- BOOKING -->
+        <div class="acc-item">
+          <button class="acc-trigger" onclick="toggleAcc(this)">
+            <span class="acc-label">Booking</span>
+            <svg class="acc-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+          </button>
+          <div class="acc-body">
+            <div class="step-badge"><span class="step-icon">✈️</span> Step 6 — Travel arranged</div>
+            <p>Once all documents are ready, we book the most suitable and safest travel option for your puppy. We work with trusted airlines and pet transport partners to ensure a smooth, stress-free journey.</p>
+            <p>You will receive the full flight details — airline, flight number, estimated arrival time — well in advance so you can prepare for the big day.</p>
+          </div>
+        </div>
 
-    </div>
+        <!-- HEALTH AND SAFETY -->
+        <div class="acc-item">
+          <button class="acc-trigger" onclick="toggleAcc(this)">
+            <span class="acc-label">Health and Safety</span>
+            <svg class="acc-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+          </button>
+          <div class="acc-body">
+            <div class="step-badge"><span class="step-icon">🛡️</span> Step 7 — Full health guarantee</div>
+            <p>Every puppy from Paw Puppies comes with our <strong>Lifetime Health Guarantee</strong>. Before departure, each puppy receives a final veterinary examination to confirm they are in perfect health and fit to travel.</p>
+            <p>Our Shipping Protection plan also covers all transportation costs in the event of an unforeseen health issue. <a href="/shipping.html">Learn more about Shipping Protection →</a></p>
+          </div>
+        </div>
+
+        <!-- ARRIVAL -->
+        <div class="acc-item">
+          <button class="acc-trigger" onclick="toggleAcc(this)">
+            <span class="acc-label">Arrival</span>
+            <svg class="acc-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+          </button>
+          <div class="acc-body">
+            <div class="step-badge"><span class="step-icon">🏠</span> Step 8 — Welcome home!</div>
+            <p>The best part! Your puppy arrives at the airport or at your door, depending on your location and the delivery option chosen. Our team will guide you on exactly where and how to collect your new family member.</p>
+            <p>We recommend preparing your home in advance — a cosy bed, food and water bowls, and a quiet space for your puppy to settle in. We'll send you a full welcome guide before arrival.</p>
+          </div>
+        </div>
+
+        <!-- KEEP IN TOUCH -->
+        <div class="acc-item">
+          <button class="acc-trigger" onclick="toggleAcc(this)">
+            <span class="acc-label">Keep in Touch</span>
+            <svg class="acc-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+          </button>
+          <div class="acc-body">
+            <div class="step-badge"><span class="step-icon">💬</span> Step 9 — We're here for life</div>
+            <p>Our relationship with you doesn't end at delivery. Paw Puppies's support team is always available after your puppy arrives. Whether you have questions about nutrition, training or health, we're here to help.</p>
+            <p>We love receiving photos and stories of our puppies growing up with their families. Share yours with us — it truly makes our day! <a href="/reviews.html">Read what our customers say →</a></p>
+          </div>
+        </div>
+
+      </div><!-- /.accordion -->
+    </div><!-- /.eo-content -->
 
     <!-- RIGHT: Contact sidebar -->
-    <aside class="sp-sidebar">
+    <aside class="eo-sidebar">
       <div class="contact-card">
         <h3>Contact Us</h3>
 
-        <div class="contact-info-block">
+        <div class="ci-block">
           <strong>Address</strong>
           <p id="sidebar-address">123 Dog Lane, London, United Kingdom</p>
         </div>
-
-        <div class="contact-info-block">
+        <div class="ci-block">
           <strong>Phone / WhatsApp</strong>
           <p><a id="sidebar-phone" href="tel:+44200000000">+44 20 0000 0000</a></p>
         </div>
-
-        <div class="contact-info-block">
+        <div class="ci-block">
           <strong>Email</strong>
           <p><a id="sidebar-email" href="mailto:contact@Paw Puppies.com">contact@Paw Puppies.com</a></p>
         </div>
-
-        <div class="contact-info-block">
+        <div class="ci-block">
           <strong>Hours</strong>
           <p id="sidebar-hours">Mon–Fri: 8am–8pm, Sat: 9am–5pm</p>
         </div>
 
-        <!-- Contact form -->
-        <form id="sp-contact-form" onsubmit="submitSPContact(event)" style="margin-top:16px;padding-top:16px;border-top:1px solid var(--border)">
+        <form id="eo-contact-form" onsubmit="submitEOContact(event)" style="margin-top:16px;padding-top:16px;border-top:1px solid var(--border)">
           <div class="cf-row">
-            <div class="cf-field">
-              <input type="text" id="cf-firstname" placeholder="First Name*" required>
-            </div>
-            <div class="cf-field">
-              <input type="text" id="cf-lastname" placeholder="Last Name*" required>
-            </div>
+            <div class="cf-field"><input type="text" id="cf-firstname" placeholder="First Name*" required></div>
+            <div class="cf-field"><input type="text" id="cf-lastname" placeholder="Last Name*" required></div>
           </div>
           <div class="cf-row">
-            <div class="cf-field">
-              <input type="email" id="cf-email" placeholder="E-mail Address*" required>
-            </div>
-            <div class="cf-field">
-              <input type="tel" id="cf-phone" placeholder="Phone Number">
-            </div>
+            <div class="cf-field"><input type="email" id="cf-email" placeholder="E-mail Address*" required></div>
+            <div class="cf-field"><input type="tel" id="cf-phone" placeholder="Phone Number"></div>
           </div>
           <div class="cf-field">
             <select id="cf-country" required>
@@ -528,18 +533,10 @@
               <option>Zambia</option><option>Zimbabwe</option>
             </select>
           </div>
-          <div class="cf-field">
-            <input type="text" id="cf-city" placeholder="City*" required>
-          </div>
-          <div class="cf-field">
-            <input type="text" id="cf-address" placeholder="Residential Address*" required>
-          </div>
-          <div class="cf-field">
-            <input type="text" id="cf-zip" placeholder="Zip / Postal Code*" required>
-          </div>
-          <div class="cf-field">
-            <textarea id="cf-message" placeholder="Message*" required></textarea>
-          </div>
+          <div class="cf-field"><input type="text" id="cf-city" placeholder="City*" required></div>
+          <div class="cf-field"><input type="text" id="cf-address" placeholder="Residential Address*" required></div>
+          <div class="cf-field"><input type="text" id="cf-zip" placeholder="Zip / Postal Code*" required></div>
+          <div class="cf-field"><textarea id="cf-message" placeholder="Message*" required></textarea></div>
           <label class="cf-consent">
             <input type="checkbox" required>
             I consent to receive email communication from Paw Puppies regarding my enquiry.
@@ -550,9 +547,8 @@
       </div>
     </aside>
 
-  </div><!-- /.sp-layout -->
-
-</div><!-- /.shipping-page -->
+  </div>
+</div>
 
 <!-- FOOTER -->
 <footer class="footer">
@@ -576,6 +572,7 @@
         <h4>Information</h4>
         <ul>
           <li><a href="/about.html">About Us</a></li>
+          <li><a href="/easy-ordering.html">Easy Ordering</a></li>
           <li><a href="/shipping.html">Shipping Protection</a></li>
           <li><a href="/contact.html">Contact Us</a></li>
         </ul>
@@ -601,7 +598,6 @@
 <script>
 updateCartCount();
 loadSettings().then(() => {
-  // Update sidebar contact info from settings
   if (siteSettings.contact_phone) {
     const el = document.getElementById('sidebar-phone');
     if (el) { el.textContent = siteSettings.contact_phone; el.href = 'tel:' + siteSettings.contact_phone.replace(/\s/g,''); }
@@ -620,52 +616,18 @@ loadSettings().then(() => {
   }
 });
 
-// ── Order tracking ──
-async function trackOrder() {
-  const orderId = document.getElementById('track-id').value.trim();
-  const email   = document.getElementById('track-email').value.trim();
-  const result  = document.getElementById('tracking-result');
-
-  if (!orderId || !email) {
-    result.className = 'not-found';
-    result.innerHTML = 'Please fill in both fields.';
-    result.style.display = 'block';
-    return;
-  }
-
-  const btn = document.querySelector('.tf-submit');
-  btn.disabled = true;
-  btn.textContent = 'Searching...';
-
-  try {
-    const res  = await fetch(`/api/orders/track?order_number=${encodeURIComponent(orderId)}&email=${encodeURIComponent(email)}`);
-    const data = await res.json();
-
-    if (data && data.order_number) {
-      const statusLabels = { pending:'Pending', processing:'Processing', shipped:'Shipped', delivered:'Delivered', cancelled:'Cancelled' };
-      result.className = 'found';
-      result.innerHTML = `
-        <strong>Order #${data.order_number}</strong><br>
-        Status: <strong>${statusLabels[data.status] || data.status}</strong><br>
-        ${data.created_at ? `Order date: ${new Date(data.created_at).toLocaleDateString('en-GB')}<br>` : ''}
-        ${data.customer_name ? `Customer: ${data.customer_name}` : ''}
-      `;
-    } else {
-      result.className = 'not-found';
-      result.innerHTML = 'No order found with this information. Please check your order ID and email.';
-    }
-  } catch {
-    result.className = 'not-found';
-    result.innerHTML = 'Connection error. Please try again.';
-  }
-
-  result.style.display = 'block';
-  btn.disabled = false;
-  btn.textContent = 'Track';
+// Accordion
+function toggleAcc(btn) {
+  const item = btn.closest('.acc-item');
+  const isOpen = item.classList.contains('open');
+  // Close all
+  document.querySelectorAll('.acc-item.open').forEach(i => i.classList.remove('open'));
+  // Open clicked if it was closed
+  if (!isOpen) item.classList.add('open');
 }
 
-// ── Sidebar contact form ──
-async function submitSPContact(e) {
+// Contact form
+async function submitEOContact(e) {
   e.preventDefault();
   const btn = document.getElementById('cf-submit-btn');
 
@@ -697,8 +659,8 @@ async function submitSPContact(e) {
     if (!res.ok) throw new Error(data.error || 'Server error');
 
     document.getElementById('cf-success').style.display = 'block';
-    document.getElementById('sp-contact-form').reset();
-  } catch(err) {
+    document.getElementById('eo-contact-form').reset();
+  } catch {
     showToast('Error sending message. Please try again.', 'error');
     btn.disabled = false;
     btn.textContent = 'Submit';

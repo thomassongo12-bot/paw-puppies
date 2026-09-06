@@ -1,0 +1,382 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Customer Reviews — Paw Puppies | Real Stories from Happy Puppy Owners</title>
+  <meta name="description" content="Read genuine customer reviews from Paw Puppies puppy owners worldwide. 5-star rated service, health-guaranteed puppies delivered to 110+ countries. See real photos and stories.">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://Paw Puppies.com/reviews.html">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Customer Reviews — Paw Puppies">
+  <meta property="og:description" content="Real stories from happy puppy owners worldwide. 5-star rated service, health-guaranteed puppies.">
+  <meta property="og:url" content="https://Paw Puppies.com/reviews.html">
+  <meta property="og:image" content="https://Paw Puppies.com/images/about-puppy.jpg">
+  <meta property="og:site_name" content="Paw Puppies">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="https://Paw Puppies.com/images/about-puppy.jpg">
+  <script type="application/ld+json">{
+    "@context": "https://schema.org",
+    "@type": "ReviewNewsArticle",
+    "name": "Paw Puppies Customer Reviews",
+    "url": "https://Paw Puppies.com/reviews.html",
+    "breadcrumb": {"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://Paw Puppies.com"},{"@type":"ListItem","position":2,"name":"Customer Reviews","item":"https://Paw Puppies.com/reviews.html"}]}
+  }</script>
+  <link rel="stylesheet" href="/css/style.css">
+  <style>
+    .reviews-page { max-width: 1100px; margin: 0 auto; padding: 32px 20px 80px; }
+
+    /* Breadcrumb */
+    .reviews-breadcrumb { font-size: 13px; color: var(--text-light); margin-bottom: 20px; }
+    .reviews-breadcrumb a { color: var(--text-light); }
+    .reviews-breadcrumb a:hover { color: var(--primary); }
+
+    /* Page title */
+    .reviews-title { font-size: 32px; font-weight: 700; color: #1a3c4e; margin-bottom: 10px; }
+    .reviews-title em { font-style: italic; color: var(--secondary); }
+    .reviews-intro { font-size: 14px; color: var(--text-light); line-height: 1.7; margin-bottom: 28px; max-width: 760px; }
+    .reviews-intro a { color: var(--secondary); text-decoration: underline; }
+
+    /* YouTube embed */
+    .reviews-video { width: 100%; max-width: 860px; aspect-ratio: 16/9; margin-bottom: 40px; border-radius: 8px; overflow: hidden; background: #000; }
+    .reviews-video iframe { width: 100%; height: 100%; border: none; display: block; }
+
+    /* Layout: sidebar + main */
+    .reviews-layout { display: grid; grid-template-columns: 220px 1fr; gap: 32px; align-items: start; }
+
+    /* Sidebar filters */
+    .reviews-sidebar { position: sticky; top: 90px; }
+    .reviews-filter-group { margin-bottom: 20px; }
+    .reviews-filter-group label { display: block; font-size: 13px; font-weight: 700; color: #1a3c4e; margin-bottom: 8px; }
+    .reviews-filter-input {
+      width: 100%; padding: 10px 14px;
+      border: 1.5px solid var(--secondary);
+      font-size: 13px; outline: none;
+      font-family: inherit; color: var(--text);
+      border-radius: 4px; background: #fff;
+      transition: border-color 0.2s;
+    }
+    .reviews-filter-input:focus { border-color: var(--primary); }
+    .reviews-filter-input::placeholder { color: #b0bec8; }
+
+    /* Review cards */
+    .reviews-list { display: flex; flex-direction: column; gap: 16px; }
+
+    .review-card {
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 20px 20px 16px;
+      display: grid;
+      grid-template-columns: 1fr 110px;
+      gap: 16px;
+      transition: box-shadow 0.2s;
+    }
+    .review-card:hover { box-shadow: 0 4px 16px rgba(0,0,0,0.08); }
+
+    .review-date { font-size: 12px; color: var(--text-light); margin-bottom: 6px; }
+
+    .review-stars { color: var(--secondary); font-size: 18px; letter-spacing: 2px; margin-bottom: 6px; }
+
+    .review-puppy-name { font-size: 22px; font-weight: 700; color: #1a3c4e; margin-bottom: 4px; }
+
+    .review-meta { font-size: 12px; color: var(--text-light); margin-bottom: 10px; }
+    .review-meta a { color: var(--secondary); text-decoration: underline; }
+
+    .review-author { font-size: 13px; font-weight: 700; color: var(--text); margin-bottom: 6px; }
+
+    .review-text {
+      font-size: 13px; color: var(--text-light); line-height: 1.65;
+      display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+    .review-text.expanded { -webkit-line-clamp: unset; overflow: visible; }
+
+    .review-show-more {
+      font-size: 12px; color: var(--secondary); font-weight: 600;
+      background: none; border: none; cursor: pointer; padding: 6px 0 0;
+      font-family: inherit; display: inline-block;
+    }
+    .review-show-more:hover { text-decoration: underline; }
+
+    .review-img {
+      width: 110px; height: 90px;
+      object-fit: cover; border-radius: 8px;
+      background: var(--bg);
+    }
+    .review-img-placeholder {
+      width: 110px; height: 90px;
+      background: var(--bg); border-radius: 8px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 36px; color: var(--text-light);
+    }
+
+    /* Empty state */
+    .reviews-empty { text-align: center; padding: 60px 20px; color: var(--text-light); font-size: 15px; }
+
+    /* Pagination */
+    .reviews-pagination { display: flex; justify-content: center; gap: 8px; margin-top: 32px; }
+
+    @media(max-width: 768px) {
+      .reviews-layout { grid-template-columns: 1fr; }
+      .reviews-sidebar { position: static; }
+      .review-card { grid-template-columns: 1fr 80px; }
+      .review-img, .review-img-placeholder { width: 80px; height: 70px; }
+    }
+    @media(max-width: 480px) {
+      .review-card { grid-template-columns: 1fr; }
+      .review-img, .review-img-placeholder { width: 100%; height: 160px; }
+    }
+  </style>
+</head>
+<body>
+
+<header class="header">
+  <div class="header-top">
+    <div class="container">
+      <span id="header-phone">+44 20 0000 0000</span>
+      <span>🐾 Health Guarantee on Every Puppy</span>
+    </div>
+  </div>
+  <div class="header-main">
+    <div class="container">
+      <a href="/" class="logo">
+        <div id="logo-container">
+          <svg xmlns="http://www.w3.org/2000/svg" width="42" height="42" viewBox="0 0 64 64" fill="none">
+            <ellipse cx="32" cy="40" rx="18" ry="14" fill="var(--primary)" opacity=".9"/>
+            <ellipse cx="32" cy="40" rx="11" ry="8" fill="#fff" opacity=".25"/>
+            <ellipse cx="18" cy="24" rx="5.5" ry="7" fill="var(--primary)"/>
+            <ellipse cx="46" cy="24" rx="5.5" ry="7" fill="var(--primary)"/>
+            <ellipse cx="26" cy="18" rx="4.5" ry="6" fill="var(--primary)"/>
+            <ellipse cx="38" cy="18" rx="4.5" ry="6" fill="var(--primary)"/>
+          </svg>
+        </div>
+        <div class="logo-text">
+          <span class="site-name" id="site-name">Paw Puppies</span>
+          <span class="site-tagline" id="site-tagline">Everything your dog needs</span>
+        </div>
+      </a>
+      <div class="search-bar">
+        <input type="text" id="search-input" placeholder="Search by breed...">
+        <button onclick="doSearch()">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+        </button>
+      </div>
+      <div class="header-actions"></div>
+    </div>
+  </div>
+  <nav class="nav">
+    <div class="container">
+      <button class="nav-toggle" id="nav-toggle" aria-label="Menu"><span></span><span></span><span></span></button>
+      <div class="nav-links" id="nav-links">
+        <div class="drawer-header">Menu <button class="drawer-close" id="drawer-close">×</button></div>
+        <a href="/">Home</a>
+        <a href="/shop.html">Available Puppies</a>
+        <a href="/breeds.html">Explore Breeds</a>
+        <a href="/reviews.html" class="active">Customer Reviews</a>
+        <div class="nav-dropdown">
+          <a href="#" class="nav-dropdown-toggle" onclick="toggleNavDropdown(event,this)">Our Services <span class="nav-arrow">&#9662;</span></a>
+          <div class="nav-dropdown-menu">
+            <a href="/easy-ordering.html"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg> Easy Ordering</a>
+            <a href="/about.html"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg> About Us</a>
+            <a href="/contact.html"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.63 3.18 2 2 0 0 1 3.6 1h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.6a16 16 0 0 0 6 6l.96-.96a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/></svg> Contact</a>
+            <a href="/shipping.html"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="3" width="15" height="13" rx="1"/><path d="M16 8h4l3 3v5h-7V8z"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg> Shipping &amp; Delivery</a>
+            <a href="/guarantee.html"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><polyline points="9 12 11 14 15 10"/></svg> Health Guarantee</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </nav>
+</header>
+  </div>
+</div>
+
+
+<div class="reviews-page">
+
+  <!-- Breadcrumb -->
+  <div class="reviews-breadcrumb">
+    <a href="/">Home</a> / Customer Reviews
+  </div>
+
+  <!-- Title -->
+  <h1 class="reviews-title">Paw Puppies <em>Reviews</em></h1>
+  <p class="reviews-intro">
+    We have many fantastic and heartwarming reviews from our happy dog owners all over the world.
+    Have a look at our most recent photos, videos and stories sent to us by Paw Puppies dog owners, loving life with their new best friend!
+  </p>
+
+  <!-- YouTube video -->
+  <div class="reviews-video">
+    <iframe
+      src="https://www.youtube.com/embed/5e5viE8AmJU"
+      title="What customers say about Paw Puppies"
+      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+      allowfullscreen>
+    </iframe>
+  </div>
+
+  <!-- Layout -->
+  <div class="reviews-layout">
+
+    <!-- Sidebar -->
+    <aside class="reviews-sidebar">
+      <div class="reviews-filter-group">
+        <label>Filter by Breed</label>
+        <input type="text" class="reviews-filter-input" id="filter-breed" placeholder="Type a breed..." oninput="filterReviews()">
+      </div>
+      <div class="reviews-filter-group">
+        <label>Filter by Country</label>
+        <input type="text" class="reviews-filter-input" id="filter-country" placeholder="Type a country..." oninput="filterReviews()">
+      </div>
+    </aside>
+
+    <!-- Reviews list -->
+    <div>
+      <div class="reviews-list" id="reviews-list">
+        <div class="loading"><div class="spinner"></div></div>
+      </div>
+      <div class="reviews-pagination" id="reviews-pagination"></div>
+    </div>
+
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div class="footer-logo" id="footer-site-name">Paw Puppies</div>
+        <p id="footer-description">Your trusted online dog shop. Premium puppies, health products and accessories.</p>
+        <div class="social-links" id="social-links"></div>
+      </div>
+      <div>
+        <h4>Quick Links</h4>
+        <ul>
+          <li><a href="/">Home</a></li>
+          <li><a href="/shop.html">Available Puppies</a></li>
+          <li><a href="/reviews.html">Customer Reviews</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Information</h4>
+        <ul>
+          <li></li>
+          <li></li>
+          <li><a href="#">Returns</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Contact</h4>
+        <ul>
+          <li id="footer-email">contact@Paw Puppies.com</li>
+          <li id="footer-phone">+44 20 0000 0000</li>
+          <li id="footer-address">123 Dog Lane, London</li>
+          <li id="footer-hours">Mon-Fri: 8am-8pm</li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span id="footer-text">© 2024 Paw Puppies. All rights reserved.</span>
+    </div>
+  </div>
+</footer>
+
+<div class="toast" id="toast"></div>
+<script src="/js/main.js"></script>
+<script>
+// ── Fetch reviews from API ──
+let allReviews = [];
+let filteredReviews = [];
+
+async function fetchReviews() {
+  const el = document.getElementById('reviews-list');
+  el.innerHTML = '<div class="loading"><div class="spinner"></div></div>';
+  try {
+    const country = document.getElementById('filter-country').value.trim();
+    const breed   = document.getElementById('filter-breed').value.trim();
+    const q = new URLSearchParams({ limit: 100 });
+    if (country) q.set('country', country);
+    if (breed)   q.set('breed', breed);
+
+    const res  = await fetch(`/api/reviews?${q}`);
+    const data = await res.json();
+    allReviews = data.reviews || [];
+    filterReviews();
+  } catch(e) {
+    el.innerHTML = '<div class="reviews-empty">Unable to load reviews. Please try again.</div>';
+  }
+}
+
+function renderReviews(list) {
+  const el = document.getElementById('reviews-list');
+  if (!list.length) {
+    el.innerHTML = '<div class="reviews-empty">No reviews match your filters.</div>';
+    return;
+  }
+  el.innerHTML = list.map(r => {
+    const imgs = Array.isArray(r.images) ? r.images : [];
+    const stars = r.stars || 5;
+    return `
+    <div class="review-card" id="review-${r.id}">
+      <div>
+        <div class="review-date">${r.review_date || ''}</div>
+        <div class="review-stars">${'★'.repeat(stars)}${'☆'.repeat(5 - stars)}</div>
+        <div class="review-puppy-name">${r.puppy_name || ''}</div>
+        <div class="review-meta">
+          ${r.location || ''}${r.breed ? ` | <a href="/shop.html?search=${encodeURIComponent(r.breed)}">${r.breed}</a>` : ''}
+        </div>
+        <div class="review-author">${r.author}</div>
+        <div class="review-text" id="rt-${r.id}">${r.text}</div>
+        <button class="review-show-more" onclick="toggleReview(${r.id})">Show more</button>
+      </div>
+      <div>
+        ${imgs[0]
+          ? `<img src="${imgs[0]}" alt="${r.puppy_name || 'Dog'}" class="review-img">`
+          : `<div class="review-img-placeholder">🐾</div>`}
+        ${imgs.length > 1
+          ? `<div style="display:flex;gap:4px;flex-wrap:wrap;margin-top:6px">${imgs.slice(1,4).map(im => `<img src="${im}" style="width:36px;height:36px;object-fit:cover;border-radius:4px;border:1px solid var(--border)">`).join('')}</div>`
+          : ''}
+      </div>
+    </div>`;
+  }).join('');
+}
+
+function toggleReview(id) {
+  const txt = document.getElementById(`rt-${id}`);
+  const btn = txt.nextElementSibling;
+  if (txt.classList.contains('expanded')) {
+    txt.classList.remove('expanded');
+    btn.textContent = 'Show more';
+  } else {
+    txt.classList.add('expanded');
+    btn.textContent = 'Show less';
+  }
+}
+
+function filterReviews() {
+  const breed   = document.getElementById('filter-breed').value.trim().toLowerCase();
+  const country = document.getElementById('filter-country').value.trim().toLowerCase();
+  filteredReviews = allReviews.filter(r => {
+    const mb = !breed   || (r.breed||'').toLowerCase().includes(breed) || (r.puppy_name||'').toLowerCase().includes(breed);
+    const mc = !country || (r.location||'').toLowerCase().includes(country) || (r.country||'').toLowerCase().includes(country);
+    return mb && mc;
+  });
+  renderReviews(filteredReviews);
+}
+
+// Init
+updateCartCount();
+loadSettings();
+
+// Pre-fill country filter from URL param
+const urlParams = new URLSearchParams(location.search);
+const preCountry = urlParams.get('country');
+if (preCountry) {
+  document.getElementById('filter-country').value = preCountry;
+}
+fetchReviews();
+</script>
+</body>
+</html>

@@ -1,46 +1,53 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="fr">
 <head>
   <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Connexion Admin - MediShop</title>
+  <title>Admin Login - Paw Puppies</title>
   <link rel="stylesheet" href="/css/admin.css">
   <style>
-    body { display: flex; align-items: center; justify-content: center; min-height: 100vh; background: linear-gradient(135deg, #0066CC 0%, #00A651 100%); }
+    body { display: flex; align-items: center; justify-content: center; min-height: 100vh; background: linear-gradient(135deg, #C0541A 0%, #5A8A3C 100%); }
     .login-box { background: #fff; border-radius: 16px; padding: 40px; width: 100%; max-width: 380px; box-shadow: 0 20px 60px rgba(0,0,0,0.2); }
     .login-logo { text-align: center; margin-bottom: 28px; }
     .login-logo .icon { display: flex; align-items: center; justify-content: center; }
-    .login-logo h1 { font-size: 24px; font-weight: 800; color: #0066CC; margin-top: 8px; }
+    .login-logo h1 { font-size: 24px; font-weight: 800; color: #C0541A; margin-top: 8px; }
     .login-logo p { color: #718096; font-size: 14px; }
     .login-box .form-group { margin-bottom: 16px; }
     .login-box label { display: block; font-size: 13px; font-weight: 600; margin-bottom: 5px; }
     .login-box input { width: 100%; padding: 11px 14px; border: 1px solid #e2e8f0; border-radius: 8px; font-size: 14px; outline: none; transition: 0.2s; }
-    .login-box input:focus { border-color: #0066CC; box-shadow: 0 0 0 3px rgba(0,102,204,0.1); }
-    .login-btn { width: 100%; background: #0066CC; color: #fff; border: none; padding: 13px; border-radius: 8px; font-size: 16px; font-weight: 700; cursor: pointer; margin-top: 8px; transition: 0.2s; }
-    .login-btn:hover { background: #0052a3; }
+    .login-box input:focus { border-color: #C0541A; box-shadow: 0 0 0 3px rgba(192,84,26,0.1); }
+    .login-btn { width: 100%; background: #C0541A; color: #fff; border: none; padding: 13px; border-radius: 8px; font-size: 16px; font-weight: 700; cursor: pointer; margin-top: 8px; transition: 0.2s; }
+    .login-btn:hover { background: #9c4214; }
     .error-msg { background: #fff5f5; color: #c53030; padding: 10px 14px; border-radius: 8px; font-size: 14px; margin-bottom: 14px; display: none; }
     .back-link { display: block; text-align: center; margin-top: 16px; color: #718096; font-size: 13px; }
-    .back-link a { color: #0066CC; }
+    .back-link a { color: #C0541A; }
   </style>
 </head>
 <body>
   <div class="login-box">
     <div class="login-logo">
       <div class="icon">
-        <svg xmlns="http://www.w3.org/2000/svg" width="52" height="52" viewBox="0 0 24 24" fill="none" stroke="#0066CC" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 3H5a2 2 0 0 0-2 2v4m6-6h10a2 2 0 0 1 2 2v4M9 3v18m0 0h10a2 2 0 0 0 2-2V9M9 21H5a2 2 0 0 1-2-2V9m0 0h18"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" width="56" height="56" viewBox="0 0 64 64" fill="none">
+          <ellipse cx="32" cy="40" rx="18" ry="14" fill="#C0541A" opacity=".9"/>
+          <ellipse cx="32" cy="40" rx="11" ry="8" fill="#fff" opacity=".25"/>
+          <ellipse cx="18" cy="24" rx="5.5" ry="7" fill="#C0541A"/>
+          <ellipse cx="46" cy="24" rx="5.5" ry="7" fill="#C0541A"/>
+          <ellipse cx="26" cy="18" rx="4.5" ry="6" fill="#C0541A"/>
+          <ellipse cx="38" cy="18" rx="4.5" ry="6" fill="#C0541A"/>
+        </svg>
       </div>
-      <h1>MediShop Admin</h1>
-      <p>Connectez-vous à votre espace administrateur</p>
+      <h1>Paw Puppies Admin</h1>
+      <p>Sign in to your admin panel</p>
     </div>
     <div class="error-msg" id="error-msg"></div>
     <div class="form-group">
-      <label>Identifiant</label>
+      <label>Username</label>
       <input type="text" id="username" placeholder="admin" autocomplete="username">
     </div>
     <div class="form-group">
-      <label>Mot de passe</label>
+      <label>Password</label>
       <input type="password" id="password" placeholder="••••••••" autocomplete="current-password">
     </div>
-    <button class="login-btn" onclick="login()" id="login-btn">Se connecter</button>
+    <button class="login-btn" onclick="login()" id="login-btn">Sign In</button>
     <div class="back-link"><a href="/">← Back to site</a></div>
   </div>
 <script>
@@ -58,11 +65,9 @@
     const btn = document.getElementById('login-btn');
     const err = document.getElementById('error-msg');
 
-    if (!username || !password) { showError('Veuillez remplir tous les champs'); return; }
-
-    btn.disabled = true; btn.textContent = 'Connexion...';
+    if (!username || !password) { showError('Please fill in all fields'); return; }
+    btn.disabled = true; btn.textContent = 'Signing in...';
     err.style.display = 'none';
-
     try {
       const res = await fetch('/api/auth/login', {
         method: 'POST',
@@ -75,12 +80,12 @@
         localStorage.setItem('admin_user', JSON.stringify(data.user));
         location.href = '/admin/';
       } else {
-        showError(data.error || 'Identifiants incorrects');
-        btn.disabled = false; btn.textContent = 'Se connecter';
+        showError(data.error || 'Invalid credentials');
+        btn.disabled = false; btn.textContent = 'Sign In';
       }
     } catch {
-      showError('Erreur de connexion au serveur');
-      btn.disabled = false; btn.textContent = 'Se connecter';
+      showError('Server connection error');
+      btn.disabled = false; btn.textContent = 'Sign In';
     }
   }
 

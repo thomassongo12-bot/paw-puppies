@@ -1,8 +1,8 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="fr">
 <head>
   <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Paramètres - Admin MediShop</title>
+  <title>Paramètres - Admin Paw Puppies</title>
   <link rel="stylesheet" href="/css/admin.css">
 </head>
 <body>
@@ -14,7 +14,7 @@
       <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M9 3H5a2 2 0 0 0-2 2v4m6-6h10a2 2 0 0 1 2 2v4M9 3v18m0 0h10a2 2 0 0 0 2-2V9M9 21H5a2 2 0 0 1-2-2V9m0 0h18"/></svg>
     </div>
     <div>
-      <div class="logo-text sidebar-site-name">MediShop</div>
+      <div class="logo-text sidebar-site-name">Paw Puppies</div>
       <div class="logo-sub">Administration</div>
     </div>
   </div>
@@ -32,9 +32,17 @@
       <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg>
       Catégories
     </a>
+    <a class="nav-item" data-href="/admin/reviews.html" href="/admin/reviews.html">
+      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+      Customer Reviews
+    </a>
     <a class="nav-item" data-href="/admin/orders.html" href="/admin/orders.html">
       <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
       Commandes
+    </a>
+    <a class="nav-item" data-href="/admin/messages.html" href="/admin/messages.html">
+      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+      Messages <span id="sidebar-unread-badge" style="display:none;background:#e53e3e;color:#fff;font-size:10px;font-weight:700;padding:1px 6px;border-radius:10px;margin-left:6px"></span>
     </a>
     <div class="nav-section">Configuration</div>
     <a class="nav-item" data-href="/admin/settings.html" href="/admin/settings.html">
@@ -86,10 +94,10 @@
       <!-- BRANDING TAB -->
       <div class="settings-panel active" id="panel-branding">
         <div class="setting-section">
-          <h3>Nom et slogan</h3>
+          <h3>Name &amp; Tagline</h3>
           <div class="form-row">
-            <div class="form-group"><label>Nom du site</label><input type="text" id="site_name" placeholder="MediShop"><span class="hint">Affiché dans le logo et l'onglet</span></div>
-            <div class="form-group"><label>Slogan</label><input type="text" id="site_tagline" placeholder="Votre pharmacie en ligne de confiance"></div>
+            <div class="form-group"><label>Site Name</label><input type="text" id="site_name" placeholder="Paw Puppies"><span class="hint">Displayed in the logo and browser tab</span></div>
+            <div class="form-group"><label>Tagline</label><input type="text" id="site_tagline" placeholder="Everything your dog needs"></div>
           </div>
           <div class="form-row one">
             <div class="form-group"><label>Description du site</label><textarea id="site_description" rows="2" placeholder="Description courte affichée dans le footer et les méta-tags"></textarea></div>
@@ -178,7 +186,7 @@
         <div class="setting-section">
           <h3>Informations de contact</h3>
           <div class="form-row">
-            <div class="form-group"><label>Email de contact</label><input type="email" id="contact_email" placeholder="contact@medishop.com"></div>
+            <div class="form-group"><label>Email de contact</label><input type="email" id="contact_email" placeholder="contact@Paw Puppies.com"></div>
             <div class="form-group"><label>Téléphone</label><input type="text" id="contact_phone" placeholder="+33 1 23 45 67 89"></div>
           </div>
           <div class="form-row one">
@@ -208,7 +216,7 @@
         <div class="setting-section">
           <h3>Footer</h3>
           <div class="form-row one">
-            <div class="form-group"><label>Texte de bas de page</label><input type="text" id="footer_text" placeholder="© 2024 MediShop. Tous droits réservés."></div>
+            <div class="form-group"><label>Texte de bas de page</label><input type="text" id="footer_text" placeholder="© 2024 Paw Puppies. Tous droits réservés."></div>
           </div>
         </div>
       </div>
@@ -254,7 +262,7 @@
           <div class="form-row one" style="margin-top:16px">
             <div class="form-group">
               <label>Coordonnées bancaires (affichées au client)</label>
-              <textarea id="bank_details" rows="5" placeholder="Banque: CIC&#10;IBAN: FR76 XXXX XXXX XXXX&#10;BIC: CMCIFRPP&#10;Bénéficiaire: MediShop"></textarea>
+              <textarea id="bank_details" rows="5" placeholder="Banque: CIC&#10;IBAN: FR76 XXXX XXXX XXXX&#10;BIC: CMCIFRPP&#10;Bénéficiaire: Paw Puppies"></textarea>
             </div>
           </div>
         </div>
@@ -280,7 +288,7 @@
         <div class="setting-section">
           <h3>Référencement (SEO)</h3>
           <div class="form-row one">
-            <div class="form-group"><label>Titre meta (onglet navigateur)</label><input type="text" id="meta_title" placeholder="MediShop - Pharmacie en ligne"><span class="hint">Recommandé: 50-60 caractères</span></div>
+            <div class="form-group"><label>Titre meta (onglet navigateur)</label><input type="text" id="meta_title" placeholder="Paw Puppies - Pharmacie en ligne"><span class="hint">Recommandé: 50-60 caractères</span></div>
           </div>
           <div class="form-row one">
             <div class="form-group"><label>Description meta</label><textarea id="meta_description" rows="3" placeholder="Achetez vos médicaments en ligne..."></textarea><span class="hint">Recommandé: 120-160 caractères</span></div>
@@ -305,6 +313,7 @@ let currentSettings = {};
 (async () => {
   if (!await requireAuth()) return;
   loadSidebarBranding();
+  loadUnreadBadge();
   await loadSettings();
 })();
 

@@ -1,152 +1,371 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Product - 13-Pills</title>
-  <link id="favicon" rel="icon" href="/img/favicon.png">
+  <title id="page-title">Puppy for Sale - Paw Puppies</title>
+  <meta id="meta-description" name="description" content="Purebred puppy for sale at Paw Puppies. Health guaranteed, worldwide delivery to 110+ countries. Reserve today with free 24h cancellation.">
+  <meta name="robots" content="index, follow">
+  <link id="meta-canonical" rel="canonical" href="https://Paw Puppies.com/shop.html">
+  <meta id="og-title" property="og:title" content="Puppy for Sale — Paw Puppies">
+  <meta id="og-description" property="og:description" content="Purebred puppy with health guarantee. Worldwide delivery.">
+  <meta id="og-url" property="og:url" content="https://Paw Puppies.com/shop.html">
+  <meta id="og-image" property="og:image" content="https://Paw Puppies.com/images/hero-dachshund.jpg">
+  <meta property="og:type" content="product">
+  <meta property="og:site_name" content="Paw Puppies">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta id="tw-title" name="twitter:title" content="Puppy for Sale — Paw Puppies">
+  <meta id="tw-image" name="twitter:image" content="https://Paw Puppies.com/images/hero-dachshund.jpg">
   <link rel="stylesheet" href="/css/style.css">
   <style>
-    /* ── TOP SECTION : image gauche | infos achat droite (hauteur fixe) ── */
-    .product-top {
-      display: grid;
-      grid-template-columns: 460px 1fr;
-      gap: 48px;
-      padding: 40px 0 32px;
-      align-items: start;
+    /* ══ BREADCRUMB ══ */
+    .pup-breadcrumb { font-size:12px; color:var(--text-light); padding:14px 0 10px; }
+    .pup-breadcrumb a { color:var(--text-light); }
+    .pup-breadcrumb a:hover { color:var(--primary); }
+
+    /* ══ MAIN GRID ══ */
+    .pup-grid {
+      display:grid;
+      grid-template-columns:1fr 360px;
+      gap:32px;
+      padding:0 0 60px;
+      align-items:start;
     }
 
-    /* Galerie image */
-    .product-gallery {
-      position: sticky;
-      top: 90px;
+    /* ══ LEFT: gallery + description ══ */
+    .pup-left {}
+
+    /* Main image */
+    .pup-main-img-wrap {
+      position:relative;
+      background:#f7f9fc;
+      border:1px solid var(--border);
+      border-radius:6px;
+      overflow:hidden;
+      cursor:zoom-in;
     }
-    .main-img {
-      width: 100%;
-      aspect-ratio: 1 / 1;
-      background: #fff;
-      border: 1px solid var(--border);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      overflow: hidden;
+    .pup-main-img-wrap img {
+      width:100%; aspect-ratio:4/3;
+      object-fit:cover; display:block;
+      transition:transform 0.4s;
     }
-    .main-img img {
-      width: 100%;
-      height: 100%;
-      object-fit: contain;
-      padding: 16px;
+    .pup-main-img-wrap:hover img { transform:scale(1.03); }
+    .pup-zoom-icon {
+      position:absolute; top:12px; right:12px;
+      background:rgba(255,255,255,0.85); border-radius:50%;
+      width:32px; height:32px; display:flex; align-items:center; justify-content:center;
+      font-size:16px; color:#555; pointer-events:none;
     }
-    .main-img svg {
-      opacity: 0.25;
+    /* Puppy name overlay on main image */
+    .pup-name-overlay {
+      position:absolute; bottom:12px; left:12px;
+      background:rgba(255,255,255,0.92);
+      padding:6px 14px 6px 10px;
+      border-radius:4px; font-size:13px; font-weight:700;
+      color:#1a3c4e; display:flex; align-items:center; gap:8px;
+      backdrop-filter:blur(4px);
+    }
+    .pup-name-overlay img { width:28px; height:28px; border-radius:50%; object-fit:cover; }
+
+    /* Thumbnails strip */
+    .pup-thumbs {
+      display:flex; gap:6px; margin-top:8px; flex-wrap:wrap;
+    }
+    .pup-thumb {
+      width:68px; height:54px;
+      border:2px solid var(--border);
+      border-radius:4px; overflow:hidden; cursor:pointer;
+      flex-shrink:0; background:#f0f0f0;
+      transition:border-color 0.15s;
+    }
+    .pup-thumb img { width:100%; height:100%; object-fit:cover; }
+    .pup-thumb.active, .pup-thumb:hover { border-color:var(--primary); }
+
+    /* Note du chiot */
+    .pup-note-title {
+      font-size:20px; font-weight:700; color:#1a3c4e;
+      margin:28px 0 12px;
+    }
+    .pup-note-body {
+      font-size:14px; color:#4a5568; line-height:1.8;
+    }
+    .pup-note-body p { margin-bottom:14px; }
+    .pup-note-body strong { font-weight:700; }
+    .pup-note-body em { font-style:italic; color:var(--secondary); }
+    .pup-note-body a { color:var(--secondary); text-decoration:underline; }
+
+    /* Specs table */
+    .pup-specs-table {
+      width:100%; border-collapse:collapse; margin-top:28px;
+      border-top:1px solid var(--border);
+    }
+    .pup-specs-table tr { border-bottom:1px solid #eef2f5; }
+    .pup-specs-table td {
+      padding:11px 14px; font-size:14px; color:#4a5568;
+    }
+    .pup-specs-table td:first-child { color:#1a3c4e; width:38%; }
+
+    /* ══ RIGHT: purchase panel ══ */
+    .pup-panel { position:sticky; top:90px; display:flex; flex-direction:column; gap:12px; }
+
+    /* Title card */
+    .pup-title-card {
+      background:#fff; border:1px solid var(--border);
+      border-radius:8px; padding:20px 20px 16px;
+    }
+    .pup-panel-name {
+      font-size:20px; font-weight:800; color:#1a3c4e; line-height:1.3;
+      margin-bottom:4px;
+    }
+    .pup-panel-sub { font-size:13px; color:var(--text-light); margin-bottom:14px; }
+    .pup-price {
+      font-size:28px; font-weight:800; color:#1a3c4e;
+      margin-bottom:4px;
+    }
+    .pup-price span { font-size:14px; color:var(--text-light); font-weight:400; margin-left:4px; }
+    .pup-price-old {
+      font-size:15px; color:var(--text-light); text-decoration:line-through; margin-bottom:16px;
     }
 
-    /* Infos achat */
-    .product-detail h1 { font-size: 24px; font-weight: 800; margin-bottom: 8px; line-height: 1.3; }
-    .product-detail .meta { display: flex; gap: 8px; align-items: center; margin-bottom: 14px; flex-wrap: wrap; }
-    .product-detail .meta span { font-size: 12px; background: var(--primary-light); color: var(--primary); padding: 3px 10px; border-radius: 20px; }
-    .big-price { font-size: 30px; font-weight: 800; color: var(--primary); }
-    .old-price { font-size: 17px; color: var(--text-light); text-decoration: line-through; margin-left: 10px; }
-    .qty-row { display: flex; align-items: center; gap: 12px; margin: 18px 0; }
-    .qty-input { display: flex; align-items: center; border: 1px solid var(--border); overflow: hidden; }
-    .qty-input button { width: 36px; height: 40px; background: var(--bg); border: none; font-size: 18px; cursor: pointer; transition: background 0.15s; }
-    .qty-input button:hover { background: var(--primary); color: #fff; }
-    .qty-input input { width: 52px; height: 40px; text-align: center; border: none; border-left: 1px solid var(--border); border-right: 1px solid var(--border); font-size: 15px; }
-    .add-btn { background: var(--primary); color: #fff; border: none; padding: 12px 28px; font-size: 15px; font-weight: 700; cursor: pointer; transition: 0.2s; display: inline-flex; align-items: center; gap: 8px; }
-    .add-btn:hover { background: var(--primary-dark); }
-    .rx-notice { background: #fff5f5; border: 1px solid #feb2b2; color: #c53030; padding: 12px 16px; margin: 14px 0; font-size: 13px; }
-
-    /* ── Variant selector ── */
-    .variant-selector { margin-bottom: 16px; }
-    .variant-label { font-size: 13px; font-weight: 700; color: var(--text); margin-bottom: 10px; }
-    .variant-options { display: flex; flex-wrap: wrap; gap: 8px; }
-    .variant-btn {
-      padding: 9px 16px;
-      border: 2px solid var(--border);
-      background: #fff;
-      cursor: pointer;
-      font-size: 13px;
-      font-weight: 600;
-      color: var(--text);
-      transition: 0.15s;
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      position: relative;
-      font-family: inherit;
+    /* Action buttons */
+    .pup-btn-reserve {
+      width:100%; padding:13px; background:var(--primary); color:#fff;
+      border:none; font-size:15px; font-weight:700; cursor:pointer;
+      border-radius:6px; margin-bottom:8px; transition:0.2s; font-family:inherit;
     }
-    .variant-btn:hover { border-color: var(--primary); color: var(--primary); background: var(--primary-light); }
-    .variant-btn.selected { border-color: var(--primary); background: var(--primary); color: #fff; }
-    .variant-btn.selected .variant-discount { background: rgba(255,255,255,0.25); color: #fff; }
-    .variant-discount {
-      font-size: 11px;
-      font-weight: 700;
-      background: #fff0f0;
-      color: #e53e3e;
-      padding: 1px 6px;
-      border-radius: 10px;
+    .pup-btn-reserve:hover { background:var(--primary-dark); }
+    .pup-btn-enquire {
+      width:100%; padding:12px; background:#fff; color:var(--primary);
+      border:2px solid var(--primary); font-size:14px; font-weight:700;
+      cursor:pointer; border-radius:6px; transition:0.2s; font-family:inherit;
+    }
+    .pup-btn-enquire:hover { background:var(--primary-light); }
+    .pup-out-btn {
+      width:100%; padding:13px; background:#e2e8f0; color:#718096;
+      border:none; font-size:15px; font-weight:700;
+      border-radius:6px; cursor:not-allowed; font-family:inherit;
     }
 
-    /* ── BOTTOM SECTION : description pleine largeur ── */
-    .product-bottom {
-      border-top: 2px solid var(--border);
-      padding: 40px 0 60px;
+    /* Guarantee card */
+    .pup-guarantee {
+      background:#f8fafc; border:1px solid var(--border);
+      border-radius:8px; padding:14px 16px;
+      display:flex; align-items:center; gap:12px;
+      font-size:13px; font-weight:600; color:#1a3c4e;
+    }
+    .pup-guarantee svg { flex-shrink:0; color:var(--secondary); }
+    .sh-select {
+      width:100%; margin-top:8px; padding:9px 10px;
+      border:1px solid var(--border); font-size:13px; outline:none;
+      font-family:inherit; color:var(--text); border-radius:4px; cursor:pointer;
     }
 
-    .product-bottom-tabs {
-      display: flex;
-      border-bottom: 2px solid var(--border);
-      gap: 0;
-      margin-bottom: 32px;
+    /* Optional services */
+    .pup-services-card {
+      background:#fff; border:2px solid var(--accent);
+      border-radius:8px; padding:14px 16px;
     }
-    .tab-btn {
-      padding: 12px 28px;
-      border: none;
-      background: none;
-      cursor: pointer;
-      font-size: 14px;
-      font-weight: 600;
-      color: var(--text-light);
-      border-bottom: 3px solid transparent;
-      margin-bottom: -2px;
-      transition: color 0.2s;
+    .pup-services-card .sv-title {
+      font-size:13px; font-weight:700; color:var(--accent); margin-bottom:10px;
     }
-    .tab-btn.active { color: var(--primary); border-bottom-color: var(--primary); }
-    .tab-content { display: none; }
-    .tab-content.active { display: block; }
-
-    /* Description HTML riche */
-    .product-description { max-width: 820px; font-size: 15px; color: #2d3748; line-height: 1.85; }
-    .product-description h1 { font-size: 22px; font-weight: 800; color: #1a202c; margin: 0 0 20px; text-align: center; }
-    .product-description h2 { font-size: 17px; font-weight: 700; color: #1a202c; margin: 28px 0 10px; padding-bottom: 6px; border-bottom: 1px solid #e2e8f0; }
-    .product-description h3 { font-size: 15px; font-weight: 700; color: #2d3748; margin: 20px 0 8px; }
-    .product-description p { margin-bottom: 14px; }
-    .product-description ul, .product-description ol { padding-left: 22px; margin-bottom: 14px; }
-    .product-description li { margin-bottom: 6px; }
-    .product-description strong { font-weight: 700; }
-    .product-description em { font-style: italic; }
-
-    /* Spec table */
-    .spec-table { width: 100%; max-width: 600px; border-collapse: collapse; }
-    .spec-table tr:nth-child(even) { background: var(--bg); }
-    .spec-table td { padding: 10px 14px; font-size: 14px; border-bottom: 1px solid var(--border); }
-    .spec-table td:first-child { font-weight: 600; width: 40%; }
-
-    /* Tags */
-    .product-tags { margin-top: 28px; }
-    .product-tags .tags-label { font-size: 12px; font-weight: 700; color: #718096; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 10px; }
-    .product-tags .tags-list { display: flex; flex-wrap: wrap; gap: 8px; }
-    .product-tags a { display: inline-block; background: #f0f4f8; color: #4a5568; font-size: 12px; padding: 5px 14px; border: 1px solid #e2e8f0; text-decoration: none; transition: 0.2s; }
-    .product-tags a:hover { background: var(--primary-light); color: var(--primary); border-color: var(--primary); }
-
-    @media(max-width: 900px) {
-      .product-top { grid-template-columns: 1fr; gap: 24px; }
-      .product-gallery { position: static; }
-      .main-img { aspect-ratio: 4 / 3; }
+    .sv-item {
+      display:flex; align-items:center; gap:10px;
+      padding:7px 0; border-bottom:1px solid #f0f0f0;
+      font-size:13px; color:#4a5568; cursor:pointer;
     }
-    @media(max-width: 600px) {
-      .product-top { padding: 20px 0 24px; }
-      .product-bottom { padding: 24px 0 40px; }
-      .tab-btn { padding: 10px 16px; font-size: 13px; }
+    .sv-item:last-child { border-bottom:none; }
+    .sv-item input[type=checkbox] { accent-color:var(--primary); width:16px; height:16px; cursor:pointer; }
+    .sv-item label { cursor:pointer; flex:1; }
+    .sv-item .sv-price { font-weight:700; color:#1a3c4e; white-space:nowrap; }
+
+    /* Total card */
+    .pup-total-card {
+      background:#fff; border:1px solid var(--border);
+      border-radius:8px; padding:14px 16px;
+    }
+    .pup-total-row {
+      display:flex; justify-content:space-between; align-items:center;
+      margin-bottom:4px;
+    }
+    .pup-total-label { font-size:13px; font-weight:700; color:#1a3c4e; }
+    .pup-total-val { font-size:20px; font-weight:800; color:#1a3c4e; }
+    .pup-total-sub { font-size:11px; color:var(--text-light); }
+
+    /* Included */
+    .pup-included { margin-top:10px; display:flex; flex-direction:column; gap:5px; }
+    .pup-included-row {
+      display:flex; align-items:center; gap:8px;
+      font-size:12px; color:#4a5568;
+    }
+    .pup-included-row .inc-icon { color:var(--secondary); font-size:14px; flex-shrink:0; }
+    .pup-included-row .inc-free {
+      margin-left:auto; font-size:11px;
+      text-decoration:line-through; color:var(--text-light); margin-right:4px;
+    }
+    .pup-included-row .inc-tag {
+      margin-left:auto; font-size:11px; font-weight:700;
+      color:var(--secondary); background:#f0fff4; padding:1px 7px; border-radius:10px;
+    }
+
+    /* Donate card */
+    .pup-donate-card {
+      background:#f8fafc; border:1px solid var(--border);
+      border-radius:8px; padding:14px 16px;
+    }
+    .pup-donate-card h4 { font-size:13px; font-weight:700; color:#1a3c4e; margin-bottom:6px; }
+    .pup-donate-card p { font-size:12px; color:var(--text-light); line-height:1.6; margin-bottom:10px; }
+    .pup-donate-select {
+      width:100%; padding:8px 10px; border:1px solid var(--border);
+      font-size:13px; outline:none; font-family:inherit; border-radius:4px;
+    }
+
+    /* ══ BOTTOM SECTIONS ══ */
+
+    /* — Commitment banner — */
+    .pup-commitment {
+      background: #eef2f5; border-radius: 12px;
+      padding: 36px 40px; margin: 48px 0;
+    }
+    .pup-commitment-inner {
+      display: flex; align-items: flex-start; gap: 32px;
+    }
+    .pup-commit-icon { flex-shrink: 0; opacity: .7; }
+    .pup-commit-body h3 {
+      font-size: 22px; font-weight: 700; color: #1a3c4e;
+      margin-bottom: 14px;
+    }
+    .pup-commit-body p {
+      font-size: 14px; color: #5a7080; line-height: 1.8; margin-bottom: 16px;
+    }
+    .pup-commit-link {
+      display: inline-block;
+      border: 1.5px solid var(--secondary);
+      color: var(--secondary); padding: 8px 18px;
+      font-size: 13px; font-weight: 600; text-decoration: none;
+      border-radius: 4px; transition: 0.2s;
+    }
+    .pup-commit-link:hover { background: var(--secondary); color: #fff; }
+
+    /* — Breed reviews carousel — */
+    .pup-breed-reviews { padding: 0 0 60px; }
+    .pup-reviews-title {
+      font-size: 22px; font-weight: 700; color: #1a3c4e;
+      text-align: center; margin-bottom: 32px; line-height: 1.4;
+    }
+    .pup-reviews-title em { font-style: italic; color: var(--secondary); }
+
+    .pbr-carousel { overflow: hidden; }
+    .pbr-track {
+      display: flex; transition: transform 0.5s cubic-bezier(0.4,0,0.2,1);
+    }
+    .pbr-slide {
+      min-width: 100%; display: grid;
+      grid-template-columns: 340px 1fr; gap: 40px; align-items: start;
+    }
+    .pbr-img {
+      width: 100%; aspect-ratio: 4/3;
+      object-fit: cover; border-radius: 10px;
+    }
+    .pbr-img-placeholder {
+      width: 100%; aspect-ratio: 4/3;
+      background: #eef2f5; border-radius: 10px;
+      display: flex; align-items: center; justify-content: center; font-size: 56px; opacity: .4;
+    }
+    .pbr-quote { font-size: 48px; color: #1a3c4e; line-height: 1; margin-bottom: 12px; font-family: Georgia, serif; }
+    .pbr-text {
+      font-size: 14px; color: #4a5568; line-height: 1.8; margin-bottom: 14px;
+      display: -webkit-box; -webkit-line-clamp: 8; -webkit-box-orient: vertical; overflow: hidden;
+    }
+    .pbr-text.expanded { -webkit-line-clamp: unset; overflow: visible; }
+    .pbr-read-more {
+      font-size: 13px; color: var(--secondary); font-weight: 600;
+      background: none; border: none; cursor: pointer; padding: 0; font-family: inherit;
+      text-decoration: underline;
+    }
+    .pbr-author { margin-top: 16px; }
+    .pbr-author strong { font-size: 14px; font-weight: 700; color: #1a3c4e; display: block; }
+    .pbr-author span { font-size: 12px; color: var(--text-light); }
+
+    .pbr-dots {
+      display: flex; justify-content: center; gap: 10px; margin-top: 28px;
+    }
+    .pbr-dot {
+      width: 12px; height: 12px; border-radius: 50%;
+      background: #c0cdd5; cursor: pointer; border: none;
+      transition: background 0.2s, transform 0.2s;
+    }
+    .pbr-dot.active { background: var(--secondary); transform: scale(1.25); }
+
+    /* — Related puppies carousel — */
+    .pup-related-section { padding: 0 0 12px; }
+    .pup-related-title {
+      font-size: 22px; font-weight: 700; color: #1a3c4e;
+      text-align: center; margin-bottom: 28px;
+    }
+    .pup-related-title em { font-style: italic; color: var(--secondary); }
+
+    .pup-related-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px;
+    }
+    .pup-related-card { cursor: pointer; border-radius: 12px; overflow: hidden; }
+    .prc-img {
+      position: relative; aspect-ratio: 4/3; overflow: hidden;
+      background: #eef2f5;
+    }
+    .prc-img img {
+      width: 100%; height: 100%; object-fit: cover;
+      transition: transform 0.4s;
+    }
+    .pup-related-card:hover .prc-img img { transform: scale(1.06); }
+    .prc-placeholder { display: flex; align-items: center; justify-content: center; height: 100%; font-size: 56px; opacity: .3; }
+    .prc-overlay {
+      position: absolute; bottom: 0; left: 0; right: 0;
+      background: linear-gradient(transparent, rgba(0,0,0,0.72));
+      padding: 28px 14px 14px; color: #fff;
+    }
+    .prc-name { font-size: 15px; font-weight: 700; margin-bottom: 3px; }
+    .prc-meta { font-size: 12px; opacity: .85; }
+
+    .pup-related-dots {
+      display: flex; justify-content: center; gap: 10px; margin-top: 20px;
+    }
+
+    /* — Shared buttons — */
+    .pup-more-btn {
+      display: inline-block; padding: 11px 28px;
+      border: 2px solid var(--primary); color: var(--primary);
+      font-size: 14px; font-weight: 700; text-decoration: none;
+      border-radius: 30px; transition: 0.2s; background: #fff;
+    }
+    .pup-more-btn:hover { background: var(--primary); color: #fff; }
+    .pup-more-btn-green { border-color: var(--secondary); color: var(--secondary); }
+    .pup-more-btn-green:hover { background: var(--secondary); color: #fff; }
+
+    @media (max-width: 700px) {
+      .pup-commitment-inner { flex-direction: column; gap: 16px; }
+      .pbr-slide { grid-template-columns: 1fr; gap: 20px; }
+      .pup-related-grid { grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 480px) {
+      .pup-related-grid { grid-template-columns: 1fr; }
+    }
+
+    /* ══ LIGHTBOX ══ */
+    .lb { display:none; position:fixed; inset:0; background:rgba(0,0,0,0.93); z-index:1000; align-items:center; justify-content:center; cursor:zoom-out; }
+    .lb.open { display:flex; }
+    .lb img { max-width:92vw; max-height:92vh; object-fit:contain; border-radius:6px; }
+    .lb-close { position:absolute; top:18px; right:22px; color:#fff; font-size:36px; cursor:pointer; background:none; border:none; opacity:.8; }
+    .lb-prev, .lb-next { position:absolute; top:50%; transform:translateY(-50%); background:rgba(255,255,255,.15); border:none; color:#fff; font-size:32px; width:50px; height:50px; cursor:pointer; display:flex; align-items:center; justify-content:center; border-radius:0; }
+    .lb-prev { left:16px; } .lb-next { right:16px; }
+    .lb-prev:hover, .lb-next:hover { background:rgba(255,255,255,.3); }
+
+    @media(max-width:960px) {
+      .pup-grid { grid-template-columns:1fr; }
+      .pup-panel { position:static; }
+    }
+    @media(max-width:600px) {
+      .pup-thumb { width:54px; height:44px; }
+      .pup-panel-name { font-size:17px; }
+      .pup-price { font-size:22px; }
     }
   </style>
 </head>
@@ -154,53 +373,78 @@
 <header class="header">
   <div class="header-main">
     <div class="container">
-      <a href="/" class="logo"><div id="logo-container"><svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 3H5a2 2 0 0 0-2 2v4m6-6h10a2 2 0 0 1 2 2v4M9 3v18m0 0h10a2 2 0 0 0 2-2V9M9 21H5a2 2 0 0 1-2-2V9m0 0h18"/></svg></div><div class="logo-text"><span class="site-name" id="site-name">13-Pills</span></div></a>
-      <div class="search-bar"><input type="text" id="search-input" placeholder="Rechercher..."><button onclick="doSearch()"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></button></div>
-      <div class="header-actions"><button class="cart-btn" id="cart-btn-header" aria-label="Ouvrir le panier"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg><span class="cart-count" id="cart-count">0</span></button></div>
-    </div>
-  </div>
-  <nav class="nav"><div class="container">
-    <button class="nav-toggle" id="nav-toggle" aria-label="Menu"><span></span><span></span><span></span></button>
-    <div class="nav-links" id="nav-links">
-      <div class="drawer-header">Menu <button class="drawer-close" id="drawer-close">×</button></div>
-      <a href="/">Home</a><a href="/shop.html">Shop</a><a href="/shipping.html">Shipping</a>
-    </div>
-  </div></nav>
-</header>
-
-<div class="container">
-  <div id="breadcrumb" style="padding:16px 0;font-size:13px;color:var(--text-light)">
-    <a href="/">Home</a> › <a href="/shop.html">Shop</a> › <span id="bc-name">...</span>
-  </div>
-
-  <!-- TOP : image + infos achat -->
-  <div id="product-top" class="product-top">
-    <div class="loading" style="grid-column:1/-1"><div class="spinner"></div></div>
-  </div>
-
-  <!-- BOTTOM : onglets description / specs -->
-  <div id="product-bottom" class="product-bottom" style="display:none">
-    <div class="product-bottom-tabs">
-      <button class="tab-btn active" onclick="showTab('description',this)">Description</button>
-      <button class="tab-btn" onclick="showTab('specs',this)">Specifications</button>
-    </div>
-    <div class="tab-content active" id="tab-description">
-      <div class="product-description" id="desc-content"></div>
-    </div>
-    <div class="tab-content" id="tab-specs">
-      <table class="spec-table" id="spec-content"></table>
-      <div class="product-tags" id="tags-content" style="display:none">
-      <div class="tags-label">Tags</div>
-        <div class="tags-list" id="tags-list"></div>
+      <a href="/" class="logo">
+        <div id="logo-container">
+          <svg xmlns="http://www.w3.org/2000/svg" width="42" height="42" viewBox="0 0 64 64" fill="none">
+            <ellipse cx="32" cy="40" rx="18" ry="14" fill="var(--primary)" opacity=".9"/>
+            <ellipse cx="32" cy="40" rx="11" ry="8" fill="#fff" opacity=".25"/>
+            <ellipse cx="18" cy="24" rx="5.5" ry="7" fill="var(--primary)"/>
+            <ellipse cx="46" cy="24" rx="5.5" ry="7" fill="var(--primary)"/>
+            <ellipse cx="26" cy="18" rx="4.5" ry="6" fill="var(--primary)"/>
+            <ellipse cx="38" cy="18" rx="4.5" ry="6" fill="var(--primary)"/>
+          </svg>
+        </div>
+        <div class="logo-text"><span class="site-name" id="site-name">Paw Puppies</span></div>
+      </a>
+      <div class="search-bar">
+        <input type="text" id="search-input" placeholder="Search puppies...">
+        <button onclick="doSearch()">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+        </button>
+      </div>
+      <div class="header-actions">
+        <!-- Cart hidden on puppy detail page -->
       </div>
     </div>
   </div>
-
-  <!-- Produits similaires -->
-  <div style="margin-top:48px;padding-bottom:60px">
-    <h2 style="font-size:20px;font-weight:700;margin-bottom:20px">Similar Products</h2>
-    <div class="products-grid" id="related-products"></div>
+  <nav class="nav">
+    <div class="container">
+      <button class="nav-toggle" id="nav-toggle" aria-label="Menu"><span></span><span></span><span></span></button>
+      <div class="nav-links" id="nav-links">
+        <div class="drawer-header">Menu <button class="drawer-close" id="drawer-close">×</button></div>
+        <a href="/">Home</a>
+        <a href="/shop.html">Available Puppies</a>
+        <a href="/breeds.html">Explore Breeds</a>
+        <a href="/reviews.html">Customer Reviews</a>
+        <div class="nav-dropdown">
+          <a href="#" class="nav-dropdown-toggle" onclick="toggleNavDropdown(event,this)">Our Services <span class="nav-arrow">&#9662;</span></a>
+          <div class="nav-dropdown-menu">
+            <a href="/easy-ordering.html"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg> Easy Ordering</a>
+            <a href="/about.html"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg> About Us</a>
+            <a href="/contact.html"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.63 3.18 2 2 0 0 1 3.6 1h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.6a16 16 0 0 0 6 6l.96-.96a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/></svg> Contact</a>
+            <a href="/shipping.html"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="3" width="15" height="13" rx="1"/><path d="M16 8h4l3 3v5h-7V8z"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg> Shipping &amp; Delivery</a>
+            <a href="/guarantee.html"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><polyline points="9 12 11 14 15 10"/></svg> Health Guarantee</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </nav>
+</header>
   </div>
+</div>
+
+
+<div class="container">
+  <!-- Breadcrumb -->
+  <div class="pup-breadcrumb" id="pup-breadcrumb">
+    <a href="/">Home</a> /
+    <a href="/shop.html">Puppies for sale</a> /
+    <span id="bc-breed">...</span> /
+    <span id="bc-name">...</span>
+  </div>
+
+  <!-- Main content injected here -->
+  <div id="pup-content">
+    <div class="loading"><div class="spinner"></div></div>
+  </div>
+</div>
+
+<!-- Lightbox -->
+<div class="lb" id="lb" onclick="closeLb()">
+  <button class="lb-close" onclick="closeLb()">×</button>
+  <button class="lb-prev" onclick="event.stopPropagation();lbNav(-1)">&#8249;</button>
+  <img id="lb-img" src="" alt="">
+  <button class="lb-next" onclick="event.stopPropagation();lbNav(1)">&#8250;</button>
 </div>
 
 <div class="toast" id="toast"></div>
@@ -209,282 +453,438 @@
 const productId = new URLSearchParams(location.search).get('id');
 if (!productId) location.href = '/shop.html';
 
-async function loadProduct() {
-  try {
+let _imgs = [], _lbIdx = 0;
+
+// ── optional service add-ons ──
+const SERVICES = [
+  { id:'pedigree',    label:'Export Pedigree',         price:150 },
+  { id:'training',    label:'Residential Training',    price:900 },
+  { id:'tag',         label:'Paw Puppies ID Tag',          price:20  },
+  { id:'guarantee',   label:'Refund Guarantee',        price:1290},
+];
+
+function switchPhoto(thumbEl, src, idx) {
+  document.getElementById('pup-main-photo').src = src;
+  document.querySelectorAll('.pup-thumb').forEach(t => t.classList.remove('active'));
+  thumbEl.classList.add('active');
+  _lbIdx = idx;
+}
+function openLb(src) {
+  _lbIdx = _imgs.indexOf(src);
+  if (_lbIdx < 0) _lbIdx = 0;
+  document.getElementById('lb-img').src = src;
+  document.getElementById('lb').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+function closeLb() {
+  document.getElementById('lb').classList.remove('open');
+  document.body.style.overflow = '';
+}
+function lbNav(dir) {
+  if (!_imgs.length) return;
+  _lbIdx = (_lbIdx + dir + _imgs.length) % _imgs.length;
+  document.getElementById('lb-img').src = _imgs[_lbIdx];
+  document.getElementById('pup-main-photo').src = _imgs[_lbIdx];
+  document.querySelectorAll('.pup-thumb').forEach((t,i) => t.classList.toggle('active', i===_lbIdx));
+}
+document.addEventListener('keydown', e => {
+  if (!document.getElementById('lb').classList.contains('open')) return;
+  if (e.key==='ArrowRight') lbNav(1);
+  if (e.key==='ArrowLeft')  lbNav(-1);
+  if (e.key==='Escape')     closeLb();
+});
+
+function recalcTotal() {
+  const base = parseFloat(document.getElementById('pup-base-price')?.dataset.price || 0);
+  let extra = 0;
+  SERVICES.forEach(s => {
+    const cb = document.getElementById('svc-'+s.id);
+    if (cb && cb.checked) extra += s.price;
+  });
+  const symbol = (siteSettings && siteSettings.currency_symbol) || '£';
+  const total = base + extra;
+  const el = document.getElementById('pup-total-val');
+  if (el) el.textContent = `${total.toLocaleString('en-GB', {minimumFractionDigits:0})} ${symbol}`;
+}
+
+async function loadProduct() {  try {
     const res = await fetch(`/api/products/${productId}`);
     if (!res.ok) { location.href = '/shop.html'; return; }
     const p = await res.json();
 
-    document.getElementById('bc-name').textContent = p.name;
+    // SEO
+    const metaTitle = p.meta_title || `${p.name} Puppy for Sale — Paw Puppies`;
+    const metaDesc  = p.meta_description || p.short_description
+      ? `${p.name} puppy for sale. ${(p.meta_description || p.short_description || '').slice(0,120)}. Health guaranteed, worldwide delivery. Reserve today.`
+      : `${p.name} puppy for sale at Paw Puppies. Health guaranteed, worldwide delivery to 110+ countries. Reserve your puppy today with free 24h cancellation.`;
+    const canonical = `https://Paw Puppies.com/product.html?id=${p.id}`;
+    const img = (p.images && p.images[0]) || 'https://Paw Puppies.com/images/hero-dachshund.jpg';
 
-    // ── SEO meta tags ──
-    const metaTitle = p.meta_title || `${p.name} - Buy Online | 13-Pills`;
-    const metaDesc  = p.meta_description || p.short_description || `Buy ${p.name} online. Fast discreet delivery.`;
     document.title = metaTitle;
+    document.getElementById('page-title').textContent = metaTitle;
+    document.getElementById('meta-description').content  = metaDesc;
+    document.getElementById('meta-canonical').href       = canonical;
+    document.getElementById('og-title').content          = metaTitle;
+    document.getElementById('og-description').content    = metaDesc;
+    document.getElementById('og-url').content            = canonical;
+    document.getElementById('og-image').content          = img;
+    document.getElementById('tw-title').content          = metaTitle;
+    document.getElementById('tw-image').content          = img;
 
-    let metaDescEl = document.querySelector('meta[name="description"]');
-    if (!metaDescEl) { metaDescEl = document.createElement('meta'); metaDescEl.name = 'description'; document.head.appendChild(metaDescEl); }
-    metaDescEl.content = metaDesc;
-
-    // Canonical
-    let canonical = document.querySelector('link[rel="canonical"]');
-    if (!canonical) { canonical = document.createElement('link'); canonical.rel = 'canonical'; document.head.appendChild(canonical); }
-    canonical.href = `${location.origin}/product.html?id=${p.slug || p.id}`;
-
-    if (p.tags && p.tags.length) {
-      let metaKw = document.querySelector('meta[name="keywords"]');
-      if (!metaKw) { metaKw = document.createElement('meta'); metaKw.name = 'keywords'; document.head.appendChild(metaKw); }
-      metaKw.content = p.tags.join(', ');
-    }
-
-    // Open Graph
-    let ogTitle = document.querySelector('meta[property="og:title"]');
-    if (!ogTitle) { ogTitle = document.createElement('meta'); ogTitle.setAttribute('property','og:title'); document.head.appendChild(ogTitle); }
-    ogTitle.content = metaTitle;
-
-    let ogDesc = document.querySelector('meta[property="og:description"]');
-    if (!ogDesc) { ogDesc = document.createElement('meta'); ogDesc.setAttribute('property','og:description'); document.head.appendChild(ogDesc); }
-    ogDesc.content = metaDesc;
-
-    let ogType = document.querySelector('meta[property="og:type"]');
-    if (!ogType) { ogType = document.createElement('meta'); ogType.setAttribute('property','og:type'); document.head.appendChild(ogType); }
-    ogType.content = 'product';
-
-    if (p.images && p.images[0]) {
-      let ogImg = document.querySelector('meta[property="og:image"]');
-      if (!ogImg) { ogImg = document.createElement('meta'); ogImg.setAttribute('property','og:image'); document.head.appendChild(ogImg); }
-      ogImg.content = p.images[0];
-    }
-
-    // JSON-LD Product schema — uses hasDiscount/displayPrice declared below
-    const hasDiscount = p.sale_price && p.sale_price < p.price;
-    const displayPrice = hasDiscount ? p.sale_price : p.price;
-    const discountPct = hasDiscount ? Math.round((1 - p.sale_price / p.price) * 100) : 0;
-    const hasVariants = p.variants && p.variants.length > 0;
-    const symbol = (siteSettings && siteSettings.currency_symbol) || '€';
-
-    const ldJson = {
+    // JSON-LD Product schema
+    const ldScript = document.createElement('script');
+    ldScript.type = 'application/ld+json';
+    ldScript.text = JSON.stringify({
       "@context": "https://schema.org",
       "@type": "Product",
       "name": p.name,
-      "description": p.short_description || p.description || '',
-      "image": p.images || [],
-      "sku": p.sku || String(p.id),
-      "brand": p.brand ? { "@type": "Brand", "name": p.brand } : undefined,
+      "description": metaDesc,
+      "image": img,
+      "url": canonical,
+      "brand": p.brand ? {"@type":"Brand","name":p.brand} : undefined,
       "offers": {
         "@type": "Offer",
-        "url": canonical.href,
-        "priceCurrency": (siteSettings && siteSettings.currency) || "GBP",
-        "price": parseFloat(displayPrice).toFixed(2),
+        "price": p.sale_price || p.price,
+        "priceCurrency": "GBP",
         "availability": p.stock > 0 ? "https://schema.org/InStock" : "https://schema.org/OutOfStock",
-        "seller": { "@type": "Organization", "name": "13-Pills" }
+        "url": canonical,
+        "seller": {"@type":"Organization","name":"Paw Puppies"}
+      },
+      "breadcrumb": {
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          {"@type":"ListItem","position":1,"name":"Home","item":"https://Paw Puppies.com"},
+          {"@type":"ListItem","position":2,"name":"Available Puppies","item":"https://Paw Puppies.com/shop.html"},
+          {"@type":"ListItem","position":3,"name":p.name,"item":canonical}
+        ]
       }
-    };
-    let ldScript = document.querySelector('script[data-type="product-ld"]');
-    if (!ldScript) { ldScript = document.createElement('script'); ldScript.type = 'application/ld+json'; ldScript.setAttribute('data-type','product-ld'); document.head.appendChild(ldScript); }
-    ldScript.textContent = JSON.stringify(ldJson);
+    });
+    document.head.appendChild(ldScript);
 
-    // ── TOP : image + infos achat ──
-    const imgHtml = p.images && p.images.length
-      ? `<img src="${p.images[0]}" alt="${p.name}" onerror="this.parentElement.innerHTML='<svg xmlns=\\'http://www.w3.org/2000/svg\\' width=\\'80\\' height=\\'80\\' viewBox=\\'0 0 24 24\\' fill=\\'none\\' stroke=\\'%23ccc\\' stroke-width=\\'1\\' stroke-linecap=\\'round\\' stroke-linejoin=\\'round\\'><path d=\\'M9 3H5a2 2 0 0 0-2 2v4m6-6h10a2 2 0 0 1 2 2v4M9 3v18m0 0h10a2 2 0 0 0 2-2V9M9 21H5a2 2 0 0 1-2-2V9m0 0h18\\'></path></svg>'">`
-      : `<svg xmlns="http://www.w3.org/2000/svg" width="80" height="80" viewBox="0 0 24 24" fill="none" stroke="#ccc" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"><path d="M9 3H5a2 2 0 0 0-2 2v4m6-6h10a2 2 0 0 1 2 2v4M9 3v18m0 0h10a2 2 0 0 0 2-2V9M9 21H5a2 2 0 0 1-2-2V9m0 0h18"></path></svg>`;
+    document.getElementById('bc-breed').textContent = p.category_name || 'All Breeds';
+    document.getElementById('bc-name').textContent  = p.name;
+    document.getElementById('bc-breed').onclick = () => location.href=`/shop.html?category=${p.category_slug||''}`;
+    document.getElementById('bc-breed').style.cursor = 'pointer';
 
-    document.getElementById('product-top').innerHTML = `
-      <div class="product-gallery">
-        <div class="main-img">${imgHtml}</div>
-      </div>
-      <div class="product-detail">
-        <div class="meta">
-          ${p.category_name ? `<span>${p.category_name}</span>` : ''}
-          ${p.brand ? `<span>${p.brand}</span>` : ''}
-          ${p.requires_prescription ? '<span style="background:#fff5f5;color:#c53030">Prescription required</span>' : ''}
-          ${hasDiscount ? `<span style="background:#fff5f5;color:#c53030">-${discountPct}%</span>` : ''}
-        </div>
-        <h1>${p.name}</h1>
-        ${p.short_description ? `<p style="color:var(--text-light);font-size:14px;margin-bottom:14px;line-height:1.6">${p.short_description}</p>` : ''}
-        ${p.requires_prescription ? '<div class="rx-notice">This medication requires a valid prescription. Your prescription will be requested upon delivery.</div>' : ''}
-        <div style="margin:16px 0">
-          <span class="big-price" id="display-price">${formatPrice(displayPrice)}</span>
-          ${!hasVariants && hasDiscount ? `<span class="old-price">${formatPrice(p.price)}</span>` : ''}
-        </div>
-        <div style="font-size:14px;margin-bottom:16px" id="stock-status">
-          ${p.stock > 0
-            ? `<span style="color:var(--secondary);display:inline-flex;align-items:center;gap:6px"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> In stock (${p.stock} available)</span>`
-            : '<span style="color:#e53e3e;display:inline-flex;align-items:center;gap:6px"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg> Out of stock</span>'}
+    const symbol = (siteSettings && siteSettings.currency_symbol) || '£';
+    const hasDiscount = p.sale_price && p.sale_price < p.price;
+    const displayPrice = hasDiscount ? p.sale_price : p.price;
+    const inStock = p.stock > 0;
+
+    // Images
+    _imgs = (p.images && p.images.length) ? p.images : [];
+    const firstImg = _imgs[0] || '';
+
+    const mainImgHtml = firstImg
+      ? `<img id="pup-main-photo" src="${firstImg}" alt="${p.name}" onclick="openLb(this.src)">`
+      : `<div style="height:340px;display:flex;align-items:center;justify-content:center;font-size:80px;opacity:.2">🐶</div>`;
+
+    const thumbsHtml = _imgs.length > 1
+      ? `<div class="pup-thumbs">${_imgs.map((img,i) =>
+          `<div class="pup-thumb${i===0?' active':''}" onclick="switchPhoto(this,'${img}',${i})">
+             <img src="${img}" alt="Photo ${i+1}" loading="lazy">
+           </div>`).join('')}</div>`
+      : '';
+
+    // Specs rows
+    const specs = [
+      { label:'Breed',            val: p.category_name },
+      { label:'Gender',           val: p.brand },          // reused field
+      { label:'Colour',           val: p.dosage },          // reused field
+      { label:'Age',              val: p.package_size },    // reused field
+      { label:'Date of birth',    val: p.sku },             // reused field
+    ].filter(s => s.val);
+
+    const specsHtml = specs.length
+      ? `<table class="pup-specs-table">
+          ${specs.map(s => `<tr><td>${s.label}</td><td>${s.val}</td></tr>`).join('')}
+        </table>`
+      : '';
+
+    // Services checkboxes
+    const servicesHtml = `
+      <div class="pup-services-card">
+        <div class="sv-title">Optional services</div>
+        ${SERVICES.map(s => `
+          <div class="sv-item">
+            <input type="checkbox" id="svc-${s.id}" onchange="recalcTotal()">
+            <label for="svc-${s.id}">${s.label}</label>
+            <span class="sv-price">${s.price} ${symbol}</span>
+          </div>`).join('')}
+      </div>`;
+
+    // Included list
+    const includedHtml = `
+      <div class="pup-included">
+        <div class="pup-included-row"><span class="inc-icon">✅</span> Health certificate <span class="inc-free">75€</span><span class="inc-tag">FREE</span></div>
+        <div class="pup-included-row"><span class="inc-icon">✅</span> ISO Microchip <span class="inc-tag">INCLUDED</span></div>
+        <div class="pup-included-row"><span class="inc-icon">✅</span> Travel crate <span class="inc-tag">INCLUDED</span></div>
+        <div class="pup-included-row"><span class="inc-icon">✅</span> Lifetime health guarantee <span class="inc-tag">INCLUDED</span></div>
+        <div class="pup-included-row"><span class="inc-icon">✅</span> FCI Pedigree <span class="inc-tag">INCLUDED</span></div>
+      </div>`;
+
+    // Assemble page
+    document.getElementById('pup-content').innerHTML = `
+      <div class="pup-grid">
+
+        <!-- ── LEFT ── -->
+        <div class="pup-left">
+          <div class="pup-main-img-wrap" onclick="openLb('${firstImg}')">
+            ${mainImgHtml}
+            <div class="pup-zoom-icon">🔍</div>
+            <div class="pup-name-overlay">
+              ${firstImg ? `<img src="${firstImg}" alt="">` : '🐾'}
+              <div>
+                <div style="font-size:12px;font-weight:700">${p.name}</div>
+                <div style="font-size:10px;color:#718096;font-weight:400">Puppy for sale</div>
+              </div>
+            </div>
+          </div>
+          ${thumbsHtml}
+
+          <h2 class="pup-note-title">Puppy Note</h2>
+          <div class="pup-note-body">
+            ${p.description
+              ? p.description
+              : p.short_description
+                ? `<p>${p.short_description}</p>`
+                : '<p style="color:#a0aec0">No description available yet.</p>'}
+          </div>
+          ${specsHtml}
         </div>
 
-        ${hasVariants ? `
-        <div class="variant-selector">
-          <div class="variant-label">Quantity</div>
-          <div class="variant-options" id="variant-options">
-            ${p.variants.map((v, i) => `
-              <button class="variant-btn${i === 0 ? ' selected' : ''}"
-                data-idx="${i}"
-                data-price="${v.price}"
-                data-original="${v.original_price || ''}"
-                data-stock="${v.stock ?? p.stock}"
-                onclick="selectVariant(this, ${JSON.stringify(v).replace(/"/g, '&quot;')})">
-                ${v.label}
-                ${v.original_price && v.original_price > v.price
-                  ? `<span class="variant-discount">-${Math.round((1 - v.price / v.original_price) * 100)}%</span>`
-                  : ''}
+        <!-- ── RIGHT panel ── -->
+        <div class="pup-panel">
+
+          <!-- Title + price -->
+          <div class="pup-title-card">
+            <div class="pup-panel-name">${p.name}${p.category_name ? ` – ${p.category_name}` : ''}</div>
+            <div class="pup-panel-sub">Puppy for sale</div>
+            <div class="pup-price" id="pup-base-price" data-price="${displayPrice}">
+              ${parseFloat(displayPrice).toLocaleString('en-GB',{minimumFractionDigits:0})} ${symbol}
+              <span>(Puppy price)</span>
+            </div>
+            ${hasDiscount ? `<div class="pup-price-old">${parseFloat(p.price).toLocaleString('en-GB',{minimumFractionDigits:0})} ${symbol}</div>` : ''}
+            <div style="display:flex;gap:8px;margin-top:8px">
+              ${inStock
+                ? `<button class="pup-btn-reserve" onclick="location.href='/reserve.html?id=${p.id}'">
+                     Reserve Now
+                   </button>`
+                : `<button class="pup-out-btn" disabled>Unavailable</button>`}
+              <button class="pup-btn-enquire" onclick="location.href='/contact.html'">
+                Enquire about this puppy
               </button>
-            `).join('')}
+            </div>
           </div>
-        </div>
-        ` : ''}
 
-        <div class="qty-row">
-          <div class="qty-input">
-            <button onclick="changeQty(-1)">−</button>
-            <input type="number" id="qty" value="1" min="1" max="${hasVariants ? (p.variants[0]?.stock ?? p.stock) : p.stock}">
-            <button onclick="changeQty(1)">+</button>
+          <!-- Guarantee -->
+          <div class="pup-guarantee">
+            <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><polyline points="9 12 11 14 15 10"/></svg>
+            Lifetime health guarantee included
           </div>
-          <button class="add-btn" id="add-btn" ${(hasVariants ? (p.variants[0]?.stock ?? p.stock) : p.stock) === 0 ? 'disabled' : ''} onclick="addProductToCart()">
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
-            Add to Cart
-          </button>
+
+          <!-- Optional services -->
+          ${servicesHtml}
+
+          <!-- Total -->
+          <div class="pup-total-card">
+            <div class="pup-total-row">
+              <span class="pup-total-label">Total price</span>
+              <span class="pup-total-val" id="pup-total-val">
+                ${parseFloat(displayPrice).toLocaleString('en-GB',{minimumFractionDigits:0})} ${symbol}
+              </span>
+            </div>
+            <div class="pup-total-sub">All taxes included</div>
+            ${includedHtml}
+          </div>
+
+          <!-- Donate -->
+          <div class="pup-donate-card">
+            <h4>🐾 Help a shelter dog</h4>
+            <p>Would you like to help a less fortunate dog? Choose an amount and we will donate it to a local dog shelter.</p>
+            <select class="pup-donate-select">
+              <option value="">Donate...</option>
+              <option value="5">5 ${symbol}</option>
+              <option value="10">10 ${symbol}</option>
+              <option value="25">25 ${symbol}</option>
+              <option value="50">50 ${symbol}</option>
+            </select>
+          </div>
+
+        </div><!-- /panel -->
+      </div>
+
+      <!-- Related puppies -->
+      ${p.related && p.related.length ? `
+        <div class="pup-related-section">
+          <h2 class="pup-related-title">More <em>${p.category_name||'Puppies'}</em> for sale</h2>
+          <div class="pup-related-grid" id="pup-related-grid">
+            ${p.related.map(r => {
+              const img = r.images && r.images[0] ? r.images[0] : '';
+              const price = r.sale_price && r.sale_price < r.price ? r.sale_price : r.price;
+              const sym = (siteSettings&&siteSettings.currency_symbol)||'£';
+              return `
+              <div class="pup-related-card" onclick="location.href='/product.html?id=${r.id}'">
+                <div class="prc-img">
+                  ${img ? `<img src="${img}" alt="${r.name}" loading="lazy">` : `<div class="prc-placeholder">🐶</div>`}
+                  <div class="prc-overlay">
+                    <div class="prc-name">${r.name}</div>
+                    <div class="prc-meta">${p.category_name||''}${r.brand?' | '+r.brand:''} ${parseFloat(price).toLocaleString('en-GB',{minimumFractionDigits:0})} ${sym}</div>
+                  </div>
+                </div>
+              </div>`;
+            }).join('')}
+          </div>
+          <div class="pup-related-dots" id="pup-rel-dots"></div>
+          <div style="text-align:center;margin-top:28px">
+            <a href="/shop.html?category=${p.category_slug||''}" class="pup-more-btn">
+              ${p.category_name||'All'} puppies for sale
+            </a>
+          </div>
+        </div>` : ''}
+
+      <!-- Commitment section -->
+      <div class="pup-commitment">
+        <div class="pup-commitment-inner">
+          <div class="pup-commit-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="80" height="80" viewBox="0 0 24 24" fill="none" stroke="#c0c8d0" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="10"/>
+              <path d="M8 14s1.5 2 4 2 4-2 4-2"/>
+              <path d="M9.5 9.5c0 .8-.7 1.5-1.5 1.5S7 10.3 7 9.5 7.7 8 8.5 8s1 .7 1 1.5z"/>
+              <path d="M16.5 9.5c0 .8-.7 1.5-1.5 1.5s-1.5-.7-1.5-1.5S14.2 8 15 8s1.5.7 1.5 1.5z"/>
+              <path d="M6.5 17.5C7.5 19 9.5 20 12 20s4.5-1 5.5-2.5"/>
+            </svg>
+          </div>
+          <div class="pup-commit-body">
+            <h3>A once-in-a-lifetime commitment</h3>
+            <p>Since 2001, Paw Puppies has been the go-to choice for dog lovers looking for the perfect purebred puppy. In over 25+ years, our mission — as true dog lovers — has been devoted both to the puppies we place and to the owners who welcome them. Just like you, we understand how a puppy changes your life, and what an important commitment that is. What you truly want is a perfect puppy, and that is exactly what you get — along with a trusted partner and the security of our Guarantee.</p>
+            <a href="/guarantee.html" class="pup-commit-link">Learn more about our guarantee →</a>
+          </div>
         </div>
-        <div style="background:var(--bg);padding:12px 14px;font-size:12px;color:var(--text-light);display:flex;flex-wrap:wrap;gap:14px;margin-top:4px">
-          <span style="display:inline-flex;align-items:center;gap:5px">
-            <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12H3l9-9 9 9h-2"/><path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-7"/></svg>
-            Free shipping from ${siteSettings.free_shipping_threshold || 50}${siteSettings.currency_symbol || '€'}
-          </span>
-          <span style="display:inline-flex;align-items:center;gap:5px">
-            <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
-            Secure payment
-          </span>
-          <span style="display:inline-flex;align-items:center;gap:5px">
-            <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="3" width="15" height="13" rx="1"/><path d="M16 8h4l3 3v5h-7V8z"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
-            Discreet packaging
-          </span>
+      </div>
+
+      <!-- Reviews for this breed -->
+      <div class="pup-breed-reviews" id="pup-breed-reviews">
+        <h2 class="pup-reviews-title">
+          What happy <em>${p.category_name||'puppy'}</em> owners say about us...
+        </h2>
+        <div class="pbr-carousel">
+          <div class="pbr-track" id="pbr-track">
+            <div class="loading"><div class="spinner"></div></div>
+          </div>
+          <div class="pbr-dots" id="pbr-dots"></div>
+          <div style="text-align:center;margin-top:28px">
+            <a href="/reviews.html${p.category_name?'?country=':''}${encodeURIComponent(p.category_name||'')}" class="pup-more-btn pup-more-btn-green">
+              Read more reviews
+            </a>
+          </div>
         </div>
       </div>
     `;
 
-    // ── BOTTOM : onglets description / specs ──
-    document.getElementById('product-bottom').style.display = 'block';
-
-    // Description
-    document.getElementById('desc-content').innerHTML =
-      p.description || (p.short_description ? `<p>${p.short_description}</p>` : '<p style="color:var(--text-light)">No description available.</p>');
-
-    // Specs table
-    const specRows = [
-      p.brand        ? `<tr><td>Brand</td><td>${p.brand}</td></tr>` : '',
-      p.dosage       ? `<tr><td>Dosage</td><td>${p.dosage}</td></tr>` : '',
-      p.package_size ? `<tr><td>Packaging</td><td>${p.package_size}</td></tr>` : '',
-      p.sku          ? `<tr><td>Reference</td><td>${p.sku}</td></tr>` : '',
-      `<tr><td>Prescription</td><td>${p.requires_prescription ? 'Yes' : 'No'}</td></tr>`,
-      `<tr><td>Category</td><td>${p.category_name || '-'}</td></tr>`
-    ].join('');
-    document.getElementById('spec-content').innerHTML = specRows;
-
-    // Tags
-    if (p.tags && p.tags.length) {
-      const tagsEl = document.getElementById('tags-content');
-      tagsEl.style.display = 'block';
-      document.getElementById('tags-list').innerHTML = p.tags.map(tag =>
-        `<a href="/shop.html?search=${encodeURIComponent(tag)}">${tag}</a>`
-      ).join('');
-    }
-
-    // Store base name and stock for variant switching
-    window._productBaseName = p.name;
-    window._productStock = p.stock;
-
-    // Store product for cart — initialise avec la première variante si applicable
-    const initPrice = hasVariants ? p.variants[0].price : displayPrice;
-    const initLabel = hasVariants ? p.variants[0].label : '';
+    // Store for cart
     window.currentProduct = {
-      id: p.id,
-      name: p.name + (initLabel ? ` — ${initLabel}` : ''),
-      price: initPrice,
-      image: p.images && p.images[0] ? p.images[0] : '',
+      id: p.id, name: p.name,
+      price: displayPrice,
+      image: firstImg,
       category: p.category_name
     };
 
-    // Mettre à jour le prix affiché si variantes
-    if (hasVariants && p.variants[0]) {
-      const v0 = p.variants[0];
-      document.getElementById('display-price').textContent = `${parseFloat(v0.price).toFixed(2)} ${symbol}`;
-      updateStockStatus(v0.stock ?? p.stock);
-    }
+    // Init total
+    recalcTotal();
 
-    // Related products
-    if (p.related && p.related.length) {
-      document.getElementById('related-products').innerHTML = p.related.map(r => createProductCard({...r, category_name: p.category_name})).join('');
-    }
-  } catch (e) { console.error(e); }
+    // Load breed reviews
+    loadBreedReviews(p.category_name || '');
+
+  } catch(e) { console.error(e); }
 }
 
-function changeQty(delta) {
-  const input = document.getElementById('qty');
-  if (!input) return;
-  input.value = Math.max(1, parseInt(input.value) + delta);
+// ── Breed reviews carousel ──────────────────────────────────────────────────
+async function loadBreedReviews(breedName) {
+  const track = document.getElementById('pbr-track');
+  const dotsEl = document.getElementById('pbr-dots');
+  if (!track) return;
+
+  try {
+    const res  = await fetch(`/api/reviews?breed=${encodeURIComponent(breedName)}&limit=6`);
+    const data = await res.json();
+    const reviews = data.reviews || [];
+
+    if (!reviews.length) {
+      // Hide entire reviews section if no reviews
+      const sec = document.getElementById('pup-breed-reviews');
+      if (sec) sec.style.display = 'none';
+      return;
+    }
+
+    let currentRev = 0;
+
+    track.innerHTML = reviews.map((r, idx) => {
+      const imgs = Array.isArray(r.images) ? r.images : [];
+      return `
+      <div class="pbr-slide" id="pbr-slide-${idx}">
+        <div>
+          ${imgs[0]
+            ? `<img class="pbr-img" src="${imgs[0]}" alt="${r.puppy_name||r.author}" loading="lazy">`
+            : `<div class="pbr-img-placeholder">🐾</div>`}
+        </div>
+        <div>
+          <div class="pbr-quote">❝</div>
+          <div class="pbr-text" id="pbr-txt-${idx}">${r.text}</div>
+          <button class="pbr-read-more" onclick="togglePbrText(${idx})">Read more</button>
+          <div class="pbr-author">
+            <strong>${r.puppy_name || r.author}</strong>
+            <span>${r.author}${r.location ? ' — ' + r.location : ''}</span>
+          </div>
+        </div>
+      </div>`;
+    }).join('');
+
+    // Dots
+    const renderDots = () => {
+      dotsEl.innerHTML = reviews.map((_,i) =>
+        `<button class="pbr-dot${i===currentRev?' active':''}" onclick="goRev(${i})"></button>`
+      ).join('');
+    };
+
+    window.goRev = (idx) => {
+      currentRev = idx;
+      track.style.transform = `translateX(-${idx * 100}%)`;
+      renderDots();
+    };
+
+    window.togglePbrText = (idx) => {
+      const el = document.getElementById(`pbr-txt-${idx}`);
+      const btn = el.nextElementSibling;
+      if (el.classList.contains('expanded')) {
+        el.classList.remove('expanded'); btn.textContent = 'Read more';
+      } else {
+        el.classList.add('expanded'); btn.textContent = 'Show less';
+      }
+    };
+
+    renderDots();
+
+    // Auto-advance every 5s
+    let timer = setInterval(() => goRev((currentRev + 1) % reviews.length), 5000);
+    track.addEventListener('mouseenter', () => clearInterval(timer));
+    track.addEventListener('mouseleave', () => {
+      timer = setInterval(() => goRev((currentRev + 1) % reviews.length), 5000);
+    });
+
+  } catch(e) {
+    const sec = document.getElementById('pup-breed-reviews');
+    if (sec) sec.style.display = 'none';
+  }
 }
 
 function addProductToCart() {
-  const qty = parseInt(document.getElementById('qty')?.value || 1);
-  for (let i = 0; i < qty; i++) addToCart(window.currentProduct);
+  addToCart(window.currentProduct);
 }
 
-function selectVariant(btn, variant) {
-  // Highlight selected button
-  document.querySelectorAll('.variant-btn').forEach(b => b.classList.remove('selected'));
-  btn.classList.add('selected');
-
-  const symbol = (siteSettings && siteSettings.currency_symbol) || '€';
-  const price = parseFloat(variant.price);
-  const original = variant.original_price ? parseFloat(variant.original_price) : null;
-
-  // Update displayed price
-  const priceEl = document.getElementById('display-price');
-  if (priceEl) {
-    priceEl.textContent = `${price.toFixed(2)} ${symbol}`;
-    // Update or remove strikethrough
-    const oldStrikes = priceEl.parentElement.querySelectorAll('.old-price');
-    oldStrikes.forEach(el => el.remove());
-    if (original && original > price) {
-      const strike = document.createElement('span');
-      strike.className = 'old-price';
-      strike.textContent = `${original.toFixed(2)} ${symbol}`;
-      priceEl.after(strike);
-    }
-  }
-
-  // Update stock status
-  const stock = variant.stock ?? window._productStock ?? 0;
-  updateStockStatus(stock);
-  const qtyInput = document.getElementById('qty');
-  if (qtyInput) { qtyInput.max = stock; qtyInput.value = 1; }
-  const addBtn = document.getElementById('add-btn');
-  if (addBtn) addBtn.disabled = stock === 0;
-
-  // Update currentProduct
-  window.currentProduct = {
-    ...window.currentProduct,
-    name: window._productBaseName + (variant.label ? ` — ${variant.label}` : ''),
-    price
-  };
-}
-
-function updateStockStatus(stock) {
-  const el = document.getElementById('stock-status');
-  if (!el) return;
-  el.innerHTML = stock > 0
-    ? `<span style="color:var(--secondary);display:inline-flex;align-items:center;gap:6px"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> In stock (${stock} available)</span>`
-    : '<span style="color:#e53e3e;display:inline-flex;align-items:center;gap:6px"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg> Out of stock</span>';
-}
-
-function showTab(name, btn) {
-  document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
-  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-  document.getElementById(`tab-${name}`)?.classList.add('active');
-  btn.classList.add('active');
-}
-
-updateCartCount(); loadSettings(); loadProduct();
+updateCartCount();
+loadSettings();
+loadProduct();
 </script>
 </body>
 </html>

@@ -1,0 +1,402 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Reserve a Puppy - Paw Puppies</title>
+  <meta name="robots" content="noindex">
+  <link id="favicon" rel="icon" href="/img/favicon.png">
+  <link rel="stylesheet" href="/css/style.css">
+  <style>
+    .reserve-page {
+      max-width: 680px;
+      margin: 0 auto;
+      padding: 40px 20px 80px;
+    }
+    .reserve-topbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 36px;
+    }
+    .reserve-title {
+      font-size: 26px;
+      font-weight: 800;
+      color: #1a3c4e;
+    }
+    .reserve-back {
+      font-size: 14px;
+      color: var(--secondary);
+      text-decoration: none;
+      white-space: nowrap;
+      padding-top: 6px;
+    }
+    .reserve-back:hover { text-decoration: underline; }
+
+    /* Cancellation notice */
+    .reserve-notice {
+      text-align: center;
+      font-size: 15px;
+      font-weight: 600;
+      color: #2d3748;
+      margin-bottom: 28px;
+      padding: 14px;
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+
+    /* Puppy summary */
+    .reserve-summary {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      background: #f7f9fb;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 16px 20px;
+      margin-bottom: 28px;
+    }
+    .reserve-summary img {
+      width: 72px; height: 72px;
+      object-fit: cover; border-radius: 8px;
+      flex-shrink: 0;
+    }
+    .reserve-summary-placeholder {
+      width: 72px; height: 72px;
+      background: #e2e8f0; border-radius: 8px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 32px; flex-shrink: 0;
+    }
+    .reserve-summary-info h3 { font-size: 16px; font-weight: 700; color: #1a3c4e; margin-bottom: 4px; }
+    .reserve-summary-info p { font-size: 13px; color: var(--text-light); }
+    .reserve-summary-price { margin-left: auto; text-align: right; flex-shrink: 0; }
+    .reserve-summary-price .price { font-size: 20px; font-weight: 800; color: #1a3c4e; }
+    .reserve-summary-price .price-label { font-size: 11px; color: var(--text-light); }
+
+    /* Form */
+    .reserve-form { display: flex; flex-direction: column; gap: 14px; }
+
+    .rf-input {
+      width: 100%;
+      padding: 14px 16px;
+      border: 1.5px solid #cbd5e0;
+      border-radius: 8px;
+      font-size: 14px;
+      font-family: inherit;
+      color: #2d3748;
+      outline: none;
+      transition: border-color 0.2s, box-shadow 0.2s;
+      background: #fff;
+    }
+    .rf-input:focus {
+      border-color: var(--secondary);
+      box-shadow: 0 0 0 3px rgba(90,138,60,0.12);
+    }
+    .rf-input::placeholder { color: #a0aec0; }
+
+    .rf-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+
+    .rf-consent {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      font-size: 13px;
+      color: #4a5568;
+      line-height: 1.5;
+      cursor: pointer;
+    }
+    .rf-consent input[type=checkbox] {
+      width: 17px; height: 17px; flex-shrink: 0; margin-top: 2px;
+      accent-color: var(--secondary); cursor: pointer;
+      border: 1.5px solid #cbd5e0; border-radius: 3px;
+    }
+
+    .rf-submit {
+      background: var(--secondary);
+      color: #fff; border: none;
+      padding: 14px 40px;
+      font-size: 15px; font-weight: 700;
+      border-radius: 8px; cursor: pointer;
+      transition: background 0.2s;
+      font-family: inherit;
+      width: fit-content;
+    }
+    .rf-submit:hover { background: var(--secondary-dark); }
+    .rf-submit:disabled { background: #a0aec0; cursor: not-allowed; }
+
+    /* Error */
+    .rf-error {
+      background: #fff5f5; border: 1px solid #fed7d7;
+      color: #c53030; padding: 12px 16px;
+      border-radius: 8px; font-size: 14px; display: none;
+    }
+
+    /* Success */
+    .reserve-success {
+      display: none;
+      text-align: center;
+      padding: 48px 20px;
+    }
+    .reserve-success .rs-icon { font-size: 64px; margin-bottom: 16px; }
+    .reserve-success h2 { font-size: 24px; font-weight: 700; color: #1a3c4e; margin-bottom: 10px; }
+    .reserve-success p { font-size: 15px; color: var(--text-light); line-height: 1.7; max-width: 480px; margin: 0 auto 24px; }
+    .reserve-success a {
+      display: inline-block; background: var(--secondary); color: #fff;
+      padding: 12px 28px; border-radius: 8px; font-weight: 700;
+      text-decoration: none; transition: background 0.2s;
+    }
+    .reserve-success a:hover { background: var(--secondary-dark); }
+
+    @media (max-width: 500px) {
+      .rf-row { grid-template-columns: 1fr; }
+      .reserve-title { font-size: 20px; }
+    }
+  </style>
+</head>
+<body>
+
+<header class="header">
+  <div class="header-main">
+    <div class="container">
+      <a href="/" class="logo">
+        <div id="logo-container">
+          <svg xmlns="http://www.w3.org/2000/svg" width="42" height="42" viewBox="0 0 64 64" fill="none">
+            <ellipse cx="32" cy="40" rx="18" ry="14" fill="var(--primary)" opacity=".9"/>
+            <ellipse cx="32" cy="40" rx="11" ry="8" fill="#fff" opacity=".25"/>
+            <ellipse cx="18" cy="24" rx="5.5" ry="7" fill="var(--primary)"/>
+            <ellipse cx="46" cy="24" rx="5.5" ry="7" fill="var(--primary)"/>
+            <ellipse cx="26" cy="18" rx="4.5" ry="6" fill="var(--primary)"/>
+            <ellipse cx="38" cy="18" rx="4.5" ry="6" fill="var(--primary)"/>
+          </svg>
+        </div>
+        <div class="logo-text">
+          <span class="site-name" id="site-name">Paw Puppies</span>
+          <span class="site-tagline" id="site-tagline">Everything your dog needs</span>
+        </div>
+      </a>
+    </div>
+  </div>
+  <nav class="nav">
+    <div class="container">
+      <button class="nav-toggle" id="nav-toggle" aria-label="Menu"><span></span><span></span><span></span></button>
+      <div class="nav-links" id="nav-links">
+        <div class="drawer-header">Menu <button class="drawer-close" id="drawer-close">×</button></div>
+        <a href="/">Home</a>
+        <a href="/shop.html">Available Puppies</a>
+        <a href="/breeds.html">Explore Breeds</a>
+        <a href="/reviews.html">Customer Reviews</a>
+        <div class="nav-dropdown">
+          <a href="#" class="nav-dropdown-toggle" onclick="toggleNavDropdown(event,this)">Our Services <span class="nav-arrow">&#9662;</span></a>
+          <div class="nav-dropdown-menu">
+            <a href="/easy-ordering.html"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg> Easy Ordering</a>
+            <a href="/about.html"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg> About Us</a>
+            <a href="/contact.html"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.63 3.18 2 2 0 0 1 3.6 1h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.6a16 16 0 0 0 6 6l.96-.96a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/></svg> Contact</a>
+            <a href="/shipping.html"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="3" width="15" height="13" rx="1"/><path d="M16 8h4l3 3v5h-7V8z"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg> Shipping &amp; Delivery</a>
+            <a href="/guarantee.html"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><polyline points="9 12 11 14 15 10"/></svg> Health Guarantee</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </nav>
+</header>
+  </div>
+</div>
+
+
+<div class="reserve-page">
+
+  <!-- Form view -->
+  <div id="reserve-form-view">
+
+    <div class="reserve-topbar">
+      <h1 class="reserve-title" id="reserve-title">Reserve a Puppy</h1>
+      <a class="reserve-back" id="reserve-back" href="/shop.html">← Back to Puppy</a>
+    </div>
+
+    <!-- Puppy summary card -->
+    <div class="reserve-summary" id="reserve-summary" style="display:none">
+      <div id="rs-img-wrap"></div>
+      <div class="reserve-summary-info">
+        <h3 id="rs-name">—</h3>
+        <p id="rs-breed">—</p>
+      </div>
+      <div class="reserve-summary-price">
+        <div class="price" id="rs-price">—</div>
+        <div class="price-label">Puppy price</div>
+      </div>
+    </div>
+
+    <div class="reserve-notice">
+      🎉 Free Cancellation within 24 hours of your reservation!
+    </div>
+
+    <div class="rf-error" id="rf-error"></div>
+
+    <form class="reserve-form" id="reserve-form" onsubmit="submitReservation(event)">
+      <div class="rf-row">
+        <input class="rf-input" type="text" id="rf-firstname" placeholder="First Name*" required>
+        <input class="rf-input" type="text" id="rf-lastname"  placeholder="Last Name*"  required>
+      </div>
+      <input class="rf-input" type="email" id="rf-email" placeholder="E-mail Address*" required>
+      <input class="rf-input" type="tel"   id="rf-phone" placeholder="Phone Number*"   required>
+      <select class="rf-input" id="rf-country" required>
+        <option value="">Country*</option>
+        <option>Afghanistan</option><option>Albania</option><option>Algeria</option><option>Andorra</option><option>Angola</option><option>Antigua and Barbuda</option><option>Argentina</option><option>Armenia</option><option>Australia</option><option>Austria</option><option>Azerbaijan</option>
+        <option>Bahamas</option><option>Bahrain</option><option>Bangladesh</option><option>Barbados</option><option>Belarus</option><option>Belgium</option><option>Belize</option><option>Benin</option><option>Bhutan</option><option>Bolivia</option><option>Bosnia and Herzegovina</option><option>Botswana</option><option>Brazil</option><option>Brunei</option><option>Bulgaria</option><option>Burkina Faso</option><option>Burundi</option>
+        <option>Cabo Verde</option><option>Cambodia</option><option>Cameroon</option><option>Canada</option><option>Central African Republic</option><option>Chad</option><option>Chile</option><option>China</option><option>Colombia</option><option>Comoros</option><option>Congo (Brazzaville)</option><option>Congo (Kinshasa)</option><option>Costa Rica</option><option>Croatia</option><option>Cuba</option><option>Cyprus</option><option>Czech Republic</option>
+        <option>Denmark</option><option>Djibouti</option><option>Dominica</option><option>Dominican Republic</option>
+        <option>Ecuador</option><option>Egypt</option><option>El Salvador</option><option>Equatorial Guinea</option><option>Eritrea</option><option>Estonia</option><option>Eswatini</option><option>Ethiopia</option>
+        <option>Fiji</option><option>Finland</option><option>France</option>
+        <option>Gabon</option><option>Gambia</option><option>Georgia</option><option>Germany</option><option>Ghana</option><option>Greece</option><option>Grenada</option><option>Guatemala</option><option>Guinea</option><option>Guinea-Bissau</option><option>Guyana</option>
+        <option>Haiti</option><option>Honduras</option><option>Hungary</option>
+        <option>Iceland</option><option>India</option><option>Indonesia</option><option>Iran</option><option>Iraq</option><option>Ireland</option><option>Israel</option><option>Italy</option><option>Ivory Coast</option>
+        <option>Jamaica</option><option>Japan</option><option>Jordan</option>
+        <option>Kazakhstan</option><option>Kenya</option><option>Kiribati</option><option>Kuwait</option><option>Kyrgyzstan</option>
+        <option>Laos</option><option>Latvia</option><option>Lebanon</option><option>Lesotho</option><option>Liberia</option><option>Libya</option><option>Liechtenstein</option><option>Lithuania</option><option>Luxembourg</option>
+        <option>Madagascar</option><option>Malawi</option><option>Malaysia</option><option>Maldives</option><option>Mali</option><option>Malta</option><option>Marshall Islands</option><option>Mauritania</option><option>Mauritius</option><option>Mexico</option><option>Micronesia</option><option>Moldova</option><option>Monaco</option><option>Mongolia</option><option>Montenegro</option><option>Morocco</option><option>Mozambique</option><option>Myanmar</option>
+        <option>Namibia</option><option>Nauru</option><option>Nepal</option><option>Netherlands</option><option>New Zealand</option><option>Nicaragua</option><option>Niger</option><option>Nigeria</option><option>North Korea</option><option>North Macedonia</option><option>Norway</option>
+        <option>Oman</option>
+        <option>Pakistan</option><option>Palau</option><option>Palestine</option><option>Panama</option><option>Papua New Guinea</option><option>Paraguay</option><option>Peru</option><option>Philippines</option><option>Poland</option><option>Portugal</option>
+        <option>Qatar</option>
+        <option>Romania</option><option>Russia</option><option>Rwanda</option>
+        <option>Saint Kitts and Nevis</option><option>Saint Lucia</option><option>Saint Vincent and the Grenadines</option><option>Samoa</option><option>San Marino</option><option>São Tomé and Príncipe</option><option>Saudi Arabia</option><option>Senegal</option><option>Serbia</option><option>Seychelles</option><option>Sierra Leone</option><option>Singapore</option><option>Slovakia</option><option>Slovenia</option><option>Solomon Islands</option><option>Somalia</option><option>South Africa</option><option>South Korea</option><option>South Sudan</option><option>Spain</option><option>Sri Lanka</option><option>Sudan</option><option>Suriname</option><option>Sweden</option><option>Switzerland</option><option>Syria</option>
+        <option>Taiwan</option><option>Tajikistan</option><option>Tanzania</option><option>Thailand</option><option>Timor-Leste</option><option>Togo</option><option>Tonga</option><option>Trinidad and Tobago</option><option>Tunisia</option><option>Turkey</option><option>Turkmenistan</option><option>Tuvalu</option>
+        <option>Uganda</option><option>Ukraine</option><option>United Arab Emirates</option><option>United Kingdom</option><option>United States</option><option>Uruguay</option><option>Uzbekistan</option>
+        <option>Vanuatu</option><option>Vatican City</option><option>Venezuela</option><option>Vietnam</option>
+        <option>Yemen</option>
+        <option>Zambia</option><option>Zimbabwe</option>
+      </select>
+      <input class="rf-input" type="text" id="rf-city"    placeholder="City*"                required>
+      <input class="rf-input" type="text" id="rf-address" placeholder="Residential Address*" required>
+      <input class="rf-input" type="text" id="rf-zip"     placeholder="Zip / Postal Code*"   required>
+      <textarea class="rf-input" id="rf-message" rows="3" placeholder="Any questions or special requests? (optional)"></textarea>
+
+      <label class="rf-consent">
+        <input type="checkbox" id="rf-consent" required>
+        I consent to receive email communication from Paw Puppies regarding my reservation*
+      </label>
+
+      <div>
+        <button class="rf-submit" type="submit" id="rf-submit-btn">Submit</button>
+      </div>
+    </form>
+  </div>
+
+  <!-- Success view -->
+  <div class="reserve-success" id="reserve-success">
+    <div class="rs-icon">🐾</div>
+    <h2>Reservation Received!</h2>
+    <p>Thank you! We have received your reservation request for <strong id="success-puppy-name">this puppy</strong>. Our team will contact you within 24 hours to confirm and guide you through the next steps.</p>
+    <p style="font-size:13px;color:#a0aec0;margin-top:8px">Remember: free cancellation within 24 hours.</p>
+    <a href="/shop.html">Browse More Puppies</a>
+  </div>
+
+</div>
+
+<div class="toast" id="toast"></div>
+<script src="/js/main.js"></script>
+<script>
+const params  = new URLSearchParams(location.search);
+const puppyId = params.get('id');
+const backUrl = puppyId ? `/product.html?id=${puppyId}` : '/shop.html';
+
+document.getElementById('reserve-back').href = backUrl;
+
+// Load puppy info if id provided
+async function loadPuppyInfo() {
+  if (!puppyId) return;
+  try {
+    const res = await fetch(`/api/products/${puppyId}`);
+    if (!res.ok) return;
+    const p = await res.json();
+    const sym = (siteSettings && siteSettings.currency_symbol) || '£';
+    const price = p.sale_price && p.sale_price < p.price ? p.sale_price : p.price;
+
+    document.getElementById('reserve-title').textContent = `Reserve ${p.name}`;
+    document.getElementById('success-puppy-name').textContent = p.name;
+
+    document.getElementById('rs-name').textContent  = p.name;
+    document.getElementById('rs-breed').textContent = p.category_name || '';
+    document.getElementById('rs-price').textContent = `${parseFloat(price).toLocaleString('en-GB',{minimumFractionDigits:0})} ${sym}`;
+
+    const imgWrap = document.getElementById('rs-img-wrap');
+    if (p.images && p.images[0]) {
+      imgWrap.innerHTML = `<img src="${p.images[0]}" alt="${p.name}">`;
+    } else {
+      imgWrap.innerHTML = `<div class="reserve-summary-placeholder">🐶</div>`;
+    }
+    document.getElementById('reserve-summary').style.display = 'flex';
+  } catch(e) {}
+}
+
+async function submitReservation(e) {
+  e.preventDefault();
+
+  const btn = document.getElementById('rf-submit-btn');
+  const err = document.getElementById('rf-error');
+  err.style.display = 'none';
+
+  // Get the price displayed in the summary card
+  const priceText = document.getElementById('rs-price').textContent || '0';
+  const puppyPrice = parseFloat(priceText.replace(/[^0-9.]/g, '')) || 0;
+  const puppyName  = document.getElementById('rs-name').textContent;
+
+  const payload = {
+    puppy_id:   puppyId || null,
+    first_name: document.getElementById('rf-firstname').value.trim(),
+    last_name:  document.getElementById('rf-lastname').value.trim(),
+    email:      document.getElementById('rf-email').value.trim(),
+    phone:      document.getElementById('rf-phone').value.trim(),
+    country:    document.getElementById('rf-country').value.trim(),
+    city:       document.getElementById('rf-city').value.trim(),
+    address:    document.getElementById('rf-address').value.trim(),
+    zip:        document.getElementById('rf-zip').value.trim(),
+    message:    document.getElementById('rf-message').value.trim(),
+    puppy_name: puppyName,
+  };
+
+  btn.disabled = true;
+  btn.textContent = 'Sending...';
+
+  try {
+    const orderPayload = {
+      customer_name:    `${payload.first_name} ${payload.last_name}`,
+      customer_email:   payload.email,
+      customer_phone:   payload.phone,
+      shipping_address: `${payload.address}, ${payload.city}, ${payload.zip}, ${payload.country}`,
+      items:            [{ id: payload.puppy_id, name: payload.puppy_name, quantity: 1, price: puppyPrice }],
+      subtotal:         puppyPrice,
+      shipping_cost:    0,
+      total:            puppyPrice,
+      status:           'pending',
+      payment_method:   'reservation',
+      notes:            payload.message || ''
+    };
+
+    const res  = await fetch('/api/orders', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(orderPayload)
+    });
+    const data = await res.json();
+
+    if (data.success || data.id || data.order_number) {
+      document.getElementById('reserve-form-view').style.display = 'none';
+      document.getElementById('reserve-success').style.display   = 'block';
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    } else {
+      throw new Error(data.error || 'Unknown error');
+    }
+  } catch(ex) {
+    err.textContent = `Error: ${ex.message}. Please try again or contact us directly.`;
+    err.style.display = 'block';
+    btn.disabled = false;
+    btn.textContent = 'Submit';
+  }
+}
+
+loadSettings();
+loadPuppyInfo();
+</script>
+</body>
+</html>

@@ -1,127 +1,404 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Shop - 13-Pills | Buy Medications Online</title>
-  <meta name="description" content="Browse our full range of medications, vitamins and health products. Filter by category, price and availability. Fast discreet delivery.">
-  <meta name="keywords" content="buy medications, online pharmacy shop, vitamins, pain relief, health products, no prescription">
+  <title>Available Puppies for Sale - Paw Puppies | Purebred Dogs Worldwide</title>
+  <meta name="description" content="Browse our available purebred puppies for sale. Dachshund, French Bulldog, Labrador, Golden Retriever and more. Health guaranteed, worldwide delivery. Reserve your perfect puppy today.">
   <meta name="robots" content="index, follow">
-  <link rel="canonical" href="https://13pills.vercel.app/shop.html">
+  <link rel="canonical" href="https://Paw Puppies.com/shop.html">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Available Puppies for Sale — Paw Puppies">
+  <meta property="og:description" content="Browse purebred puppies for sale. Health guaranteed, worldwide delivery to 110+ countries.">
+  <meta property="og:url" content="https://Paw Puppies.com/shop.html">
+  <meta property="og:image" content="https://Paw Puppies.com/images/hero-dachshund.jpg">
+  <meta property="og:site_name" content="Paw Puppies">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Available Puppies for Sale — Paw Puppies">
+  <meta name="twitter:image" content="https://Paw Puppies.com/images/hero-dachshund.jpg">
+  <script type="application/ld+json">{
+    "@context": "https://schema.org",
+    "@type": "CollectionPage",
+    "name": "Available Puppies for Sale",
+    "description": "Browse our available purebred puppies for sale with worldwide delivery and health guarantee.",
+    "url": "https://Paw Puppies.com/shop.html",
+    "isPartOf": {"@type": "WebSite", "name": "Paw Puppies", "url": "https://Paw Puppies.com"},
+    "breadcrumb": {"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://Paw Puppies.com"},{"@type":"ListItem","position":2,"name":"Available Puppies","item":"https://Paw Puppies.com/shop.html"}]}
+  }</script>
   <link id="favicon" rel="icon" href="/img/favicon.png">
   <link rel="stylesheet" href="/css/style.css">
+  <style>
+    /* ── ADVANCED SIDEBAR ── */
+    .sidebar { background:#fff; border:1px solid var(--border); padding:0; overflow:hidden; }
+
+    .filter-section { border-bottom:1px solid var(--border); }
+    .filter-section:last-child { border-bottom:none; }
+
+    .filter-toggle {
+      width:100%; background:none; border:none; padding:14px 18px;
+      display:flex; justify-content:space-between; align-items:center;
+      cursor:pointer; font-size:13px; font-weight:700; color:var(--text);
+      text-align:left; font-family:inherit; text-transform:uppercase;
+      letter-spacing:0.4px;
+    }
+    .filter-toggle:hover { background:var(--primary-light); color:var(--primary); }
+    .filter-arrow { font-size:11px; transition:transform 0.2s; }
+    .filter-section.open .filter-arrow { transform:rotate(180deg); }
+
+    .filter-body { display:none; padding:4px 18px 14px; }
+    .filter-section.open .filter-body { display:block; }
+
+    .filter-chip-grid { display:flex; flex-wrap:wrap; gap:7px; margin-top:4px; }
+    .filter-chip {
+      padding:6px 13px; border:1.5px solid var(--border); background:#fff;
+      border-radius:20px; font-size:12px; font-weight:600; color:var(--text);
+      cursor:pointer; transition:0.15s; user-select:none; white-space:nowrap;
+    }
+    .filter-chip:hover { border-color:var(--primary); color:var(--primary); background:var(--primary-light); }
+    .filter-chip.active { border-color:var(--primary); background:var(--primary); color:#fff; }
+
+    .filter-radio { display:flex; flex-direction:column; gap:4px; }
+    .filter-radio label {
+      display:flex; align-items:center; gap:9px; padding:6px 0;
+      font-size:13px; cursor:pointer; color:var(--text);
+    }
+    .filter-radio label:hover { color:var(--primary); }
+    .filter-radio input[type=radio] { accent-color:var(--primary); cursor:pointer; }
+
+    .filter-check label {
+      display:flex; align-items:center; gap:9px; padding:6px 0;
+      font-size:13px; cursor:pointer; color:var(--text);
+    }
+    .filter-check label:hover { color:var(--primary); }
+    .filter-check input[type=checkbox] { accent-color:var(--primary); cursor:pointer; }
+
+    /* Price range */
+    .price-range { display:flex; gap:8px; align-items:center; margin-top:6px; }
+    .price-range input {
+      flex:1; min-width:0; padding:8px 10px; border:1px solid var(--border);
+      font-size:13px; outline:none; font-family:inherit;
+    }
+    .price-range input:focus { border-color:var(--primary); }
+
+    /* Reset filters button */
+    .reset-btn {
+      width:100%; padding:10px; background:none; border:1px solid var(--border);
+      color:var(--text-light); font-size:13px; cursor:pointer; margin-top:4px;
+      transition:0.15s; font-family:inherit;
+    }
+    .reset-btn:hover { border-color:#e53e3e; color:#e53e3e; }
+
+    /* Active filters bar */
+    .active-filters {
+      display:flex; flex-wrap:wrap; gap:8px; margin-bottom:16px;
+    }
+    .active-filter-tag {
+      display:inline-flex; align-items:center; gap:6px;
+      background:var(--primary-light); color:var(--primary);
+      padding:4px 10px; border-radius:20px; font-size:12px; font-weight:600;
+    }
+    .active-filter-tag button {
+      background:none; border:none; cursor:pointer; color:var(--primary);
+      font-size:14px; line-height:1; padding:0; display:flex; align-items:center;
+    }
+
+    /* Puppy card — style europuppy */
+    .puppy-card {
+      background:#fff; border:1px solid var(--border); overflow:hidden;
+      transition:0.2s; cursor:pointer; position:relative;
+    }
+    .puppy-card:hover { box-shadow:0 6px 24px rgba(0,0,0,0.12); transform:translateY(-3px); border-color:var(--primary); }
+
+    .puppy-img {
+      position:relative; height:230px; overflow:hidden; background:var(--bg);
+    }
+    .puppy-img img { width:100%; height:100%; object-fit:cover; transition:transform 0.4s; }
+    .puppy-card:hover .puppy-img img { transform:scale(1.06); }
+
+    .puppy-badge {
+      position:absolute; top:10px; left:10px;
+      background:var(--primary); color:#fff;
+      font-size:10px; font-weight:700; padding:3px 9px; letter-spacing:0.3px;
+    }
+    .puppy-badge.green { background:var(--secondary); }
+    .puppy-badge.gold { background:var(--accent); color:#fff; }
+
+    .puppy-wishlist {
+      position:absolute; top:10px; right:10px;
+      width:32px; height:32px; background:rgba(255,255,255,0.92);
+      border:none; border-radius:50%; display:flex; align-items:center;
+      justify-content:center; cursor:pointer; transition:0.2s;
+      color:var(--text-light);
+    }
+    .puppy-wishlist:hover { background:var(--primary); color:#fff; }
+
+    .puppy-info { padding:14px 16px 16px; }
+    .puppy-breed { font-size:15px; font-weight:700; color:var(--text); margin-bottom:5px; }
+    .puppy-meta {
+      display:flex; flex-wrap:wrap; gap:8px; margin-bottom:10px;
+    }
+    .puppy-meta-item {
+      display:inline-flex; align-items:center; gap:4px;
+      font-size:11px; color:var(--text-light); background:var(--bg);
+      padding:3px 8px; border-radius:20px;
+    }
+    .puppy-meta-item svg { width:11px; height:11px; flex-shrink:0; }
+
+    .puppy-price {
+      display:flex; align-items:center; justify-content:space-between;
+      margin-top:8px;
+    }
+    .puppy-price .price { font-size:18px; font-weight:800; color:var(--primary); }
+    .puppy-price .old { font-size:13px; color:var(--text-light); text-decoration:line-through; margin-left:6px; }
+    .puppy-enquire {
+      background:var(--primary); color:#fff; border:none; padding:8px 16px;
+      font-size:12px; font-weight:700; cursor:pointer; transition:0.15s;
+      font-family:inherit;
+    }
+    .puppy-enquire:hover { background:var(--primary-dark); }
+
+    /* Shop header row */
+    .shop-header {
+      display:flex; align-items:center; justify-content:space-between;
+      margin-bottom:20px; flex-wrap:wrap; gap:12px;
+    }
+    .shop-header h1 { font-size:22px; font-weight:800; color:var(--text); }
+
+    @media(max-width:900px) {
+      .shop-layout { grid-template-columns:1fr !important; }
+      .sidebar { display:none; }
+    }
+    @media(max-width:600px) {
+      .puppy-img { height:190px; }
+    }
+  </style>
 </head>
 <body>
 <header class="header">
-  <div class="header-top"><div class="container"><span id="header-phone">Contact</span><span>Secure Payment</span></div></div>
+  <div class="header-top">
+    <div class="container">
+      <span id="header-phone">+44 20 0000 0000</span>
+      <span>🐾 Health Guarantee on Every Puppy</span>
+    </div>
+  </div>
   <div class="header-main">
     <div class="container">
       <a href="/" class="logo">
-        <div id="logo-container"><svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 3H5a2 2 0 0 0-2 2v4m6-6h10a2 2 0 0 1 2 2v4M9 3v18m0 0h10a2 2 0 0 0 2-2V9M9 21H5a2 2 0 0 1-2-2V9m0 0h18"/></svg></div>
-        <div class="logo-text"><span class="site-name" id="site-name">13-Pills</span><span class="site-tagline">Online Pharmacy</span></div>
+        <div id="logo-container">
+          <svg xmlns="http://www.w3.org/2000/svg" width="42" height="42" viewBox="0 0 64 64" fill="none">
+            <ellipse cx="32" cy="40" rx="18" ry="14" fill="var(--primary)" opacity=".9"/>
+            <ellipse cx="32" cy="40" rx="11" ry="8" fill="#fff" opacity=".25"/>
+            <ellipse cx="18" cy="24" rx="5.5" ry="7" fill="var(--primary)"/>
+            <ellipse cx="46" cy="24" rx="5.5" ry="7" fill="var(--primary)"/>
+            <ellipse cx="26" cy="18" rx="4.5" ry="6" fill="var(--primary)"/>
+            <ellipse cx="38" cy="18" rx="4.5" ry="6" fill="var(--primary)"/>
+          </svg>
+        </div>
+        <div class="logo-text"><span class="site-name" id="site-name">Paw Puppies</span><span class="site-tagline">Find Your Perfect Puppy</span></div>
       </a>
       <div class="search-bar">
-        <input type="text" id="search-input" placeholder="Search...">
-        <button onclick="applySearch()"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></button>
+        <input type="text" id="search-input" placeholder="Search by breed, size, colour...">
+        <button onclick="applySearch()">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+        </button>
       </div>
-      <div class="header-actions">
-        <button class="cart-btn" id="cart-btn-header" aria-label="Open cart"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg><span class="cart-count" id="cart-count">0</span></button>
-      </div>
+      <div class="header-actions"></div>
     </div>
   </div>
   <nav class="nav">
     <div class="container">
-      <button class="nav-toggle" id="nav-toggle" aria-label="Menu">
-        <span></span><span></span><span></span>
-      </button>
+      <button class="nav-toggle" id="nav-toggle" aria-label="Menu"><span></span><span></span><span></span></button>
       <div class="nav-links" id="nav-links">
         <div class="drawer-header">Menu <button class="drawer-close" id="drawer-close">×</button></div>
         <a href="/">Home</a>
-        <a href="/shop.html" class="active">Shop</a>
-        <a href="/contact.html">Contact</a>
-        <a href="/about.html">About Us</a>
-        <a href="/shipping.html">Shipping</a>
+        <a href="/shop.html" class="active">Available Puppies</a>
+        <a href="/breeds.html">Explore Breeds</a>
+        <a href="/reviews.html">Customer Reviews</a>
+        <div class="nav-dropdown">
+          <a href="#" class="nav-dropdown-toggle" onclick="toggleNavDropdown(event,this)">Our Services <span class="nav-arrow">&#9662;</span></a>
+          <div class="nav-dropdown-menu">
+            <a href="/easy-ordering.html"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg> Easy Ordering</a>
+            <a href="/about.html"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg> About Us</a>
+            <a href="/contact.html"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.63 3.18 2 2 0 0 1 3.6 1h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.6a16 16 0 0 0 6 6l.96-.96a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/></svg> Contact</a>
+            <a href="/shipping.html"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="3" width="15" height="13" rx="1"/><path d="M16 8h4l3 3v5h-7V8z"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg> Shipping &amp; Delivery</a>
+            <a href="/guarantee.html"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><polyline points="9 12 11 14 15 10"/></svg> Health Guarantee</a>
+          </div>
+        </div>
       </div>
     </div>
   </nav>
 </header>
+  </div>
+</div>
 
-<div class="container" style="padding:24px 20px">
-  <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:20px">
-    <h1 id="shop-title" style="font-size:24px">All Products</h1>
-    <span id="results-count" style="color:var(--text-light);font-size:14px"></span>
+
+<div class="container" style="padding:28px 20px 60px">
+
+  <!-- Shop header -->
+  <div class="shop-header">
+    <div>
+      <h1 id="shop-title">Available Puppies</h1>
+      <p id="results-count" style="color:var(--text-light);font-size:14px;margin-top:4px"></p>
+    </div>
+    <div style="display:flex;align-items:center;gap:10px">
+      <!-- Mobile filter button -->
+      <button class="mobile-filter-btn" id="filter-btn" onclick="toggleFilterDrawer()">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" y1="6" x2="20" y2="6"/><line x1="8" y1="12" x2="16" y2="12"/><line x1="11" y1="18" x2="13" y2="18"/></svg>
+        Filters
+      </button>
+      <select id="sort-select" onchange="applyFilters()" style="border:1px solid var(--border);padding:8px 12px;font-size:13px;outline:none;font-family:inherit">
+        <option value="created_at-desc">Newest first</option>
+        <option value="price-asc">Price: Low → High</option>
+        <option value="price-desc">Price: High → Low</option>
+        <option value="name-asc">Name A–Z</option>
+      </select>
+      <div class="view-toggle" id="view-toggle" style="display:flex">
+        <button class="view-btn active" id="btn-grid" onclick="setView('grid')" title="Grid">
+          <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+        </button>
+        <button class="view-btn" id="btn-list" onclick="setView('list')" title="List">
+          <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg>
+        </button>
+      </div>
+    </div>
   </div>
 
-  <div class="shop-layout">
-    <!-- SIDEBAR -->
-    <aside class="sidebar">
-      <div class="filter-group">
-        <h3>Categories</h3>
-        <div id="sidebar-cats"></div>
-      </div>
-      <div class="filter-group">
-        <h3>Price</h3>
-        <div class="price-range">
-          <input type="number" id="min-price" placeholder="Min" min="0" style="min-width:0">
-          <span>-</span>
-          <input type="number" id="max-price" placeholder="Max" min="0" style="min-width:0">
-        </div>
-        <button onclick="applyFilters()" style="margin-top:10px;width:100%;padding:8px;background:var(--primary);color:#fff;border:none;border-radius:var(--radius);cursor:pointer">Filter</button>
-      </div>
-      <div class="filter-group">
-        <h3>Options</h3>
-        <label class="filter-option"><input type="checkbox" id="filter-instock"> In stock only</label>
-        <label class="filter-option"><input type="checkbox" id="filter-sale"> On sale</label>
-        <label class="filter-option"><input type="checkbox" id="filter-noRx"> No prescription required</label>
-      </div>
-    </aside>
+  <!-- Active filters display -->
+  <div class="active-filters" id="active-filters"></div>
 
-    <!-- MAIN -->
-    <div>
-      <!-- Barre de contrôle -->
-      <div class="sort-bar">
-        <span class="results-info" id="results-count" style="font-size:13px;color:var(--text-light)"></span>
-        <div style="display:flex;align-items:center;gap:8px;margin-left:auto">
-          <select id="sort-select" onchange="applyFilters()" style="border:1px solid var(--border);padding:6px 10px;border-radius:var(--radius);font-size:13px;outline:none">
-            <option value="created_at-desc">Newest</option>
-            <option value="price-asc">Price: Low to High</option>
-            <option value="price-desc">Price: High to Low</option>
-            <option value="name-asc">Name A-Z</option>
-          </select>
-          <!-- Bouton filtre catégorie (mobile) -->
-          <button class="mobile-filter-btn" id="filter-btn" onclick="toggleFilterDrawer()" title="Filter by category">
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" y1="6" x2="20" y2="6"/><line x1="8" y1="12" x2="16" y2="12"/><line x1="11" y1="18" x2="13" y2="18"/></svg>
-          </button>
-          <!-- Toggle vue grid/liste (mobile) -->
-          <div class="view-toggle" id="view-toggle">
-            <button class="view-btn active" id="btn-grid" onclick="setView('grid')" title="Grid view">
-              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
-            </button>
-            <button class="view-btn" id="btn-list" onclick="setView('list')" title="List view">
-              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg>
-            </button>
+  <div class="shop-layout" style="display:grid;grid-template-columns:260px 1fr;gap:24px;align-items:start">
+
+    <!-- ── SIDEBAR ── -->
+    <aside class="sidebar" id="sidebar-desktop">
+
+      <!-- Collections -->
+      <div class="filter-section open">
+        <button class="filter-toggle" onclick="toggleSection(this)">
+          Collections <span class="filter-arrow">▼</span>
+        </button>
+        <div class="filter-body">
+          <div class="filter-chip-grid">
+            <span class="filter-chip" data-filter="collection" data-value="guard">🛡️ Best Guard Dogs</span>
+            <span class="filter-chip" data-filter="collection" data-value="hypoallergenic">🌿 Hypoallergenic</span>
+            <span class="filter-chip" data-filter="collection" data-value="apartment">🏠 Best Apartment Dogs</span>
+            <span class="filter-chip" data-filter="collection" data-value="family">👨‍👩‍👧 Best Family Breeds</span>
           </div>
         </div>
       </div>
 
-      <!-- Drawer filtre catégorie (mobile) -->
-      <div class="filter-drawer-overlay" id="filter-overlay" onclick="toggleFilterDrawer()"></div>
-      <div class="filter-drawer" id="filter-drawer">
-        <div class="filter-drawer-header">
-          <span>Filter by category</span>
-          <button onclick="toggleFilterDrawer()" style="background:none;border:none;font-size:22px;cursor:pointer;color:var(--text-light)">×</button>
-        </div>
-        <div class="filter-drawer-body" id="mobile-cats"></div>
-        <div style="padding:16px">
-          <button onclick="toggleFilterDrawer()" style="width:100%;background:var(--primary);color:#fff;border:none;padding:12px;border-radius:8px;font-weight:600;cursor:pointer">Apply</button>
+      <!-- Size -->
+      <div class="filter-section open">
+        <button class="filter-toggle" onclick="toggleSection(this)">
+          Size <span class="filter-arrow">▼</span>
+        </button>
+        <div class="filter-body">
+          <div class="filter-chip-grid">
+            <span class="filter-chip" data-filter="size" data-value="small">🐩 Small</span>
+            <span class="filter-chip" data-filter="size" data-value="medium">🐕 Medium</span>
+            <span class="filter-chip" data-filter="size" data-value="large">🦮 Large</span>
+            <span class="filter-chip" data-filter="size" data-value="xlarge">🐕‍🦺 Extra Large</span>
+            <span class="filter-chip" data-filter="size" data-value="giant">🦣 Giant</span>
+          </div>
         </div>
       </div>
 
+      <!-- Age -->
+      <div class="filter-section open">
+        <button class="filter-toggle" onclick="toggleSection(this)">
+          Age <span class="filter-arrow">▼</span>
+        </button>
+        <div class="filter-body">
+          <div class="filter-chip-grid">
+            <span class="filter-chip" data-filter="age" data-value="newborn">🐣 Newborn Puppy</span>
+            <span class="filter-chip" data-filter="age" data-value="amazing">⭐ Amazing</span>
+            <span class="filter-chip" data-filter="age" data-value="ready">✅ Ready for You</span>
+            <span class="filter-chip" data-filter="age" data-value="growing">🌱 Growing Up</span>
+            <span class="filter-chip" data-filter="age" data-value="adult">🐾 Adults</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Gender -->
+      <div class="filter-section open">
+        <button class="filter-toggle" onclick="toggleSection(this)">
+          Gender <span class="filter-arrow">▼</span>
+        </button>
+        <div class="filter-body">
+          <div class="filter-chip-grid">
+            <span class="filter-chip" data-filter="gender" data-value="male">♂️ Male</span>
+            <span class="filter-chip" data-filter="gender" data-value="female">♀️ Female</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Categories (breeds) -->
+      <div class="filter-section open">
+        <button class="filter-toggle" onclick="toggleSection(this)">
+          Breed Category <span class="filter-arrow">▼</span>
+        </button>
+        <div class="filter-body">
+          <div class="filter-radio" id="sidebar-cats"></div>
+        </div>
+      </div>
+
+      <!-- Breeder's Choice -->
+      <div class="filter-section">
+        <button class="filter-toggle" onclick="toggleSection(this)">
+          Breeder's Choice <span class="filter-arrow">▼</span>
+        </button>
+        <div class="filter-body">
+          <div class="filter-check">
+            <label><input type="checkbox" id="filter-featured" onchange="applyFilters()"> ⭐ Featured picks</label>
+            <label><input type="checkbox" id="filter-instock" onchange="applyFilters()"> ✅ Available now</label>
+            <label><input type="checkbox" id="filter-sale" onchange="applyFilters()"> 🏷️ Special price</label>
+            <label><input type="checkbox" id="filter-vet" onchange="applyFilters()"> 🩺 Vet recommended</label>
+          </div>
+        </div>
+      </div>
+
+      <!-- Price -->
+      <div class="filter-section">
+        <button class="filter-toggle" onclick="toggleSection(this)">
+          Price Range <span class="filter-arrow">▼</span>
+        </button>
+        <div class="filter-body">
+          <div class="price-range">
+            <input type="number" id="min-price" placeholder="Min £" min="0">
+            <span style="color:var(--text-light)">–</span>
+            <input type="number" id="max-price" placeholder="Max £" min="0">
+          </div>
+          <button onclick="applyFilters()" style="width:100%;margin-top:10px;padding:9px;background:var(--primary);color:#fff;border:none;cursor:pointer;font-weight:600;font-size:13px;font-family:inherit">Apply</button>
+        </div>
+      </div>
+
+      <div style="padding:14px 18px">
+        <button class="reset-btn" onclick="resetAllFilters()">✕ Clear all filters</button>
+      </div>
+
+    </aside>
+
+    <!-- ── MAIN GRID ── -->
+    <div>
       <div class="products-grid" id="products-grid">
         <div class="loading"><div class="spinner"></div></div>
       </div>
       <div class="pagination" id="pagination"></div>
     </div>
+
+  </div>
+</div>
+
+<!-- Mobile filter drawer -->
+<div class="filter-drawer-overlay" id="filter-overlay" onclick="toggleFilterDrawer()"></div>
+<div class="filter-drawer" id="filter-drawer">
+  <div class="filter-drawer-header">
+    <span>🔍 Filters</span>
+    <button onclick="toggleFilterDrawer()" style="background:none;border:none;font-size:24px;cursor:pointer;color:var(--text-light)">×</button>
+  </div>
+  <div class="filter-drawer-body" id="mobile-cats-drawer"></div>
+  <div style="padding:16px;display:flex;gap:10px">
+    <button onclick="resetAllFilters();toggleFilterDrawer()" style="flex:1;padding:11px;border:1px solid var(--border);background:#fff;font-size:14px;cursor:pointer;font-family:inherit">Clear</button>
+    <button onclick="toggleFilterDrawer()" style="flex:2;background:var(--primary);color:#fff;border:none;padding:11px;font-size:14px;font-weight:700;cursor:pointer;font-family:inherit">Show Results</button>
   </div>
 </div>
 
@@ -131,18 +408,84 @@
 let currentPage = 1, currentView = 'grid';
 const params = new URLSearchParams(location.search);
 
-// ===== VUE GRID / LISTE =====
+// ── Active chip filters (multi-select per group, single per group) ──
+const chipFilters = { collection: null, size: null, age: null, gender: null };
+
+// ── Init chips ──
+document.querySelectorAll('.filter-chip').forEach(chip => {
+  chip.addEventListener('click', () => {
+    const group = chip.dataset.filter;
+    const val   = chip.dataset.value;
+    if (chipFilters[group] === val) {
+      chipFilters[group] = null;
+      chip.classList.remove('active');
+    } else {
+      // deactivate sibling in same group
+      document.querySelectorAll(`.filter-chip[data-filter="${group}"]`).forEach(c => c.classList.remove('active'));
+      chipFilters[group] = val;
+      chip.classList.add('active');
+    }
+    renderActiveFilters();
+    applyFilters();
+  });
+});
+
+function renderActiveFilters() {
+  const bar = document.getElementById('active-filters');
+  bar.innerHTML = '';
+  const labels = {
+    collection: { guard:'Best Guard Dogs', hypoallergenic:'Hypoallergenic', apartment:'Apartment Dogs', family:'Family Breeds' },
+    size:   { small:'Small', medium:'Medium', large:'Large', xlarge:'Extra Large', giant:'Giant' },
+    age:    { newborn:'Newborn', amazing:'Amazing', ready:'Ready for You', growing:'Growing Up', adult:'Adults' },
+    gender: { male:'Male', female:'Female' }
+  };
+  Object.entries(chipFilters).forEach(([group, val]) => {
+    if (!val) return;
+    const tag = document.createElement('span');
+    tag.className = 'active-filter-tag';
+    tag.innerHTML = `${labels[group]?.[val] || val} <button onclick="clearFilter('${group}')">×</button>`;
+    bar.appendChild(tag);
+  });
+}
+
+function clearFilter(group) {
+  chipFilters[group] = null;
+  document.querySelectorAll(`.filter-chip[data-filter="${group}"]`).forEach(c => c.classList.remove('active'));
+  renderActiveFilters();
+  applyFilters();
+}
+
+function resetAllFilters() {
+  Object.keys(chipFilters).forEach(k => chipFilters[k] = null);
+  document.querySelectorAll('.filter-chip').forEach(c => c.classList.remove('active'));
+  document.getElementById('filter-instock').checked = false;
+  document.getElementById('filter-featured').checked = false;
+  document.getElementById('filter-sale').checked = false;
+  document.getElementById('filter-vet').checked = false;
+  document.getElementById('min-price').value = '';
+  document.getElementById('max-price').value = '';
+  document.querySelectorAll('input[name="cat"]').forEach(r => { if(r.value === '') r.checked = true; });
+  params.delete('category'); params.delete('search');
+  document.getElementById('search-input').value = '';
+  document.getElementById('shop-title').textContent = 'Available Puppies';
+  renderActiveFilters();
+  loadProducts(1);
+}
+
+function toggleSection(btn) {
+  const section = btn.closest('.filter-section');
+  section.classList.toggle('open');
+}
+
 function setView(v) {
   currentView = v;
   const grid = document.getElementById('products-grid');
   document.getElementById('btn-grid').classList.toggle('active', v === 'grid');
   document.getElementById('btn-list').classList.toggle('active', v === 'list');
-  if (v === 'list') grid.classList.add('list-view');
-  else grid.classList.remove('list-view');
+  grid.classList.toggle('list-view', v === 'list');
   localStorage.setItem('shop-view', v);
 }
 
-// ===== DRAWER FILTRE CATÉGORIE =====
 function toggleFilterDrawer() {
   document.getElementById('filter-drawer').classList.toggle('open');
   document.getElementById('filter-overlay').classList.toggle('open');
@@ -158,34 +501,59 @@ async function loadProducts(page = 1) {
   const query = new URLSearchParams({ page, limit: 12, sort: sortVal[0], order: sortVal[1] });
 
   if (params.get('category')) query.set('category', params.get('category'));
-  if (params.get('search')) query.set('search', params.get('search'));
+  if (params.get('search'))   query.set('search',   params.get('search'));
   if (params.get('featured')) query.set('featured', '1');
 
   const search = document.getElementById('search-input').value.trim();
   if (search) query.set('search', search);
 
+  // Pass chip filters as tags for server-side filtering
+  const activeTags = Object.values(chipFilters).filter(Boolean);
+  if (activeTags.length) query.set('tag', activeTags.join(','));
+
   try {
-    const res = await fetch(`/api/products?${query}`);
+    const res  = await fetch(`/api/products?${query}`);
     const data = await res.json();
     let products = data.products;
 
-    if (document.getElementById('filter-instock').checked) products = products.filter(p => p.stock > 0);
-    if (document.getElementById('filter-sale').checked) products = products.filter(p => p.sale_price);
-    if (document.getElementById('filter-noRx').checked) products = products.filter(p => !p.requires_prescription);
+    // Client-side filters
+    if (document.getElementById('filter-instock').checked)  products = products.filter(p => p.stock > 0);
+    if (document.getElementById('filter-featured').checked) products = products.filter(p => p.is_featured);
+    if (document.getElementById('filter-sale').checked)     products = products.filter(p => p.sale_price);
+    if (document.getElementById('filter-vet').checked)      products = products.filter(p => p.requires_prescription);
+
+    // Chip filters (client-side tag match as fallback)
+    Object.entries(chipFilters).forEach(([, val]) => {
+      if (!val) return;
+      products = products.filter(p => {
+        const tags = (p.tags || []).map(t => t.toLowerCase());
+        return tags.includes(val) ||
+               (p.brand || '').toLowerCase().includes(val) ||
+               (p.short_description || '').toLowerCase().includes(val) ||
+               (p.name || '').toLowerCase().includes(val);
+      });
+    });
+
     const minP = parseFloat(document.getElementById('min-price').value);
     const maxP = parseFloat(document.getElementById('max-price').value);
     if (!isNaN(minP)) products = products.filter(p => (p.sale_price || p.price) >= minP);
     if (!isNaN(maxP)) products = products.filter(p => (p.sale_price || p.price) <= maxP);
 
-    const showing = Math.min(products.length, data.limit);
     const start = (page - 1) * data.limit + 1;
-    const end = Math.min(page * data.limit, data.total);
+    const end   = Math.min(page * data.limit, data.total);
     document.getElementById('results-count').textContent =
-      data.total > 0 ? `Showing ${start}–${end} of ${data.total} product(s)` : 'No products found';
+      data.total > 0
+        ? `${products.length} puppy(ies) found`
+        : 'No puppies found matching your criteria';
 
     grid.innerHTML = products.length
-      ? products.map(p => createProductCardWithDetails(p)).join('')
-      : '<div class="empty-state"><div class="empty-icon"><svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></div><h3>No products found</h3></div>';
+      ? products.map(p => createPuppyCard(p)).join('')
+      : `<div class="empty-state" style="grid-column:1/-1">
+           <div class="empty-icon">🐾</div>
+           <h3>No puppies found</h3>
+           <p style="color:var(--text-light);font-size:14px;margin-top:8px">Try adjusting your filters</p>
+           <button onclick="resetAllFilters()" style="margin-top:16px;background:var(--primary);color:#fff;border:none;padding:10px 24px;cursor:pointer;font-weight:600;font-size:14px">Clear filters</button>
+         </div>`;
 
     // Pagination
     const pag = document.getElementById('pagination');
@@ -197,101 +565,107 @@ async function loadProducts(page = 1) {
       btn.onclick = () => loadProducts(i);
       pag.appendChild(btn);
     }
-  } catch (e) { grid.innerHTML = '<p style="color:red;padding:20px">Loading error</p>'; }
+  } catch(e) {
+    grid.innerHTML = '<p style="color:red;padding:20px">Loading error. Please try again.</p>';
+  }
 }
 
-// Carte avec détails pour la vue liste
-function createProductCardWithDetails(p) {
+function createPuppyCard(p) {
   const hasDiscount = p.sale_price && p.sale_price < p.price;
   const displayPrice = hasDiscount ? p.sale_price : p.price;
-  const discountPct = hasDiscount ? Math.round((1 - p.sale_price / p.price) * 100) : 0;
-  const inStock = p.stock > 0;
-  const img = p.images && p.images[0] ? p.images[0] : '';
-  const nameSafe = p.name.replace(/'/g, "\\'").replace(/"/g, '\\"');
-  const catSafe = (p.category_name || '').replace(/'/g, "\\'");
+  const discountPct  = hasDiscount ? Math.round((1 - p.sale_price / p.price) * 100) : 0;
+  const inStock      = p.stock > 0;
+  const img          = p.images && p.images[0] ? p.images[0] : '';
+  const nameSafe     = p.name.replace(/'/g, "\\'").replace(/"/g, '\\"');
+
+  // Badge logic
+  let badgeHtml = '';
+  if (p.is_featured)           badgeHtml = '<span class="puppy-badge gold">⭐ Featured</span>';
+  else if (hasDiscount)        badgeHtml = `<span class="puppy-badge">-${discountPct}% OFF</span>`;
+  else if (p.requires_prescription) badgeHtml = '<span class="puppy-badge green">🩺 Vet Pick</span>';
+  else if (!inStock)           badgeHtml = '<span class="puppy-badge" style="background:#718096">Pending</span>';
 
   return `
-  <div class="product-card" onclick="location.href='/product.html?id=${p.id}'">
-    <div class="product-img">
-      ${productImage(p)}
-      ${p.requires_prescription ? '<span class="badge-rx">Ordonnance</span>' : ''}
-      ${hasDiscount ? `<span class="badge-sale">-${discountPct}%</span>` : ''}
-      <div class="product-actions" onclick="event.stopPropagation()">
-        <button class="product-action-btn" title="Panier"
-          onclick='addToCart({id:${p.id},name:"${nameSafe}",price:${displayPrice},image:"${img}",category:"${catSafe}"})'
-          ${!inStock ? 'disabled' : ''}>
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
-        </button>
-        <button class="product-action-btn" title="Voir" onclick="location.href='/product.html?id=${p.id}'">
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
-        </button>
-        <button class="product-action-btn" title="Wishlist" onclick="addToWishlist(${p.id},'${p.name.replace(/'/g,"\\'")}')">
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
-        </button>
-      </div>
-    </div>
-    <div class="product-info">
-      <div class="product-name">${p.name}</div>
-      <div class="product-list-details">
-        ${p.category_name ? `<span>${p.category_name}</span> · ` : ''}
-        ${p.brand ? `<span>${p.brand}</span>` : ''}
-        ${p.package_size ? ` · <span>${p.package_size}</span>` : ''}
-        ${p.short_description ? `<div style="margin-top:4px">${p.short_description}</div>` : ''}
-        <div style="margin-top:4px;color:${inStock ? 'var(--secondary)' : '#e53e3e'}">
-          ${inStock ? (p.stock < 10 ? `Only ${p.stock} left in stock` : 'In stock') : 'Out of stock'}
-        </div>
-      </div>
-      <div class="product-price">
-        <span class="price-current">${formatPrice(displayPrice)}</span>
-        ${hasDiscount ? `<span class="price-old">${formatPrice(p.price)}</span>` : ''}
-      </div>
-      <button class="add-to-cart" ${!inStock ? 'disabled' : ''}
-        onclick="event.stopPropagation(); addToCart({id:${p.id},name:'${p.name.replace(/'/g,"\\'")}',price:${displayPrice},image:'${img}',category:'${catSafe}'})">
-        ${inStock ? 'Add to Cart' : 'Out of Stock'}
+  <div class="puppy-card" onclick="location.href='/product.html?id=${p.id}'">
+    <div class="puppy-img">
+      ${img ? `<img src="${img}" alt="${p.name}" loading="lazy">` : `<div style="display:flex;align-items:center;justify-content:center;height:100%;font-size:60px">🐶</div>`}
+      ${badgeHtml}
+      <button class="puppy-wishlist" onclick="event.stopPropagation();addToWishlist(${p.id},'${nameSafe}')" title="Save to wishlist" aria-label="Wishlist">
+        <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
       </button>
+    </div>
+    <div class="puppy-info">
+      <div class="puppy-breed">${p.name}</div>
+      <div class="puppy-meta">
+        ${p.category_name ? `<span class="puppy-meta-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16v16H4z"/></svg>${p.category_name}</span>` : ''}
+        ${p.dosage ? `<span class="puppy-meta-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/></svg>${p.dosage}</span>` : ''}
+        ${p.brand ? `<span class="puppy-meta-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>${p.brand}</span>` : ''}
+        ${p.package_size ? `<span class="puppy-meta-item">📦 ${p.package_size}</span>` : ''}
+      </div>
+      ${p.short_description ? `<p style="font-size:12px;color:var(--text-light);line-height:1.5;margin-bottom:10px">${p.short_description}</p>` : ''}
+      <div class="puppy-price">
+        <div>
+          <span class="price">${formatPrice(displayPrice)}</span>
+          ${hasDiscount ? `<span class="old">${formatPrice(p.price)}</span>` : ''}
+        </div>
+        <button class="puppy-enquire" onclick="event.stopPropagation();location.href='/reserve.html?id=${p.id}'" ${!inStock ? 'disabled style="background:#ccc;cursor:not-allowed"' : ''}>
+          ${inStock ? 'Reserve Now' : 'Unavailable'}
+        </button>
+      </div>
     </div>
   </div>`;
 }
 
 async function loadSidebarCats() {
-  const res = await fetch('/api/categories');
+  const res  = await fetch('/api/categories');
   const cats = await res.json();
-  const el = document.getElementById('sidebar-cats');
-  const mobileCats = document.getElementById('mobile-cats');
+  const el   = document.getElementById('sidebar-cats');
+  const mEl  = document.getElementById('mobile-cats-drawer');
   const currentCat = params.get('category');
 
-  // Sidebar desktop
-  el.innerHTML = `<label class="filter-option"><input type="radio" name="cat" value="" ${!currentCat ? 'checked' : ''} onchange="params.delete('category'); applyFilters()"> All</label>` +
-    cats.map(c => `<label class="filter-option"><input type="radio" name="cat" value="${c.slug}" ${currentCat === c.slug ? 'checked' : ''} onchange="params.set('category','${c.slug}'); applyFilters()"> ${c.name} <span style="color:var(--text-light)">(${c.product_count})</span></label>`).join('');
+  el.innerHTML =
+    `<label><input type="radio" name="cat" value="" ${!currentCat ? 'checked' : ''} onchange="params.delete('category'); applyFilters()"> All breeds</label>` +
+    cats.map(c =>
+      `<label><input type="radio" name="cat" value="${c.slug}" ${currentCat === c.slug ? 'checked' : ''} onchange="params.set('category','${c.slug}'); applyFilters()"> ${c.name} <span style="color:var(--text-light);font-size:11px">(${c.product_count})</span></label>`
+    ).join('');
 
-  // Drawer mobile
-  if (mobileCats) {
-    mobileCats.innerHTML = `<a href="/shop.html" class="${!currentCat ? 'active-cat' : ''}">All categories</a>` +
-      cats.map(c => `<a href="/shop.html?category=${c.slug}" class="${currentCat === c.slug ? 'active-cat' : ''}">${c.name} <span style="color:var(--text-light);float:right">${c.product_count}</span></a>`).join('');
+  if (mEl) {
+    mEl.innerHTML =
+      `<div class="filter-section open" style="border:none"><div class="filter-body" style="display:block"><div class="filter-radio">` +
+      `<label><input type="radio" name="cat-m" value="" ${!currentCat ? 'checked' : ''} onchange="params.delete('category'); applyFilters()"> All breeds</label>` +
+      cats.map(c =>
+        `<label><input type="radio" name="cat-m" value="${c.slug}" ${currentCat === c.slug ? 'checked' : ''} onchange="params.set('category','${c.slug}'); applyFilters()"> ${c.name}</label>`
+      ).join('') +
+      `</div></div></div>`;
   }
 
   if (currentCat) {
     const cat = cats.find(c => c.slug === currentCat);
     if (cat) document.getElementById('shop-title').textContent = cat.name;
   }
-  if (params.get('search')) document.getElementById('shop-title').textContent = `Results: "${params.get('search')}"`;
+  if (params.get('search')) {
+    document.getElementById('shop-title').textContent = `Results: "${params.get('search')}"`;
+  }
 }
 
 function applyFilters() { loadProducts(1); }
+
 function applySearch() {
   const q = document.getElementById('search-input').value.trim();
   if (q) { params.set('search', q); } else { params.delete('search'); }
   loadProducts(1);
 }
+
 document.getElementById('search-input').addEventListener('keypress', e => e.key === 'Enter' && applySearch());
 if (params.get('search')) document.getElementById('search-input').value = params.get('search');
 
-updateCartCount(); loadSettings(); loadSidebarCats();
-
-// Restaurer vue sauvegardée
+// Restore saved view
 const savedView = localStorage.getItem('shop-view');
 if (savedView) setView(savedView);
 
+updateCartCount();
+loadSettings();
+loadSidebarCats();
 loadProducts();
 </script>
 </body>

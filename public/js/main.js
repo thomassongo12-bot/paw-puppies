@@ -41,7 +41,7 @@ function applySettings(s) {
   if (s.site_name) {
     document.querySelectorAll('.site-name, #site-name').forEach(el => el.textContent = s.site_name);
     document.querySelectorAll('#footer-site-name').forEach(el => el.textContent = s.site_name);
-    document.title = `${s.site_name} - Online Pharmacy`;
+    document.title = `${s.site_name} - Dog Shop`;
     document.getElementById('page-title') && (document.getElementById('page-title').textContent = `${s.site_name} - Pharmacie en ligne`);
   }
   if (s.site_tagline) {
@@ -122,12 +122,12 @@ function formatPrice(amount) {
 // ===== PRODUCT IMAGE =====
 function productImage(product) {
   if (product.images && product.images.length > 0) {
-    return `<img src="${product.images[0]}" alt="${product.name}" onerror="this.parentElement.innerHTML='<svg xmlns=\\'http://www.w3.org/2000/svg\\' width=\\'48\\' height=\\'48\\' viewBox=\\'0 0 24 24\\' fill=\\'none\\' stroke=\\'%23ccc\\' stroke-width=\\'1\\' stroke-linecap=\\'round\\' stroke-linejoin=\\'round\\'><path d=\\'M9 3H5a2 2 0 0 0-2 2v4m6-6h10a2 2 0 0 1 2 2v4M9 3v18m0 0h10a2 2 0 0 0 2-2V9M9 21H5a2 2 0 0 1-2-2V9m0 0h18\\'></path></svg>'">`;
+    return `<img src="${product.images[0]}" alt="${product.name}" loading="lazy" onerror="this.parentElement.innerHTML='<div style=\\'display:flex;align-items:center;justify-content:center;height:100%;font-size:56px\\'>🐶</div>'">`;
   }
-  return `<svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#ccc" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"><path d="M9 3H5a2 2 0 0 0-2 2v4m6-6h10a2 2 0 0 1 2 2v4M9 3v18m0 0h10a2 2 0 0 0 2-2V9M9 21H5a2 2 0 0 1-2-2V9m0 0h18"></path></svg>`;
+  return `<div style="display:flex;align-items:center;justify-content:center;height:100%;font-size:56px">🐶</div>`;
 }
 
-// ===== PRODUCT CARD =====
+// ===== PRODUCT CARD (homepage featured / sale) =====
 function createProductCard(p) {
   const hasDiscount = p.sale_price && p.sale_price < p.price;
   const displayPrice = hasDiscount ? p.sale_price : p.price;
@@ -137,19 +137,22 @@ function createProductCard(p) {
   const cat = (p.category_name || '').replace(/"/g, '\\"');
   const nameSafe = p.name.replace(/'/g, "\\'").replace(/"/g, '\\"');
 
+  let badgeHtml = '';
+  if (p.is_featured) badgeHtml = '<span class="badge-sale" style="background:var(--accent)">⭐ Featured</span>';
+  else if (hasDiscount) badgeHtml = `<span class="badge-sale">-${discountPct}%</span>`;
+
   return `
   <div class="product-card" onclick="location.href='/product.html?id=${p.id}'">
     <div class="product-img">
       ${productImage(p)}
-      ${p.requires_prescription ? '<span class="badge-rx">Rx</span>' : ''}
-      ${hasDiscount ? `<span class="badge-sale">-${discountPct}%</span>` : ''}
+      ${badgeHtml}
       <div class="product-actions" onclick="event.stopPropagation()">
-        <button class="product-action-btn" title="Add to Cart"
+        <button class="product-action-btn" title="Enquire"
           onclick='addToCart({id:${p.id},name:"${nameSafe}",price:${displayPrice},image:"${img}",category:"${cat}"})'
           ${!inStock ? 'disabled' : ''}>
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
         </button>
-        <button class="product-action-btn" title="View Product"
+        <button class="product-action-btn" title="View"
           onclick="location.href='/product.html?id=${p.id}'">
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
         </button>
@@ -161,13 +164,14 @@ function createProductCard(p) {
     </div>
     <div class="product-info">
       <div class="product-name">${p.name}</div>
+      ${p.brand ? `<div style="font-size:11px;color:var(--text-light);margin-bottom:4px">${p.brand}${p.dosage ? ' · ' + p.dosage : ''}</div>` : ''}
       <div class="product-price">
         <span class="price-current">${formatPrice(displayPrice)}</span>
         ${hasDiscount ? `<span class="price-old">${formatPrice(p.price)}</span>` : ''}
       </div>
       <button class="add-to-cart" ${!inStock ? 'disabled' : ''}
         onclick="event.stopPropagation(); addToCart({id:${p.id},name:'${p.name.replace(/'/g,"\\'")}',price:${displayPrice},image:'${img}',category:'${(p.category_name||'').replace(/'/g,"\\'")}'})"
-      >${inStock ? 'Add to Cart' : 'Out of Stock'}</button>
+      >${inStock ? 'Enquire Now' : 'Unavailable'}</button>
     </div>
   </div>`;
 }
@@ -180,13 +184,17 @@ async function loadCategories() {
 
     const grid = document.getElementById('categories-grid');
     if (grid) {
+      // Dog emoji map by slug
+      const emojiMap = {
+        'dry-food':'🍖','wet-food':'🥩','treats':'🦴','toys':'🎾',
+        'health':'💊','grooming':'✂️','collars-leashes':'🐕',
+        'beds':'🛏️','travel':'🚗','clothing':'👕','bowls':'🥣','training':'🎯'
+      };
       grid.innerHTML = cats.map(c => `
         <div class="cat-card" onclick="location.href='/shop.html?category=${c.slug}'">
-          <div class="cat-icon">
-            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 3H5a2 2 0 0 0-2 2v4m6-6h10a2 2 0 0 1 2 2v4M9 3v18m0 0h10a2 2 0 0 0 2-2V9M9 21H5a2 2 0 0 1-2-2V9m0 0h18"/></svg>
-          </div>
+          <div class="cat-icon" style="font-size:32px">${emojiMap[c.slug] || '🐾'}</div>
           <h3>${c.name}</h3>
-          <span>${c.product_count || 0} product(s)</span>
+          <span>${c.product_count || 0} listing(s)</span>
         </div>
       `).join('');
     }
@@ -235,6 +243,39 @@ function addToWishlist(id, name) {
     showToast(`${name} is already in your wishlist`);
   }
 }
+
+// ===== NAV DROPDOWN (Our Services) =====
+function toggleNavDropdown(e, triggerEl) {
+  e.preventDefault();
+  e.stopPropagation();
+  const dropdown = triggerEl
+    ? triggerEl.closest('.nav-dropdown')
+    : e.currentTarget.closest('.nav-dropdown');
+  const isOpen = dropdown.classList.contains('open');
+  document.querySelectorAll('.nav-dropdown.open').forEach(d => d.classList.remove('open'));
+  if (!isOpen) dropdown.classList.add('open');
+}
+// Close when clicking outside
+document.addEventListener('click', () => {
+  document.querySelectorAll('.nav-dropdown.open').forEach(d => d.classList.remove('open'));
+});
+
+// Mark the dropdown toggle as active if current page is one of its children
+(function() {
+  const current = window.location.pathname;
+  const servicePages = ['/about.html', '/contact.html', '/shipping.html'];
+  if (servicePages.some(p => current === p || current.endsWith(p))) {
+    document.querySelectorAll('.nav-dropdown-toggle').forEach(el => {
+      el.classList.add('active-parent');
+    });
+    // Also open briefly to show which section is active
+    document.querySelectorAll('.nav-dropdown').forEach(d => {
+      // find the link that matches
+      const match = d.querySelector(`.nav-dropdown-menu a[href="${current}"]`);
+      if (match) match.style.fontWeight = '700';
+    });
+  }
+})();
 
 // ===== SEARCH =====
 function doSearch() {
@@ -340,133 +381,9 @@ function toggleDropdown(e) {
   if (dropdown) dropdown.classList.toggle('open');
 }
 
-// ===== CART DRAWER =====
-(function() {
-  // Don't inject on checkout page
-  if (window.location.pathname.includes('checkout')) return;
-
-  // Inject drawer HTML into body
-  const drawerHTML = `
-    <div class="cart-overlay" id="cart-overlay"></div>
-    <div class="cart-drawer" id="cart-drawer" role="dialog" aria-label="Cart">
-      <div class="cart-drawer-header">
-        <h2>
-          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
-          My Cart
-        </h2>
-        <button class="cart-drawer-close" id="cart-drawer-close" aria-label="Close cart">
-          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
-        </button>
-      </div>
-      <div class="cart-drawer-body" id="cart-drawer-body"></div>
-      <div class="cart-drawer-footer" id="cart-drawer-footer" style="display:none">
-        <div class="drawer-subtotal">
-          <span class="label">Subtotal</span>
-          <span class="amount" id="drawer-subtotal-amount">0.00 €</span>
-        </div>
-        <div class="drawer-free-shipping" id="drawer-free-shipping-notice"></div>
-        <a href="/cart.html" class="drawer-btn-view">View Cart</a>
-        <a href="/checkout.html" class="drawer-btn-checkout">Checkout</a>
-      </div>
-    </div>
-  `;
-  document.body.insertAdjacentHTML('beforeend', drawerHTML);
-
-  // Wire cart button(s) — open drawer instead of navigating
-  document.querySelectorAll('.cart-btn').forEach(btn => {
-    btn.addEventListener('click', function(e) {
-      e.preventDefault();
-      e.stopPropagation();
-      openCartDrawer();
-    });
-  });
-
-  document.getElementById('cart-overlay').addEventListener('click', closeCartDrawer);
-  document.getElementById('cart-drawer-close').addEventListener('click', closeCartDrawer);
-  document.addEventListener('keydown', function(e) {
-    if (e.key === 'Escape') closeCartDrawer();
-  });
-})();
-
-function openCartDrawer() {
-  renderCartDrawer();
-  document.getElementById('cart-overlay').classList.add('open');
-  document.getElementById('cart-drawer').classList.add('open');
-  document.body.style.overflow = 'hidden';
-}
-
-function closeCartDrawer() {
-  document.getElementById('cart-overlay').classList.remove('open');
-  document.getElementById('cart-drawer').classList.remove('open');
-  document.body.style.overflow = '';
-}
-
-function renderCartDrawer() {
-  const cart = getCart();
-  const body = document.getElementById('cart-drawer-body');
-  const footer = document.getElementById('cart-drawer-footer');
-  const symbol = (typeof siteSettings !== 'undefined' && siteSettings.currency_symbol) || '€';
-  const freeThreshold = (typeof siteSettings !== 'undefined' && parseFloat(siteSettings.free_shipping_threshold)) || 50;
-
-  if (!cart.length) {
-    body.innerHTML = `
-      <div class="cart-drawer-empty">
-        <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
-        <h3>Your cart is empty</h3>
-        <a href="/shop.html" onclick="closeCartDrawer()">Browse Products</a>
-      </div>`;
-    if (footer) footer.style.display = 'none';
-    return;
-  }
-
-  body.innerHTML = cart.map((item, idx) => `
-    <div class="drawer-cart-item">
-      <div class="drawer-item-img">
-        ${item.image
-          ? `<img src="${item.image}" alt="${item.name}" onerror="this.parentElement.innerHTML='<svg xmlns=\\'http://www.w3.org/2000/svg\\' width=\\'32\\' height=\\'32\\' viewBox=\\'0 0 24 24\\' fill=\\'none\\' stroke=\\'%23ccc\\' stroke-width=\\'1.5\\' stroke-linecap=\\'round\\' stroke-linejoin=\\'round\\'><path d=\\'M9 3H5a2 2 0 0 0-2 2v4m6-6h10a2 2 0 0 1 2 2v4M9 3v18m0 0h10a2 2 0 0 0 2-2V9M9 21H5a2 2 0 0 1-2-2V9m0 0h18\\'></path></svg>'">`
-          : `<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#ccc" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 3H5a2 2 0 0 0-2 2v4m6-6h10a2 2 0 0 1 2 2v4M9 3v18m0 0h10a2 2 0 0 0 2-2V9M9 21H5a2 2 0 0 1-2-2V9m0 0h18"></path></svg>`}
-      </div>
-      <div class="drawer-item-info">
-        <div class="drawer-item-name" title="${item.name}">${item.name}</div>
-        <div class="drawer-item-price">${parseFloat(item.price * item.quantity).toFixed(2)} ${symbol}</div>
-        <div class="drawer-item-qty">
-          <button onclick="drawerUpdateQty(${idx}, -1)" aria-label="Decrease">−</button>
-          <span>${item.quantity}</span>
-          <button onclick="drawerUpdateQty(${idx}, 1)" aria-label="Increase">+</button>
-        </div>
-      </div>
-      <button class="drawer-item-remove" onclick="drawerRemoveItem(${idx})" title="Remove" aria-label="Remove ${item.name}">
-        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/><path d="M10 11v6"/><path d="M14 11v6"/><path d="M9 6V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"/></svg>
-      </button>
-    </div>
-  `).join('');
-
-  const subtotal = cart.reduce((s, i) => s + i.price * i.quantity, 0);
-  document.getElementById('drawer-subtotal-amount').textContent = `${subtotal.toFixed(2)} ${symbol}`;
-
-  const notice = document.getElementById('drawer-free-shipping-notice');
-  if (subtotal > 0 && subtotal < freeThreshold) {
-    notice.textContent = `Only ${(freeThreshold - subtotal).toFixed(2)} ${symbol} away from free shipping`;
-  } else if (subtotal >= freeThreshold) {
-    notice.textContent = 'Free shipping unlocked!';
-  } else {
-    notice.textContent = '';
-  }
-
-  if (footer) footer.style.display = 'block';
-}
-
-function drawerUpdateQty(idx, delta) {
-  const cart = getCart();
-  if (!cart[idx]) return;
-  cart[idx].quantity = Math.max(1, cart[idx].quantity + delta);
-  saveCart(cart);
-  renderCartDrawer();
-}
-
-function drawerRemoveItem(idx) {
-  const cart = getCart();
-  cart.splice(idx, 1);
-  saveCart(cart);
-  renderCartDrawer();
-}
+// ===== CART DRAWER — disabled (reservation flow used instead) =====
+function openCartDrawer() {}
+function closeCartDrawer() {}
+function renderCartDrawer() {}
+function drawerUpdateQty() {}
+function drawerRemoveItem() {}

@@ -27,6 +27,8 @@ app.use('/api/categories', require('./routes/categories'));
 app.use('/api/products', require('./routes/products'));
 app.use('/api/orders', require('./routes/orders'));
 app.use('/api/banners', require('./routes/banners'));
+app.use('/api/reviews', require('./routes/reviews'));
+app.use('/api/messages', require('./routes/messages'));
 
 // SPA fallback for admin
 app.get('/admin/*', (req, res) => {
@@ -49,11 +51,15 @@ app.get('/sitemap.xml', async (req, res) => {
     const categories = await all('SELECT slug FROM categories WHERE is_active=1');
 
     const staticPages = [
-      { url: '/',             priority: '1.0', changefreq: 'daily' },
-      { url: '/shop.html',    priority: '0.9', changefreq: 'daily' },
-      { url: '/about.html',   priority: '0.6', changefreq: 'monthly' },
-      { url: '/contact.html', priority: '0.6', changefreq: 'monthly' },
-      { url: '/shipping.html',priority: '0.5', changefreq: 'monthly' },
+      { url: '/',                    priority: '1.0', changefreq: 'daily' },
+      { url: '/shop.html',           priority: '0.9', changefreq: 'daily' },
+      { url: '/breeds.html',         priority: '0.8', changefreq: 'weekly' },
+      { url: '/reviews.html',        priority: '0.7', changefreq: 'weekly' },
+      { url: '/about.html',          priority: '0.6', changefreq: 'monthly' },
+      { url: '/contact.html',        priority: '0.6', changefreq: 'monthly' },
+      { url: '/shipping.html',       priority: '0.5', changefreq: 'monthly' },
+      { url: '/easy-ordering.html',  priority: '0.5', changefreq: 'monthly' },
+      { url: '/guarantee.html',      priority: '0.6', changefreq: 'monthly' },
     ];
 
     const productUrls = products.map(p => ({
@@ -69,7 +75,13 @@ app.get('/sitemap.xml', async (req, res) => {
       changefreq: 'weekly',
     }));
 
-    const allUrls = [...staticPages, ...categoryUrls, ...productUrls];
+    const breedUrls = categories.map(c => ({
+      url: `/breed.html?slug=${c.slug}`,
+      priority: '0.75',
+      changefreq: 'weekly',
+    }));
+
+    const allUrls = [...staticPages, ...categoryUrls, ...breedUrls, ...productUrls];
 
     const xml = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
@@ -88,11 +100,27 @@ ${allUrls.map(u => `  <url>
   }
 });
 
+// ── Global error handler — empêche les crashes sur promesses non gérées ──────
+app.use((err, req, res, next) => {
+  console.error('Unhandled route error:', err.message);
+  res.status(500).json({ error: 'Internal server error', details: err.message });
+});
+
+process.on('unhandledRejection', (reason) => {
+  console.error('Unhandled promise rejection:', reason);
+  // Ne pas crasher le process
+});
+
+process.on('uncaughtException', (err) => {
+  console.error('Uncaught exception:', err.message);
+  // Ne pas crasher le process
+});
+
 // Wait for DB init before starting server
 const { initPromise } = require('./database/db');
 initPromise.then(() => {
   app.listen(PORT, () => {
-    console.log(`\n🚀 13-Pills started on http://localhost:${PORT}`);
+    console.log(`\n🐾 PawShop started on http://localhost:${PORT}`);
     console.log(`📦 Admin Panel: http://localhost:${PORT}/admin`);
     console.log(`🔑 Admin credentials: admin / admin123\n`);
   });

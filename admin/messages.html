@@ -1,0 +1,318 @@
+﻿<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Messages - Admin Paw Puppies</title>
+  <link rel="stylesheet" href="/css/admin.css">
+  <style>
+    .msg-row-unread td { background: #fffbeb; font-weight: 600; }
+    .msg-row-unread td:first-child { border-left: 3px solid var(--primary, #C0541A); }
+    .msg-body-preview { color: #718096; font-size: 12px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 260px; }
+    .unread-dot { display:inline-block; width:8px; height:8px; border-radius:50%; background:var(--primary,#C0541A); margin-right:6px; vertical-align:middle; }
+    .filter-tabs { display:flex; gap:8px; margin-bottom:0; }
+    .filter-tab { padding:7px 18px; border:1px solid var(--border,#e2e8f0); background:#fff; font-size:13px; font-weight:600; cursor:pointer; transition:0.15s; }
+    .filter-tab.active { background:var(--primary,#C0541A); color:#fff; border-color:var(--primary,#C0541A); }
+    .detail-grid { display:grid; grid-template-columns:1fr 1fr; gap:20px; margin-bottom:20px; }
+    .detail-block h3 { font-size:13px; font-weight:700; color:var(--primary,#C0541A); margin-bottom:8px; text-transform:uppercase; letter-spacing:0.3px; }
+    .detail-block p { font-size:14px; color:#4a5568; line-height:1.7; margin:0; }
+    .msg-full { background:#f8fafc; border:1px solid var(--border,#e2e8f0); padding:16px; font-size:14px; line-height:1.8; color:#2d3748; white-space:pre-wrap; }
+  </style>
+</head>
+<body>
+<div class="admin-layout">
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-logo">
+      <img class="sidebar-logo-img" style="display:none;height:36px;width:auto;object-fit:contain" alt="Logo">
+      <div class="logo-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M9 3H5a2 2 0 0 0-2 2v4m6-6h10a2 2 0 0 1 2 2v4M9 3v18m0 0h10a2 2 0 0 0 2-2V9M9 21H5a2 2 0 0 1-2-2V9m0 0h18"/></svg>
+      </div>
+      <div>
+        <div class="logo-text sidebar-site-name">Paw Puppies</div>
+        <div class="logo-sub">Administration</div>
+      </div>
+    </div>
+    <nav class="sidebar-nav">
+      <div class="nav-section">Principal</div>
+      <a class="nav-item" data-href="/admin/" href="/admin/">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+        Tableau de bord
+      </a>
+      <a class="nav-item" data-href="/admin/products.html" href="/admin/products.html">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 3H5a2 2 0 0 0-2 2v4m6-6h10a2 2 0 0 1 2 2v4M9 3v18m0 0h10a2 2 0 0 0 2-2V9M9 21H5a2 2 0 0 1-2-2V9m0 0h18"/></svg>
+        Produits
+      </a>
+      <a class="nav-item" data-href="/admin/categories.html" href="/admin/categories.html">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg>
+        Catégories
+      </a>
+      <a class="nav-item" data-href="/admin/reviews.html" href="/admin/reviews.html">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+        Customer Reviews
+      </a>
+      <a class="nav-item" data-href="/admin/orders.html" href="/admin/orders.html">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+        Commandes
+      </a>
+      <a class="nav-item active" data-href="/admin/messages.html" href="/admin/messages.html">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+        Messages <span id="sidebar-unread-badge" style="display:none;background:#e53e3e;color:#fff;font-size:10px;font-weight:700;padding:1px 6px;border-radius:10px;margin-left:6px"></span>
+      </a>
+      <div class="nav-section">Configuration</div>
+      <a class="nav-item" data-href="/admin/settings.html" href="/admin/settings.html">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+        Paramètres
+      </a>
+      <a class="nav-item" data-href="/admin/users.html" href="/admin/users.html">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+        Utilisateurs
+      </a>
+      <div class="nav-section">Accès rapide</div>
+      <a class="nav-item" href="/" target="_blank">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+        Voir le site
+      </a>
+      <a class="nav-item" onclick="logout()" style="cursor:pointer">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+        Déconnexion
+      </a>
+    </nav>
+  </aside>
+
+  <!-- MAIN -->
+  <main class="admin-main">
+    <div class="admin-topbar">
+      <div class="topbar-left">
+        <button class="sidebar-toggle" id="sidebar-toggle" aria-label="Menu">
+          <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+        </button>
+        <span class="topbar-title">Messages reçus</span>
+      </div>
+      <div class="topbar-actions">
+        <span class="admin-badge">
+          <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+          <span class="admin-user-name">Admin</span>
+        </span>
+      </div>
+    </div>
+
+    <div class="admin-content">
+      <div class="card">
+        <div class="card-header" style="flex-wrap:wrap;gap:12px">
+          <div class="filter-tabs">
+            <button class="filter-tab active" id="tab-all"    onclick="setTab('all')">Tous</button>
+            <button class="filter-tab"        id="tab-unread" onclick="setTab('unread')">Non lus <span id="unread-count-tab" style="background:rgba(255,255,255,0.3);padding:1px 6px;border-radius:10px;font-size:11px"></span></button>
+            <button class="filter-tab"        id="tab-read"   onclick="setTab('read')">Lus</button>
+          </div>
+          <div class="search-bar-admin" style="margin:0;max-width:300px">
+            <input type="text" id="search" placeholder="Nom, email, pays..." oninput="loadMessages()">
+          </div>
+          <button class="btn btn-outline btn-sm" onclick="markAllRead()" title="Tout marquer comme lu">✓ Tout marquer lu</button>
+        </div>
+
+        <div class="card-body" style="padding:0">
+          <div class="table-wrapper">
+            <table>
+              <thead>
+                <tr>
+                  <th style="width:30px"></th>
+                  <th>Expéditeur</th>
+                  <th>Pays</th>
+                  <th>Adresse</th>
+                  <th>Message</th>
+                  <th>Date</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody id="messages-table"></tbody>
+            </table>
+          </div>
+          <div style="padding:16px;display:flex;gap:8px" id="pagination"></div>
+        </div>
+      </div>
+    </div>
+  </main>
+</div>
+
+<!-- MESSAGE DETAIL MODAL -->
+<div class="modal-overlay" id="msg-modal">
+  <div class="modal" style="max-width:620px">
+    <div class="modal-header">
+      <h2 id="msg-modal-title">Message de</h2>
+      <button class="modal-close" onclick="closeModal('msg-modal')">×</button>
+    </div>
+    <div class="modal-body" id="msg-modal-body"></div>
+    <div class="modal-footer">
+      <button class="btn btn-outline" id="btn-toggle-read" onclick="toggleRead()"></button>
+      <button class="btn btn-danger"  onclick="deleteCurrentMsg()">🗑️ Supprimer</button>
+      <button class="btn btn-outline" onclick="closeModal('msg-modal')">Fermer</button>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="admin-toast"></div>
+<script src="/admin/admin-common.js"></script>
+<script>
+let currentPage = 1;
+let currentTab  = 'all';
+let currentMsgId = null;
+let currentMsgRead = false;
+
+(async () => {
+  if (!await requireAuth()) return;
+  loadSidebarBranding();
+  loadMessages();
+})();
+
+function setTab(tab) {
+  currentTab = tab;
+  document.querySelectorAll('.filter-tab').forEach(b => b.classList.remove('active'));
+  document.getElementById('tab-' + tab).classList.add('active');
+  loadMessages(1);
+}
+
+async function loadMessages(page = 1) {
+  currentPage = page;
+  const search = document.getElementById('search').value.trim();
+  const q = new URLSearchParams({ page, limit: 20 });
+  if (currentTab === 'unread') q.set('unread', '1');
+
+  const data = await fetch(`/api/messages?${q}`, {
+    headers: { Authorization: `Bearer ${getToken()}` }
+  }).then(r => r.json());
+
+  // Update unread badge
+  const badge = document.getElementById('sidebar-unread-badge');
+  const tabBadge = document.getElementById('unread-count-tab');
+  if (badge) { badge.textContent = data.unreadCount; badge.style.display = data.unreadCount > 0 ? 'inline' : 'none'; }
+  if (tabBadge) tabBadge.textContent = data.unreadCount > 0 ? data.unreadCount : '';
+
+  // Client-side search filter
+  let rows = data.messages;
+  if (search) {
+    const s = search.toLowerCase();
+    rows = rows.filter(m =>
+      (m.firstname + ' ' + m.lastname).toLowerCase().includes(s) ||
+      m.email.toLowerCase().includes(s) ||
+      (m.country || '').toLowerCase().includes(s) ||
+      (m.address || '').toLowerCase().includes(s) ||
+      m.message.toLowerCase().includes(s)
+    );
+  }
+  if (currentTab === 'read') rows = rows.filter(m => m.is_read);
+
+  const tbody = document.getElementById('messages-table');
+  tbody.innerHTML = rows.length ? rows.map(m => `
+    <tr class="${!m.is_read ? 'msg-row-unread' : ''}" style="cursor:pointer" onclick="viewMessage(${m.id})">
+      <td>${!m.is_read ? '<span class="unread-dot"></span>' : ''}</td>
+      <td>
+        <strong>${m.firstname} ${m.lastname}</strong><br>
+        <small style="color:#718096">${m.email}</small>
+        ${m.phone ? `<br><small style="color:#718096">📞 ${m.phone}</small>` : ''}
+      </td>
+      <td><small>${m.country || '—'}</small></td>
+      <td><small style="color:#718096">${m.address || '—'}</small></td>
+      <td><div class="msg-body-preview">${m.message}</div></td>
+      <td><small>${formatDate(m.created_at)}</small></td>
+      <td onclick="event.stopPropagation()">
+        <button class="btn btn-outline btn-sm" title="Voir" onclick="viewMessage(${m.id})">👁️</button>
+        <button class="btn btn-danger btn-sm"  title="Supprimer" onclick="deleteMsg(${m.id}, event)">🗑️</button>
+      </td>
+    </tr>
+  `).join('') : `<tr><td colspan="7" style="text-align:center;padding:40px;color:#718096">
+    <div style="font-size:32px;margin-bottom:10px">📭</div>
+    Aucun message trouvé
+  </td></tr>`;
+
+  renderPagination('pagination', data.totalPages, page, 'loadMessages');
+}
+
+async function viewMessage(id) {
+  currentMsgId = id;
+  const data = await fetch(`/api/messages?limit=200`, {
+    headers: { Authorization: `Bearer ${getToken()}` }
+  }).then(r => r.json());
+
+  const m = data.messages.find(x => x.id === id);
+  if (!m) return;
+  currentMsgRead = !!m.is_read;
+
+  document.getElementById('msg-modal-title').textContent = `Message de ${m.firstname} ${m.lastname}`;
+  document.getElementById('btn-toggle-read').textContent = m.is_read ? '✉️ Marquer non lu' : '✅ Marquer lu';
+
+  document.getElementById('msg-modal-body').innerHTML = `
+    <div class="detail-grid">
+      <div class="detail-block">
+        <h3>👤 Expéditeur</h3>
+        <p><strong>${m.firstname} ${m.lastname}</strong></p>
+        <p>${m.email}</p>
+        ${m.phone ? `<p>📞 ${m.phone}</p>` : ''}
+      </div>
+      <div class="detail-block">
+        <h3>📍 Localisation</h3>
+        <p><strong>${m.country || '—'}</strong></p>
+        <p>${m.address || '—'}</p>
+      </div>
+    </div>
+    <div class="detail-block" style="margin-bottom:16px">
+      <h3>📅 Reçu le</h3>
+      <p>${formatDate(m.created_at)}</p>
+    </div>
+    <div class="detail-block">
+      <h3>💬 Message</h3>
+      <div class="msg-full">${m.message}</div>
+    </div>
+  `;
+
+  openModal('msg-modal');
+
+  // Auto-mark as read when opened
+  if (!m.is_read) {
+    await fetch(`/api/messages/${id}/read`, { method: 'PUT', headers: authHeaders() });
+    currentMsgRead = true;
+    document.getElementById('btn-toggle-read').textContent = '✉️ Marquer non lu';
+    loadMessages(currentPage);
+  }
+}
+
+async function toggleRead() {
+  if (!currentMsgId) return;
+  const endpoint = currentMsgRead ? 'unread' : 'read';
+  await fetch(`/api/messages/${currentMsgId}/${endpoint}`, { method: 'PUT', headers: authHeaders() });
+  currentMsgRead = !currentMsgRead;
+  document.getElementById('btn-toggle-read').textContent = currentMsgRead ? '✉️ Marquer non lu' : '✅ Marquer lu';
+  showToast(currentMsgRead ? '✅ Marqué comme lu' : '✉️ Marqué non lu', 'success');
+  loadMessages(currentPage);
+}
+
+async function deleteCurrentMsg() {
+  if (!currentMsgId) return;
+  if (!confirmDelete('Supprimer ce message définitivement ?')) return;
+  await fetch(`/api/messages/${currentMsgId}`, { method: 'DELETE', headers: authHeaders() });
+  closeModal('msg-modal');
+  showToast('✅ Message supprimé', 'success');
+  loadMessages(currentPage);
+}
+
+async function deleteMsg(id, e) {
+  e.stopPropagation();
+  if (!confirmDelete('Supprimer ce message ?')) return;
+  await fetch(`/api/messages/${id}`, { method: 'DELETE', headers: authHeaders() });
+  showToast('✅ Message supprimé', 'success');
+  loadMessages(currentPage);
+}
+
+async function markAllRead() {
+  const data = await fetch(`/api/messages?limit=200&unread=1`, {
+    headers: { Authorization: `Bearer ${getToken()}` }
+  }).then(r => r.json());
+  await Promise.all(data.messages.map(m =>
+    fetch(`/api/messages/${m.id}/read`, { method: 'PUT', headers: authHeaders() })
+  ));
+  showToast('✅ Tous les messages marqués comme lus', 'success');
+  loadMessages(currentPage);
+}
+</script>
+</body>
+</html>

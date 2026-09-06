@@ -1,0 +1,428 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title id="page-title">Dog Breed Guide - Paw Puppies | Puppies for Sale</title>
+  <meta id="meta-description" name="description" content="Find purebred puppies for sale at Paw Puppies. Health guaranteed, worldwide delivery. Learn about temperament, size, care and see available puppies.">
+  <meta name="robots" content="index, follow">
+  <link id="meta-canonical" rel="canonical" href="https://Paw Puppies.com/breeds.html">
+  <meta id="og-title" property="og:title" content="Dog Breed Guide — Paw Puppies">
+  <meta id="og-description" property="og:description" content="Learn about this breed and find available puppies with health guarantee.">
+  <meta id="og-url" property="og:url" content="https://Paw Puppies.com/breeds.html">
+  <meta id="og-image" property="og:image" content="https://Paw Puppies.com/images/hero-dachshund.jpg">
+  <meta property="og:site_name" content="Paw Puppies">
+  <meta property="og:type" content="website">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta id="tw-title" name="twitter:title" content="Dog Breed Guide — Paw Puppies">
+  <meta id="tw-image" name="twitter:image" content="https://Paw Puppies.com/images/hero-dachshund.jpg">
+  <link rel="stylesheet" href="/css/style.css">
+  <style>
+    /* ── Layout ── */
+    .breed-detail-page { display: grid; grid-template-columns: 260px 1fr; gap: 40px; padding: 36px 0 80px; align-items: start; }
+
+    /* ── Sidebar cards ── */
+    .bd-sidebar { display: flex; flex-direction: column; gap: 20px; position: sticky; top: 90px; }
+
+    .bd-card {
+      background: #f0f4f7; border-radius: 10px; padding: 20px 18px;
+    }
+    .bd-card-title {
+      font-size: 14px; font-weight: 700; color: #1a3c4e;
+      margin-bottom: 14px; padding-bottom: 8px;
+      border-bottom: 1px solid #d0dde6;
+      display: flex; align-items: center; gap: 8px;
+    }
+    .bd-card-title .card-icon { font-size: 20px; }
+
+    /* Suitability */
+    .suit-list { display: flex; flex-direction: column; gap: 8px; }
+    .suit-row {
+      display: flex; align-items: flex-start; gap: 10px;
+      font-size: 13px; color: #4a6070; line-height: 1.4;
+    }
+    .suit-icon { font-size: 16px; flex-shrink: 0; margin-top: 1px; }
+
+    /* Specs table */
+    .specs-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+    .specs-table tr { border-bottom: 1px solid #d8e4eb; }
+    .specs-table tr:last-child { border-bottom: none; }
+    .specs-table td { padding: 7px 4px; color: #4a6070; }
+    .specs-table td:first-child { font-weight: 700; color: #1a3c4e; width: 45%; }
+
+    /* ── Main content ── */
+    .bd-main {}
+
+    /* Hero image */
+    .bd-hero-img {
+      width: 100%; max-height: 480px; object-fit: cover;
+      border-radius: 12px; margin-bottom: 28px;
+      display: block;
+    }
+    .bd-hero-placeholder {
+      width: 100%; height: 300px; background: #eef2f5;
+      border-radius: 12px; margin-bottom: 28px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 80px; opacity: 0.4;
+    }
+
+    /* Section header */
+    .bd-section-title { font-size: 24px; font-weight: 700; color: #1a3c4e; margin-bottom: 4px; }
+    .bd-section-sub { font-size: 13px; color: var(--text-light); margin-bottom: 20px; font-style: italic; }
+
+    /* Rich description */
+    .bd-description { font-size: 14px; color: #2d3748; line-height: 1.85; margin-bottom: 40px; }
+    .bd-description h1 { font-size: 22px; font-weight: 800; color: #1a3c4e; margin: 0 0 16px; }
+    .bd-description h2 { font-size: 18px; font-weight: 700; color: #1a3c4e; margin: 28px 0 10px; padding-bottom: 6px; border-bottom: 1px solid #e2e8f0; }
+    .bd-description h3 { font-size: 15px; font-weight: 700; color: #2d3748; margin: 20px 0 8px; }
+    .bd-description p { margin-bottom: 14px; }
+    .bd-description ul, .bd-description ol { padding-left: 22px; margin-bottom: 14px; }
+    .bd-description li { margin-bottom: 6px; }
+    .bd-description strong { font-weight: 700; }
+    .bd-description em { font-style: italic; color: var(--secondary); }
+
+    /* Gallery */
+    .bd-gallery { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-bottom: 40px; }
+    .bd-gallery img {
+      width: 100%; aspect-ratio: 4/3; object-fit: cover;
+      border-radius: 10px; cursor: zoom-in;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .bd-gallery img:hover { transform: scale(1.02); box-shadow: 0 6px 20px rgba(0,0,0,0.15); }
+
+    /* CTA */
+    .bd-cta {
+      background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+      color: #fff; border-radius: 12px; padding: 28px 28px; text-align: center; margin-bottom: 40px;
+    }
+    .bd-cta h3 { font-size: 20px; font-weight: 700; margin-bottom: 8px; }
+    .bd-cta p { opacity: 0.85; font-size: 14px; margin-bottom: 18px; }
+    .bd-cta-btn {
+      display: inline-block; background: #fff; color: var(--primary);
+      padding: 12px 32px; font-weight: 700; font-size: 15px;
+      border-radius: 6px; text-decoration: none; transition: 0.2s;
+    }
+    .bd-cta-btn:hover { background: var(--primary-light); }
+
+    /* Related breeds */
+    .related-breeds { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
+    .related-tile { text-align: center; cursor: pointer; }
+    .related-tile-img {
+      width: 100%; aspect-ratio: 1; border-radius: 10px;
+      overflow: hidden; background: #eef2f5;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .related-tile-img img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.3s; }
+    .related-tile:hover .related-tile-img img { transform: scale(1.05); }
+    .related-tile-name { font-size: 13px; font-weight: 700; color: var(--secondary); margin-top: 8px; }
+    .related-tile:hover .related-tile-name { text-decoration: underline; }
+
+    /* Lightbox */
+    .lb-overlay { display:none; position:fixed; inset:0; background:rgba(0,0,0,0.92); z-index:1000; align-items:center; justify-content:center; cursor:zoom-out; }
+    .lb-overlay.open { display:flex; }
+    .lb-overlay img { max-width:90vw; max-height:90vh; object-fit:contain; border-radius:8px; }
+    .lb-close { position:absolute; top:20px; right:24px; color:#fff; font-size:36px; cursor:pointer; background:none; border:none; opacity:0.8; }
+    .lb-close:hover { opacity:1; }
+
+    @media (max-width: 900px) {
+      .breed-detail-page { grid-template-columns: 1fr; }
+      .bd-sidebar { position: static; }
+      .related-breeds { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 600px) {
+      .bd-gallery { grid-template-columns: repeat(2, 1fr); }
+      .related-breeds { grid-template-columns: repeat(2, 1fr); }
+      .bd-section-title { font-size: 20px; }
+    }
+  </style>
+</head>
+<body>
+
+<header class="header">
+  <div class="header-top">
+    <div class="container">
+      <span id="header-phone">+44 20 0000 0000</span>
+      <span>🐾 Health Guarantee on Every Puppy</span>
+    </div>
+  </div>
+  <div class="header-main">
+    <div class="container">
+      <a href="/" class="logo">
+        <div id="logo-container">
+          <svg xmlns="http://www.w3.org/2000/svg" width="42" height="42" viewBox="0 0 64 64" fill="none">
+            <ellipse cx="32" cy="40" rx="18" ry="14" fill="var(--primary)" opacity=".9"/>
+            <ellipse cx="32" cy="40" rx="11" ry="8" fill="#fff" opacity=".25"/>
+            <ellipse cx="18" cy="24" rx="5.5" ry="7" fill="var(--primary)"/>
+            <ellipse cx="46" cy="24" rx="5.5" ry="7" fill="var(--primary)"/>
+            <ellipse cx="26" cy="18" rx="4.5" ry="6" fill="var(--primary)"/>
+            <ellipse cx="38" cy="18" rx="4.5" ry="6" fill="var(--primary)"/>
+          </svg>
+        </div>
+        <div class="logo-text">
+          <span class="site-name" id="site-name">Paw Puppies</span>
+          <span class="site-tagline" id="site-tagline">Everything your dog needs</span>
+        </div>
+      </a>
+      <div class="search-bar">
+        <input type="text" id="search-input" placeholder="Search breeds...">
+        <button onclick="doSearch()">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+        </button>
+      </div>
+      <div class="header-actions"></div>
+    </div>
+  </div>
+  <nav class="nav">
+    <div class="container">
+      <button class="nav-toggle" id="nav-toggle" aria-label="Menu"><span></span><span></span><span></span></button>
+      <div class="nav-links" id="nav-links">
+        <div class="drawer-header">Menu <button class="drawer-close" id="drawer-close">×</button></div>
+        <a href="/">Home</a>
+        <a href="/shop.html">Available Puppies</a>
+        <a href="/breeds.html">Explore Breeds</a>
+        <a href="/reviews.html">Customer Reviews</a>
+        <div class="nav-dropdown">
+          <a href="#" class="nav-dropdown-toggle" onclick="toggleNavDropdown(event,this)">Our Services <span class="nav-arrow">&#9662;</span></a>
+          <div class="nav-dropdown-menu">
+            <a href="/easy-ordering.html"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg> Easy Ordering</a>
+            <a href="/about.html"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg> About Us</a>
+            <a href="/contact.html"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.63 3.18 2 2 0 0 1 3.6 1h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.6a16 16 0 0 0 6 6l.96-.96a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/></svg> Contact</a>
+            <a href="/shipping.html"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="3" width="15" height="13" rx="1"/><path d="M16 8h4l3 3v5h-7V8z"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg> Shipping &amp; Delivery</a>
+            <a href="/guarantee.html"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><polyline points="9 12 11 14 15 10"/></svg> Health Guarantee</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </nav>
+</header>
+  </div>
+</div>
+
+
+<div class="container">
+  <!-- Breadcrumb -->
+  <div style="padding:16px 0;font-size:13px;color:var(--text-light)">
+    <a href="/">Home</a> ›
+    <a href="/breeds.html">Explore Breeds</a> ›
+    <span id="bc-name">...</span>
+  </div>
+
+  <div id="breed-content">
+    <div class="loading"><div class="spinner"></div></div>
+  </div>
+</div>
+
+<!-- Lightbox -->
+<div class="lb-overlay" id="lb" onclick="closeLb()">
+  <button class="lb-close" onclick="closeLb()">×</button>
+  <img id="lb-img" src="" alt="">
+</div>
+
+<div class="toast" id="toast"></div>
+<script src="/js/main.js"></script>
+<script>
+const slug = new URLSearchParams(location.search).get('slug');
+if (!slug) location.href = '/breeds.html';
+
+const SUIT_LABELS = {
+  good_with_children:  { icon:'👶', label:'Good with children' },
+  good_with_pets:      { icon:'🐱', label:'Good with other pets' },
+  apartment_friendly:  { icon:'🏠', label:'Suitable for apartments' },
+  good_for_beginners:  { icon:'✅', label:'Good for first-time owners' },
+  low_shedding:        { icon:'🧹', label:'Low shedding' },
+  easy_to_train:       { icon:'🎯', label:'Easy to train' },
+  hypoallergenic:      { icon:'🌿', label:'Hypoallergenic' },
+  guard_dog:           { icon:'🛡️', label:'Good guard dog' },
+  barks_rarely:        { icon:'🤫', label:'Barks rarely' },
+  needs_company:       { icon:'🤝', label:'Needs constant company' }
+};
+
+async function loadBreed() {
+  try {
+    const res = await fetch(`/api/categories/${slug}`);
+    if (!res.ok) { location.href = '/breeds.html'; return; }
+    const b = await res.json();
+
+    document.title = `${b.name} Puppies for Sale - Paw Puppies`;
+    document.getElementById('page-title').textContent = `${b.name} Puppies for Sale - Paw Puppies`;
+    document.getElementById('bc-name').textContent = b.name;
+
+    // Dynamic SEO meta
+    const desc = b.description
+      ? `${b.name} puppies for sale at Paw Puppies. ${b.description.slice(0,120)}. Health guaranteed, worldwide delivery.`
+      : `Find ${b.name} puppies for sale. Health guaranteed, worldwide delivery to 110+ countries. Reserve your puppy today.`;
+    const canonical = `https://Paw Puppies.com/breed.html?slug=${b.slug}`;
+    const img = b.image_url || 'https://Paw Puppies.com/images/hero-dachshund.jpg';
+
+    document.getElementById('meta-description').content = desc;
+    document.getElementById('meta-canonical').href = canonical;
+    document.getElementById('og-title').content = `${b.name} Puppies for Sale — Paw Puppies`;
+    document.getElementById('og-description').content = desc;
+    document.getElementById('og-url').content = canonical;
+    document.getElementById('og-image').content = img;
+    document.getElementById('tw-title').content = `${b.name} Puppies for Sale — Paw Puppies`;
+    document.getElementById('tw-image').content = img;
+
+    // JSON-LD for this breed page
+    const ldScript = document.createElement('script');
+    ldScript.type = 'application/ld+json';
+    ldScript.text = JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "ItemPage",
+      "name": `${b.name} Puppies for Sale`,
+      "description": desc,
+      "url": canonical,
+      "image": img,
+      "breadcrumb": {
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          {"@type":"ListItem","position":1,"name":"Home","item":"https://Paw Puppies.com"},
+          {"@type":"ListItem","position":2,"name":"Explore Breeds","item":"https://Paw Puppies.com/breeds.html"},
+          {"@type":"ListItem","position":3,"name":b.name,"item":canonical}
+        ]
+      }
+    });
+    document.head.appendChild(ldScript);
+
+    let specs   = {};  try { specs   = JSON.parse(b.breed_specs  ||'{}'); } catch {}
+    let suit    = [];  try { suit    = JSON.parse(b.suitability   ||'[]'); } catch {}
+    let gallery = [];  try { gallery = JSON.parse(b.gallery       ||'[]'); } catch {}
+    let related = b.related || [];
+
+    // ── Sidebar ──
+    const suitHtml = suit.length
+      ? suit.map(s => SUIT_LABELS[s]
+          ? `<div class="suit-row"><span class="suit-icon">${SUIT_LABELS[s].icon}</span>${SUIT_LABELS[s].label}</div>`
+          : '').join('')
+      : '<p style="font-size:13px;color:#a0aec0">No data yet</p>';
+
+    const specRows = Object.entries({
+      'Size':     specs.size,
+      'Height':   specs.height,
+      'Weight':   specs.weight,
+      'Lifespan': specs.lifespan,
+      'Coat':     specs.coat,
+      'Colors':   specs.colors,
+      'Exercise': specs.exercise,
+      'Energy':   specs.energy
+    }).filter(([,v]) => v).map(([k,v]) =>
+      `<tr><td>${k}</td><td>${v}</td></tr>`
+    ).join('');
+
+    // ── Gallery ──
+    const galleryHtml = gallery.length
+      ? `<div class="bd-gallery">
+          ${gallery.map(img =>
+            `<img src="${img}" alt="${b.name}" loading="lazy" onclick="openLb('${img}')">`
+          ).join('')}
+        </div>`
+      : '';
+
+    // ── Related ──
+    const relatedHtml = related.length
+      ? `<div style="margin-top:48px">
+          <div style="font-size:20px;font-weight:700;color:#1a3c4e;margin-bottom:20px">Similar Breeds</div>
+          <div class="related-breeds">
+            ${related.map(r => {
+              const hasImg = r.image_url && r.image_url.length > 0;
+              return `
+              <div class="related-tile" onclick="location.href='/breed.html?slug=${r.slug}'">
+                <div class="related-tile-img">
+                  ${hasImg ? `<img src="${r.image_url}" alt="${r.name}" loading="lazy">` : `<div style="font-size:44px;opacity:.4">🐶</div>`}
+                </div>
+                <div class="related-tile-name">${r.name}</div>
+              </div>`;
+            }).join('')}
+          </div>
+        </div>`
+      : '';
+
+    // ── Assemble page ──
+    document.getElementById('breed-content').innerHTML = `
+      <div class="breed-detail-page">
+
+        <!-- SIDEBAR -->
+        <aside class="bd-sidebar">
+          ${suit.length ? `
+          <div class="bd-card">
+            <div class="bd-card-title"><span class="card-icon">🏡</span> Suitability</div>
+            <div class="suit-list">${suitHtml}</div>
+          </div>` : ''}
+
+          ${specRows ? `
+          <div class="bd-card">
+            <div class="bd-card-title"><span class="card-icon">🐕</span> Breed Facts</div>
+            <table class="specs-table"><tbody>${specRows}</tbody></table>
+          </div>` : ''}
+
+          <div class="bd-card" style="background:var(--primary-light);border:1px solid var(--primary)">
+            <div class="bd-card-title" style="border-color:var(--primary);color:var(--primary)"><span class="card-icon">🐾</span> Available Now</div>
+            <p style="font-size:13px;color:var(--text-light);margin-bottom:12px">
+              ${b.product_count > 0
+                ? `${b.product_count} ${b.name} puppy(ies) currently available`
+                : `No ${b.name} puppies right now — contact us to be notified!`}
+            </p>
+            <a href="/shop.html?category=${b.slug}" style="display:block;text-align:center;background:var(--primary);color:#fff;padding:10px;font-weight:700;font-size:13px;text-decoration:none;transition:0.2s"
+               onmouseover="this.style.background='var(--primary-dark)'" onmouseout="this.style.background='var(--primary)'">
+              View ${b.name} Puppies →
+            </a>
+          </div>
+        </aside>
+
+        <!-- MAIN -->
+        <div class="bd-main">
+          <!-- Cover -->
+          ${b.image_url
+            ? `<img class="bd-hero-img" src="${b.image_url}" alt="${b.name}" onclick="openLb('${b.image_url}')">`
+            : `<div class="bd-hero-placeholder">🐶</div>`}
+
+          <!-- Title block -->
+          <div class="bd-section-title">${b.name} at a glance</div>
+          <div class="bd-section-sub">Overview and physical characteristics</div>
+
+          <!-- Description -->
+          <div class="bd-description">
+            ${b.full_description
+              ? b.full_description
+              : `<p style="color:var(--text-light)">No description available yet. Check back soon!</p>`}
+          </div>
+
+          <!-- Gallery -->
+          ${galleryHtml}
+
+          <!-- CTA -->
+          <div class="bd-cta">
+            <h3>Looking for a ${b.name} puppy?</h3>
+            <p>Browse our available ${b.name} puppies, all health-checked and ready for their forever homes.</p>
+            <a href="/shop.html?category=${b.slug}" class="bd-cta-btn">See Available ${b.name} Puppies</a>
+          </div>
+
+          <!-- Related breeds -->
+          ${relatedHtml}
+        </div>
+      </div>
+    `;
+  } catch(e) {
+    console.error(e);
+    document.getElementById('breed-content').innerHTML =
+      '<p style="padding:40px;color:red">Error loading breed. <a href="/breeds.html">← Back to breeds</a></p>';
+  }
+}
+
+function openLb(src) {
+  document.getElementById('lb-img').src = src;
+  document.getElementById('lb').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+function closeLb() {
+  document.getElementById('lb').classList.remove('open');
+  document.body.style.overflow = '';
+}
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLb(); });
+
+updateCartCount();
+loadSettings();
+loadBreed();
+</script>
+</body>
+</html>

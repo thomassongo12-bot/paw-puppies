@@ -1,42 +1,321 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>About Us - 13-Pills | Online Pharmacy</title>
-  <meta name="description" content="Learn about 13-Pills, your trusted online pharmacy. Quality medications, discreet delivery, competitive prices and 24/7 customer support.">
+  <title>About Paw Puppies — Over 25 Years of Puppy Love | Trusted Worldwide</title>
+  <meta name="description" content="For over 25 years Paw Puppies has connected 15,000+ families with their perfect puppies across 110+ countries. Learn our story, our team, our health guarantee and our values.">
   <meta name="robots" content="index, follow">
-  <link rel="canonical" href="https://13pills.vercel.app/about.html">
-  <link id="favicon" rel="icon" href="/img/favicon.png">
+  <link rel="canonical" href="https://Paw Puppies.com/about.html">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="About Paw Puppies — Over 25 Years of Puppy Love">
+  <meta property="og:description" content="15,000+ families united with their perfect puppies in 110+ countries. Our story, team and lifetime health guarantee.">
+  <meta property="og:url" content="https://Paw Puppies.com/about.html">
+  <meta property="og:image" content="https://Paw Puppies.com/images/about-puppy.jpg">
+  <meta property="og:site_name" content="Paw Puppies">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="About Paw Puppies — Over 25 Years of Puppy Love">
+  <meta name="twitter:image" content="https://Paw Puppies.com/images/about-puppy.jpg">
+  <script type="application/ld+json">{
+    "@context": "https://schema.org",
+    "@type": "AboutPage",
+    "name": "About Paw Puppies",
+    "url": "https://Paw Puppies.com/about.html",
+    "description": "For over 25 years Paw Puppies has connected families with their perfect purebred puppies across 110+ countries.",
+    "about": {
+      "@type": "Organization",
+      "name": "Paw Puppies",
+      "foundingDate": "2000",
+      "url": "https://Paw Puppies.com",
+      "numberOfEmployees": {"@type": "QuantitativeValue", "value": "10+"},
+      "areaServed": "Worldwide"
+    },
+    "breadcrumb": {"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://Paw Puppies.com"},{"@type":"ListItem","position":2,"name":"About Us","item":"https://Paw Puppies.com/about.html"}]}
+  }</script>
   <link rel="stylesheet" href="/css/style.css">
   <style>
-    .about-hero { background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%); color: #fff; padding: 64px 0; text-align: center; }
-    .about-hero h1 { font-size: 38px; font-weight: 800; margin-bottom: 12px; }
-    .about-hero p { font-size: 17px; opacity: 0.9; max-width: 580px; margin: 0 auto; }
-    .about-section { padding: 56px 0; }
-    .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 56px; align-items: center; }
+    /* ── Hero ── */
+    .about-hero {
+      position: relative;
+      background: linear-gradient(rgba(0,0,0,0.52), rgba(0,0,0,0.52)),
+                  url('/images/about1.jpg') center center / cover no-repeat;
+      color: #fff;
+      padding: 80px 0 72px;
+      text-align: center;
+      overflow: hidden;
+    }
+    .about-hero::before {
+      display: none;
+    }
+    .about-hero-eyebrow {
+      display: inline-block;
+      background: rgba(255,255,255,0.18);
+      border: 1px solid rgba(255,255,255,0.3);
+      border-radius: 20px;
+      padding: 5px 18px;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 1.2px;
+      text-transform: uppercase;
+      margin-bottom: 18px;
+    }
+    .about-hero h1 {
+      font-size: 42px;
+      font-weight: 800;
+      margin-bottom: 16px;
+      line-height: 1.2;
+    }
+    .about-hero p {
+      font-size: 17px;
+      opacity: 0.88;
+      max-width: 600px;
+      margin: 0 auto;
+      line-height: 1.7;
+    }
+
+    /* ── Stats bar ── */
+    .stats-bar {
+      background: #fff;
+      border-bottom: 1px solid var(--border);
+      padding: 0;
+    }
+    .stats-inner {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+    }
+    .stat-item {
+      text-align: center;
+      padding: 28px 20px;
+      border-right: 1px solid var(--border);
+    }
+    .stat-item:last-child { border-right: none; }
+    .stat-num {
+      font-size: 32px;
+      font-weight: 800;
+      color: var(--primary);
+      line-height: 1;
+      margin-bottom: 6px;
+    }
+    .stat-label {
+      font-size: 12px;
+      color: var(--text-light);
+      text-transform: uppercase;
+      letter-spacing: 0.6px;
+      font-weight: 600;
+    }
+
+    /* ── Sections ── */
+    .about-section { padding: 72px 0; }
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 64px;
+      align-items: center;
+    }
     .about-grid.reverse { direction: rtl; }
     .about-grid.reverse > * { direction: ltr; }
-    .about-img { border-radius: 16px; overflow: hidden; background: var(--primary-light); height: 320px; display: flex; align-items: center; justify-content: center; font-size: 100px; }
-    .about-img img { width: 100%; height: 100%; object-fit: cover; }
-    .about-text h2 { font-size: 28px; font-weight: 800; color: var(--text); margin-bottom: 16px; }
-    .about-text p { font-size: 15px; color: var(--text-light); line-height: 1.8; margin-bottom: 14px; }
-    .values-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
-    .value-card { background: #fff; border: 1px solid var(--border); border-radius: 12px; padding: 28px 20px; text-align: center; }
-    .value-icon { width: 56px; height: 56px; background: var(--primary-light); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 16px; color: var(--primary); }
+
+    .about-img {
+      border-radius: 16px;
+      overflow: hidden;
+      height: 400px;
+      position: relative;
+    }
+    .about-img img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+    .about-img-badge {
+      position: absolute;
+      bottom: 20px; left: 20px;
+      background: #fff;
+      border-radius: 10px;
+      padding: 10px 16px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.12);
+    }
+    .about-img-badge .badge-icon { font-size: 24px; }
+    .about-img-badge strong { font-size: 14px; color: #1a3c4e; display: block; }
+    .about-img-badge span { font-size: 11px; color: var(--text-light); }
+
+    .about-eyebrow {
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1.2px;
+      color: var(--primary);
+      margin-bottom: 10px;
+      display: block;
+    }
+    .about-text h2 {
+      font-size: 30px;
+      font-weight: 800;
+      color: #1a3c4e;
+      margin-bottom: 18px;
+      line-height: 1.25;
+    }
+    .about-text p {
+      font-size: 15px;
+      color: var(--text-light);
+      line-height: 1.85;
+      margin-bottom: 14px;
+    }
+    .about-text .highlight {
+      font-size: 17px;
+      font-weight: 700;
+      color: #1a3c4e;
+      border-left: 3px solid var(--primary);
+      padding-left: 14px;
+      margin: 20px 0;
+      line-height: 1.5;
+    }
+
+    /* ── Timeline ── */
+    .timeline {
+      position: relative;
+      padding-left: 32px;
+      margin-top: 24px;
+    }
+    .timeline::before {
+      content: '';
+      position: absolute;
+      left: 7px; top: 8px; bottom: 8px;
+      width: 2px;
+      background: var(--border);
+    }
+    .tl-item {
+      position: relative;
+      margin-bottom: 24px;
+    }
+    .tl-item::before {
+      content: '';
+      position: absolute;
+      left: -27px; top: 6px;
+      width: 12px; height: 12px;
+      border-radius: 50%;
+      background: var(--primary);
+      border: 2px solid #fff;
+      box-shadow: 0 0 0 2px var(--primary);
+    }
+    .tl-year {
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--primary);
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      margin-bottom: 3px;
+    }
+    .tl-text {
+      font-size: 14px;
+      color: var(--text-light);
+      line-height: 1.6;
+    }
+
+    /* ── Values grid ── */
+    .values-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+    .value-card {
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 28px 22px;
+      text-align: center;
+      transition: box-shadow 0.2s, transform 0.2s;
+    }
+    .value-card:hover {
+      box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+      transform: translateY(-3px);
+    }
+    .value-icon {
+      width: 56px; height: 56px;
+      background: var(--primary-light);
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      margin: 0 auto 16px;
+      color: var(--primary);
+    }
     .value-icon svg { width: 24px; height: 24px; }
-    .value-card h3 { font-size: 16px; font-weight: 700; margin-bottom: 8px; }
-    .value-card p { font-size: 13px; color: var(--text-light); line-height: 1.6; }
-    @media(max-width:768px) { .about-grid { grid-template-columns: 1fr; gap: 24px; } .values-grid { grid-template-columns: 1fr; } .about-hero h1 { font-size: 26px; } }
+    .value-card h3 { font-size: 16px; font-weight: 700; margin-bottom: 8px; color: #1a3c4e; }
+    .value-card p { font-size: 13px; color: var(--text-light); line-height: 1.65; }
+
+    /* ── CTA banner ── */
+    .about-cta {
+      background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+      padding: 64px 0;
+      text-align: center;
+      color: #fff;
+    }
+    .about-cta h2 { font-size: 30px; font-weight: 800; margin-bottom: 12px; }
+    .about-cta p  { font-size: 16px; opacity: 0.88; margin-bottom: 28px; }
+    .about-cta-btn {
+      display: inline-block;
+      background: #fff;
+      color: var(--primary);
+      font-weight: 700;
+      font-size: 15px;
+      padding: 14px 36px;
+      border-radius: 8px;
+      text-decoration: none;
+      transition: 0.2s;
+    }
+    .about-cta-btn:hover { background: var(--primary-light); }
+
+    @media(max-width:900px) {
+      .stats-inner { grid-template-columns: repeat(2, 1fr); }
+      .stat-item:nth-child(2) { border-right: none; }
+    }
+    @media(max-width:768px) {
+      .about-hero h1 { font-size: 28px; }
+      .about-grid { grid-template-columns: 1fr; gap: 28px; }
+      .about-grid.reverse { direction: ltr; }
+      .values-grid { grid-template-columns: 1fr; }
+      .about-img { height: 260px; }
+      .stats-inner { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media(max-width:480px) {
+      .stats-inner { grid-template-columns: 1fr 1fr; }
+    }
   </style>
 </head>
 <body>
+
 <header class="header">
+  <div class="header-top">
+    <div class="container">
+      <span id="header-phone">+44 20 0000 0000</span>
+      <span>🐾 Health Guarantee on Every Puppy</span>
+    </div>
+  </div>
   <div class="header-main">
     <div class="container">
-      <a href="/" class="logo"><div id="logo-container"><svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 3H5a2 2 0 0 0-2 2v4m6-6h10a2 2 0 0 1 2 2v4M9 3v18m0 0h10a2 2 0 0 0 2-2V9M9 21H5a2 2 0 0 1-2-2V9m0 0h18"/></svg></div><div class="logo-text"><span class="site-name" id="site-name">13-Pills</span><span class="site-tagline" id="site-tagline">Votre pharmacie en ligne</span></div></a>
-      <div class="header-actions" style="margin-left:auto">
-        <button class="cart-btn" id="cart-btn-header" onclick="openCartDrawer()"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg><span class="cart-count" id="cart-count">0</span></button>
+      <a href="/" class="logo">
+        <div id="logo-container">
+          <svg xmlns="http://www.w3.org/2000/svg" width="42" height="42" viewBox="0 0 64 64" fill="none">
+            <ellipse cx="32" cy="40" rx="18" ry="14" fill="var(--primary)" opacity=".9"/>
+            <ellipse cx="32" cy="40" rx="11" ry="8" fill="#fff" opacity=".25"/>
+            <ellipse cx="18" cy="24" rx="5.5" ry="7" fill="var(--primary)"/>
+            <ellipse cx="46" cy="24" rx="5.5" ry="7" fill="var(--primary)"/>
+            <ellipse cx="26" cy="18" rx="4.5" ry="6" fill="var(--primary)"/>
+            <ellipse cx="38" cy="18" rx="4.5" ry="6" fill="var(--primary)"/>
+          </svg>
+        </div>
+        <div class="logo-text">
+          <span class="site-name" id="site-name">Paw Puppies</span>
+          <span class="site-tagline" id="site-tagline">Everything your dog needs</span>
+        </div>
+      </a>
+      <div class="search-bar">
+        <input type="text" id="search-input" placeholder="Search breeds...">
+        <button onclick="doSearch()">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+        </button>
       </div>
+      <div class="header-actions"></div>
     </div>
   </div>
   <nav class="nav">
@@ -45,10 +324,19 @@
       <div class="nav-links" id="nav-links">
         <div class="drawer-header">Menu <button class="drawer-close" id="drawer-close">×</button></div>
         <a href="/">Home</a>
-        <a href="/shop.html">Shop</a>
-        <a href="/contact.html">Contact</a>
-        <a href="/about.html" class="active">About Us</a>
-        <a href="/shipping.html">Shipping</a>
+        <a href="/shop.html">Available Puppies</a>
+        <a href="/breeds.html">Explore Breeds</a>
+        <a href="/reviews.html">Customer Reviews</a>
+        <div class="nav-dropdown">
+          <a href="#" class="nav-dropdown-toggle" onclick="toggleNavDropdown(event,this)">Our Services <span class="nav-arrow">&#9662;</span></a>
+          <div class="nav-dropdown-menu">
+            <a href="/easy-ordering.html"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg> Easy Ordering</a>
+            <a href="/about.html" style="font-weight:700"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg> About Us</a>
+            <a href="/contact.html"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.63 3.18 2 2 0 0 1 3.6 1h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.6a16 16 0 0 0 6 6l.96-.96a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/></svg> Contact</a>
+            <a href="/shipping.html"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="3" width="15" height="13" rx="1"/><path d="M16 8h4l3 3v5h-7V8z"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg> Shipping &amp; Delivery</a>
+            <a href="/guarantee.html"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><polyline points="9 12 11 14 15 10"/></svg> Health Guarantee</a>
+          </div>
+        </div>
       </div>
     </div>
   </nav>
@@ -57,89 +345,207 @@
 <!-- HERO -->
 <div class="about-hero">
   <div class="container">
-    <h1 style="font-size:24px;padding:24px 0 8px">About 13-Pills</h1>
-    <p>Your trusted online pharmacy, committed to your health and well-being from day one.</p>
+    <span class="about-hero-eyebrow">Est. 2000 · Trusted Worldwide</span>
+    <h1>Over 25 Years of Puppy Love</h1>
+    <p>More than two decades connecting families with their perfect puppies — from a passionate two-person team to a globally trusted name in over 110 countries.</p>
   </div>
 </div>
 
-<!-- QUI SOMMES-NOUS -->
+<!-- STATS BAR -->
+<div class="stats-bar">
+  <div class="container">
+    <div class="stats-inner">
+      <div class="stat-item">
+        <div class="stat-num">25+</div>
+        <div class="stat-label">Years of Experience</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-num">15,000+</div>
+        <div class="stat-label">Happy Families</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-num">110+</div>
+        <div class="stat-label">Countries Served</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-num">100%</div>
+        <div class="stat-label">Health Guaranteed</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- OUR STORY -->
 <section class="about-section" style="background:#fff;">
   <div class="container">
     <div class="about-grid">
-      <div class="about-img"><img src="/uploads/logo-1786367581614.png" alt="13-Pills logo" style="width:100%;height:100%;object-fit:contain;background:#000;padding:20px"></div>
+      <div class="about-img">
+        <img src="/images/about3.JPG" alt="Puppy cradled in owner's hands — Paw Puppies">
+        <div class="about-img-badge">
+          <span class="badge-icon">🐾</span>
+          <div>
+            <strong>Since 2000</strong>
+            <span>Bringing families & puppies together</span>
+          </div>
+        </div>
+      </div>
       <div class="about-text">
-        <h2>Who Are We?</h2>
-        <p>13-Pills is an online pharmacy dedicated to making medications and health products accessible to everyone, everywhere and at any time. We believe that taking care of your health should never be complicated.</p>
-        <p>Our team of healthcare professionals rigorously selects every product to guarantee their authenticity, effectiveness and compliance with current standards.</p>
-        <p>Since our creation, we have supported thousands of clients in their healthcare journey with discretion, speed and professionalism.</p>
+        <span class="about-eyebrow">Our Story</span>
+        <h2>It All Started with One English Bulldog</h2>
+        <p class="highlight">"It is now more than two decades since we brought together that very first puppy with its family."</p>
+        <p>It began simply: a passion for dogs and a belief that every family deserved to find their perfect purebred puppy safely, transparently and from a trusted source.</p>
+        <p>What started as a two-person operation — without even a website — quickly became something much bigger. With the launch of our online platform in 2002, dog lovers worldwide could finally find a perfect puppy from Europe through a secure, professional service.</p>
+        <p>To meet growing global demand, we built a Breeder Relations team with the important task of visiting breeders in person. Canine Knowledge Experts joined to offer specialist advice, and a dedicated Customer Support team was created to guide owners from the day of reservation, long after their puppy arrives home.</p>
       </div>
     </div>
   </div>
 </section>
 
-<!-- NOTRE MISSION -->
+<!-- GOING GLOBAL -->
 <section class="about-section" style="background:var(--bg);">
   <div class="container">
     <div class="about-grid reverse">
-      <div class="about-img"><img src="/images/mission.png" alt="Notre mission 13-Pills" style="width:100%;height:100%;object-fit:contain;background:#000;padding:20px"></div>
+      <div class="about-img">
+        <img src="/images/about2.png" alt="The Paw Puppies team — passionate dog lovers">
+        <div class="about-img-badge">
+          <span class="badge-icon">👥</span>
+          <div>
+            <strong>Our Team</strong>
+            <span>10+ years average experience</span>
+          </div>
+        </div>
+      </div>
       <div class="about-text">
-        <h2>Our Mission</h2>
-        <p>Our mission is simple: to give you fast, safe and affordable access to the medications and health products you need.</p>
-        <p>We work with approved suppliers and certified laboratories to guarantee you quality products at competitive prices.</p>
-        <p>Every order is handled with care and delivered discreetly directly to your home.</p>
+        <span class="about-eyebrow">Going Global</span>
+        <h2>Always There For You, Worldwide</h2>
+        <p>Buying a puppy from overseas in the pre-internet era was a risky and difficult process. Communication, trust and confidence between buyer and breeder were nearly impossible to establish — especially for something as important as welcoming a new family member.</p>
+        <p>By visiting breeders in person to ensure quality, and by providing a secure service and guarantee for every customer, we changed all that. We literally opened the world to purebred dog lovers.</p>
+
+        <div class="timeline">
+          <div class="tl-item">
+            <div class="tl-year">2000</div>
+            <div class="tl-text">Founded as a two-person operation. First puppy — an English Bulldog — matched with a family in the U.S.</div>
+          </div>
+          <div class="tl-item">
+            <div class="tl-year">2002</div>
+            <div class="tl-text">Launch of our online platform. Dog lovers worldwide can now safely find their perfect puppy from Europe.</div>
+          </div>
+          <div class="tl-item">
+            <div class="tl-year">2005+</div>
+            <div class="tl-text">Breeder Relations team created. Personal visits to breeders ensure the highest quality standards.</div>
+          </div>
+          <div class="tl-item">
+            <div class="tl-year">Today</div>
+            <div class="tl-text">Over 15,000 families united with their puppies in 110+ countries. Our team remains passionate, experienced and always available.</div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- NOS VALEURS -->
+<!-- VALUES -->
 <section class="about-section" style="background:#fff;">
   <div class="container">
     <div class="section-header">
       <h2>Our Values</h2>
-      <p>The principles that guide each of our actions</p>
+      <p>The principles that guide everything we do — for every puppy and every family</p>
       <div class="line"></div>
     </div>
     <div class="values-grid">
       <div class="value-card">
-        <div class="value-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><polyline points="9 12 11 14 15 10"/></svg></div>
-        <h3>Guaranteed Quality</h3>
-        <p>All our products are carefully selected and come from certified and verified sources.</p>
+        <div class="value-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><polyline points="9 12 11 14 15 10"/></svg>
+        </div>
+        <h3>Health Guarantee</h3>
+        <p>Every puppy comes with a full health guarantee. We work only with trusted, personally visited breeders who share our standards.</p>
       </div>
       <div class="value-card">
-        <div class="value-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></div>
-        <h3>Privacy</h3>
-        <p>Your personal data and orders are handled with the utmost discretion.</p>
+        <div class="value-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+        </div>
+        <h3>Expert Team</h3>
+        <p>Many team members have been with us for over 10 years. Our Canine Knowledge Experts bring decades of real-world experience.</p>
       </div>
       <div class="value-card">
-        <div class="value-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.63 3.18 2 2 0 0 1 3.6 1h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.6a16 16 0 0 0 6 6l.96-.96a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/></svg></div>
-        <h3>24/7 Support</h3>
-        <p>Our team is available at all times to answer your questions and assist you.</p>
+        <div class="value-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+        </div>
+        <h3>Global Reach</h3>
+        <p>We've placed puppies in over 110 countries. No matter where you are, we handle transport with full care and safety.</p>
       </div>
       <div class="value-card">
-        <div class="value-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12H3l9-9 9 9h-2"/><path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-7"/></svg></div>
-        <h3>Fast Delivery</h3>
-        <p>Discreet and fast delivery everywhere, with careful packaging that preserves your products.</p>
+        <div class="value-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.63 3.18 2 2 0 0 1 3.6 1h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.6a16 16 0 0 0 6 6l.96-.96a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+        </div>
+        <h3>Lifetime Support</h3>
+        <p>Our Customer Support team stays with you from the day of reservation to long after your puppy arrives home.</p>
       </div>
       <div class="value-card">
-        <div class="value-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg></div>
-        <h3>Competitive Prices</h3>
-        <p>We negotiate the best prices to offer you real savings on every order.</p>
+        <div class="value-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+        </div>
+        <h3>Safe & Transparent</h3>
+        <p>We visit every breeder in person. What you see is what you get — no surprises, no middlemen, no compromises on welfare.</p>
       </div>
       <div class="value-card">
-        <div class="value-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 12 20 22 4 22 4 12"/><rect x="2" y="7" width="20" height="5" rx="1"/><path d="M12 22V7"/><path d="M12 7H7.5a2.5 2.5 0 0 1 0-5C11 2 12 7 12 7z"/><path d="M12 7h4.5a2.5 2.5 0 0 0 0-5C13 2 12 7 12 7z"/></svg></div>
-        <h3>Easy Returns</h3>
-        <p>Our hassle-free return policy guarantees you a serene shopping experience.</p>
+        <div class="value-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+        </div>
+        <h3>Genuine Passion</h3>
+        <p>We are dog people first. Every decision — from breeder selection to puppy transport — is made with love for the animals.</p>
       </div>
     </div>
   </div>
 </section>
 
-<footer class="footer" id="contact">
+<!-- CTA -->
+<div class="about-cta">
   <div class="container">
-    <div class="footer-bottom" style="padding:24px 0">
-      <span id="footer-text">© 2024 13-Pills. All rights reserved.</span>
-      <a href="/" style="color:#a0aec0">← Back to Home</a>
+    <h2>Ready to Find Your Perfect Puppy?</h2>
+    <p>Browse our available puppies and take the first step towards a lifetime of happiness.</p>
+    <a href="/shop.html" class="about-cta-btn">Browse Available Puppies →</a>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div class="footer-logo" id="footer-site-name">Paw Puppies</div>
+        <p id="footer-description">Your trusted online dog shop.</p>
+        <div class="social-links" id="social-links"></div>
+      </div>
+      <div>
+        <h4>Quick Links</h4>
+        <ul>
+          <li><a href="/">Home</a></li>
+          <li><a href="/shop.html">Available Puppies</a></li>
+          <li><a href="/breeds.html">Explore Breeds</a></li>
+          <li><a href="/reviews.html">Customer Reviews</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Information</h4>
+        <ul>
+          <li><a href="/about.html">About Us</a></li>
+          <li><a href="/shipping.html">Shipping &amp; Delivery</a></li>
+          <li><a href="/contact.html">Contact Us</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Contact</h4>
+        <ul>
+          <li id="footer-email">contact@Paw Puppies.com</li>
+          <li id="footer-phone">+44 20 0000 0000</li>
+          <li id="footer-address">123 Dog Lane, London</li>
+          <li id="footer-hours">Mon-Fri: 8am-8pm</li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span id="footer-text">© 2024 Paw Puppies. All rights reserved.</span>
     </div>
   </div>
 </footer>
