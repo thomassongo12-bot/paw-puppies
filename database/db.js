@@ -198,30 +198,10 @@ async function init() {
   }
 
   // ── Produits de démonstration ───────────────────────────────────────────────
+  // Pas de produits par défaut — l'admin les crée via le panel
   const prodCnt = await get('SELECT COUNT(*) as c FROM products');
   if (!prodCnt.c) {
-    const c = await all('SELECT id, slug FROM categories');
-    const cm = {};
-    for (const x of c) cm[x.slug] = x.id;
-
-    const prods = [
-      ['Royal Canin Adult Medium','royal-canin-adult-medium','Complete dry food for medium breed adult dogs','High-quality kibble formulated for dogs 11–25 kg. Rich in proteins to support lean muscle mass and healthy digestion.',28.99,null,120,'dry-food',1,0,'Royal Canin','15 kg','Bag of 15 kg'],
-      ['Pedigree Chicken Pouches','pedigree-chicken-pouches','Wet food with chicken in gravy','Tasty and nutritious wet food for adult dogs, made with real chicken in a rich gravy sauce.',9.50,7.99,85,'wet-food',1,0,'Pedigree','100g × 12','Pack of 12 pouches'],
-      ['Ziwi Peak Beef Jerky Treats','ziwi-beef-jerky','Air-dried beef treats – grain free','Premium grain-free beef jerky made with 96% meat, organs and bone. Ideal as a daily treat or training reward.',14.99,null,60,'treats',0,0,'Ziwi Peak','100 g','Resealable bag'],
-      ['Kong Classic Medium','kong-classic-medium','Durable rubber chew toy','The iconic red Kong toy in medium size. Fill with kibble or peanut butter to keep your dog entertained for hours.',12.99,10.99,150,'toys',1,0,'Kong','Medium','Single toy'],
-      ['YuMOVE Joint Supplement','yumove-joint','Daily joint supplement for dogs','Vet-approved joint supplement with green-lipped mussel, glucosamine and vitamins. Supports mobility and joint health.',24.99,null,45,'health',1,0,'YuMOVE','60 tablets','Pot of 60 tablets'],
-      ['Animology Deep Clean Shampoo','animology-shampoo','Deep clean dog shampoo 250ml','Professional-grade shampoo that removes grease, dirt and odours. Suitable for all coat types. pH-balanced formula.',7.99,null,70,'grooming',0,0,'Animology','250 ml','250 ml bottle'],
-      ['Ruffwear Front Range Harness','ruffwear-harness','Padded everyday harness','No-pull padded harness with two leash attachment points. Lightweight, breathable and fully adjustable.',49.99,42.99,35,'collars-leashes',1,0,'Ruffwear','Medium','Harness only'],
-      ['MidWest iCrate Dog Bed','midwest-dog-bed','Plush orthopedic dog bed','Ultra-soft orthopedic foam bed that fits perfectly inside standard crates. Removable and machine-washable cover.',34.99,null,28,'beds',0,0,'MidWest','Large 90×60cm','Bed only'],
-      ['Puppy Training Pads 100pk','puppy-pads-100','Super-absorbent training pads','Quick-dry leak-proof training pads with attractant scent. Perfect for puppy house-training and senior dogs.',15.99,12.99,200,'training',1,0,'All4Pets','60×60 cm','Pack of 100'],
-      ['Stainless Steel Dog Bowl Set','steel-bowl-set','Non-slip double bowl set','Heavy-duty stainless steel bowls with non-slip rubber base. Dishwasher safe. Available in multiple sizes.',11.99,null,90,'bowls',0,0,'PetBasics','2 × 750 ml','Set of 2 bowls'],
-    ];
-    for (const [n, s, sd, d, p, sp, st, cs, f, rx, b, dos, pk] of prods) {
-      await run(
-        'INSERT INTO products (name,slug,short_description,description,price,sale_price,stock,category_id,is_featured,requires_prescription,brand,dosage,package_size) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)',
-        [n, s, sd, d, p, sp, st, cm[cs] || null, f, rx, b, dos, pk]
-      );
-    }
+    // No default products — add via admin panel
   }
 
   console.log('✅ Paw Puppies database initialised');

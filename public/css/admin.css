@@ -301,3 +301,39 @@ tr:hover td { background: #fafbfc; }
   .modal { max-height: 96vh; }
   .modal-body { padding: 14px; }
 }
+
+
+/* ===== ADMIN MOBILE FIXES ===== */
+@media (max-width: 768px) {
+  /* Table horizontal scroll */
+  .table-wrapper { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+  table { min-width: 600px; }
+
+  /* Card header wrap */
+  .card-header { flex-wrap: wrap; gap: 10px; }
+  .search-bar-admin { flex-direction: column; max-width: 100% !important; width: 100%; }
+  .search-bar-admin input,
+  .search-bar-admin select { width: 100%; }
+
+  /* Topbar */
+  .topbar-actions { gap: 8px; }
+  .admin-topbar { flex-wrap: wrap; gap: 8px; }
+
+  /* Modal full screen on mobile */
+  .modal-overlay { align-items: flex-end; padding: 0; }
+  .modal {
+    max-width: 100% !important;
+    width: 100% !important;
+    max-height: 92vh;
+    overflow-y: auto;
+    border-radius: 12px 12px 0 0;
+  }
+  .modal-body { padding: 16px; }
+  .modal-footer { flex-wrap: wrap; gap: 8px; }
+  .modal-footer select { width: 100%; }
+  .modal-footer .btn { flex: 1; }
+
+  /* Form rows */
+  .form-row { grid-template-columns: 1fr !important; }
+  .od-grid { grid-template-columns: 1fr !important; }
+}

@@ -19,7 +19,8 @@
 }
 
 * { box-sizing: border-box; margin: 0; padding: 0; }
-body { font-family: 'Segoe UI', sans-serif; color: var(--text); background: var(--bg); line-height: 1.6; }
+body { font-family: 'Segoe UI', sans-serif; color: var(--text); background: var(--bg); line-height: 1.6; overflow-x: hidden; }
+html { overflow-x: hidden; }
 a { color: inherit; text-decoration: none; }
 img { max-width: 100%; }
 
@@ -1569,4 +1570,110 @@ img { max-width: 100%; }
   clip: rect(0,0,0,0);
   white-space: nowrap;
   border: 0;
+}
+
+
+/* ===== MOBILE FIXES (iPhone/iOS) ===== */
+@media (max-width: 768px) {
+
+  /* Prevent horizontal scroll */
+  * { max-width: 100%; }
+  body, html { overflow-x: hidden; width: 100%; }
+
+  /* Container */
+  .container { padding: 0 16px; }
+
+  /* Header */
+  .header-top .container { flex-direction: column; gap: 4px; text-align: center; font-size: 12px; }
+  .header-main .container { gap: 10px; flex-wrap: nowrap; }
+  .logo { min-width: unset; }
+  .logo-text .site-name { font-size: 18px; }
+  .search-bar { display: none; }
+
+  /* Nav drawer */
+  .nav-links { width: 82vw; max-width: 320px; }
+
+  /* Shop page — hide sidebar, fix filter chips */
+  .shop-layout { grid-template-columns: 1fr !important; }
+  .sidebar { display: none !important; }
+  .filter-chip-grid { gap: 6px; }
+  .filter-chip { font-size: 11px; padding: 5px 10px; white-space: nowrap; }
+  .active-filters { flex-wrap: wrap; gap: 6px; }
+
+  /* Shop sort/view row */
+  .shop-header { flex-direction: column; align-items: flex-start; gap: 10px; }
+  .shop-header > div:last-child { width: 100%; justify-content: space-between; }
+  #sort-select { font-size: 13px; padding: 7px 10px; flex: 1; }
+
+  /* Product grid */
+  .products-grid { grid-template-columns: 1fr 1fr !important; gap: 12px; }
+  .puppy-img { height: 160px !important; }
+  .puppy-info { padding: 10px 12px 12px; }
+  .puppy-breed { font-size: 13px; }
+  .puppy-price .price { font-size: 15px; }
+
+  /* Footer */
+  .footer-grid { grid-template-columns: 1fr; gap: 24px; }
+  .footer-bottom { flex-direction: column; gap: 8px; text-align: center; }
+
+  /* Hero sections */
+  .hero { padding: 40px 0; }
+  .hero h1 { font-size: 26px !important; }
+  .hero p { font-size: 14px; }
+
+  /* Category/breed cards */
+  .categories-grid { grid-template-columns: 1fr 1fr !important; gap: 12px; }
+  .cat-card { padding: 16px 10px; }
+  .cat-icon { font-size: 24px !important; }
+  .cat-card h3 { font-size: 13px; }
+
+  /* Product page */
+  .pup-layout { grid-template-columns: 1fr !important; }
+  .pup-gallery-strip { gap: 6px; }
+  .pup-thumb { width: 56px; height: 56px; }
+
+  /* Reserve form */
+  .rf-row { grid-template-columns: 1fr !important; }
+
+  /* Contact form */
+  .form-row { grid-template-columns: 1fr !important; }
+  .contact-layout { grid-template-columns: 1fr !important; }
+
+  /* About page */
+  .about-grid { grid-template-columns: 1fr !important; gap: 20px; }
+  .about-grid.reverse { direction: ltr; }
+  .stats-inner { grid-template-columns: 1fr 1fr !important; gap: 12px; }
+  .stat-num { font-size: 28px !important; }
+
+  /* Breed detail */
+  .breed-detail-page { grid-template-columns: 1fr !important; }
+  .bd-gallery { grid-template-columns: 1fr 1fr !important; }
+  .related-breeds { grid-template-columns: 1fr 1fr !important; }
+
+  /* Toast */
+  .toast { bottom: 16px; right: 16px; left: 16px; max-width: unset; font-size: 13px; }
+
+  /* Filter drawer */
+  .filter-drawer { width: 90vw !important; }
+
+  /* Sections spacing */
+  .section { padding: 36px 0; }
+  .section-header h2 { font-size: 22px !important; }
+
+  /* Easy ordering / shipping layout */
+  .eo-layout, .sp-layout { grid-template-columns: 1fr !important; }
+  .eo-sidebar, .sp-sidebar { position: static !important; }
+
+  /* Guarantee page */
+  .guarantee-layout { grid-template-columns: 1fr !important; }
+
+  /* Reviews grid */
+  .reviews-grid { grid-template-columns: 1fr !important; }
+}
+
+/* Extra small screens */
+@media (max-width: 400px) {
+  .products-grid { grid-template-columns: 1fr !important; }
+  .categories-grid { grid-template-columns: 1fr !important; }
+  .puppy-img { height: 200px !important; }
 }
