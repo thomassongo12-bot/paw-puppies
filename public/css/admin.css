@@ -328,12 +328,34 @@ tr:hover td { background: #fafbfc; }
     overflow-y: auto;
     border-radius: 12px 12px 0 0;
   }
-  .modal-body { padding: 16px; }
+  .modal-body { padding: 16px; overflow-x: hidden; }
   .modal-footer { flex-wrap: wrap; gap: 8px; }
   .modal-footer select { width: 100%; }
   .modal-footer .btn { flex: 1; }
 
-  /* Form rows */
+  /* Form rows — single column on mobile */
   .form-row { grid-template-columns: 1fr !important; }
   .od-grid { grid-template-columns: 1fr !important; }
+
+  /* Category form tab 1 — Collections & Size side-by-side breaks on mobile */
+  .form-row .form-group { min-width: 0; width: 100%; overflow: hidden; }
+  .suit-item { font-size: 12px; gap: 6px; }
+  .suit-item input { flex-shrink: 0; }
+
+  /* Spec grid single column */
+  .spec-grid { grid-template-columns: 1fr !important; }
+
+  /* Tab buttons wrap */
+  .form-tabs { flex-wrap: wrap; }
+  .form-tab { padding: 8px 12px; font-size: 12px; }
+
+  /* Section blocks */
+  .section-block { padding: 12px; }
+
+  /* Gallery strip */
+  .gallery-strip { gap: 6px; }
+  .gallery-thumb img { width: 56px; height: 56px; }
+
+  /* Quill editor */
+  .ql-editor { min-height: 120px !important; }
 }

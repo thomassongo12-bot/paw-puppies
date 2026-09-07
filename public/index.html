@@ -13,10 +13,15 @@
   <style>
     /* ── Popular Breeds Grid ── */
     .popular-breeds-grid {
-      display: grid;
-      grid-template-columns: repeat(5, 1fr);
+      display: flex;
       gap: 18px;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      -webkit-overflow-scrolling: touch;
+      padding-bottom: 12px;
+      scrollbar-width: none;
     }
+    .popular-breeds-grid::-webkit-scrollbar { display: none; }
     .pb-card {
       cursor: pointer;
       border-radius: 12px;
@@ -25,6 +30,8 @@
       background: #fff;
       transition: transform 0.2s, box-shadow 0.2s;
       text-align: center;
+      flex: 0 0 180px;
+      scroll-snap-align: start;
     }
     .pb-card:hover { transform: translateY(-4px); box-shadow: 0 8px 24px rgba(0,0,0,0.10); }
     .pb-card-img {
@@ -127,9 +134,7 @@
     .ticker-author-name { font-size: 13px; font-weight: 700; color: #1a3c4e; }
     .ticker-author-loc  { font-size: 11px; color: var(--text-light); }
 
-    @media (max-width: 1000px) { .popular-breeds-grid { grid-template-columns: repeat(4, 1fr); } }
-    @media (max-width: 768px)  { .popular-breeds-grid { grid-template-columns: repeat(3, 1fr); } }
-    @media (max-width: 480px)  { .popular-breeds-grid { grid-template-columns: repeat(2, 1fr); gap: 12px; } }
+    @media (max-width: 768px) { .pb-card { flex: 0 0 140px; } }
   </style>
   <!-- Open Graph -->
   <meta property="og:type" content="website">
@@ -739,7 +744,7 @@ async function loadPopularBreeds() {
     const res  = await fetch('/api/categories');
     const cats = await res.json();
     if (!cats.length) { grid.innerHTML = ''; return; }
-    grid.innerHTML = cats.map(c => `
+    grid.innerHTML = cats.slice(0, 6).map(c => `
       <div class="pb-card" onclick="location.href='/breed.html?slug=${c.slug}'" title="${c.name}">
         <div class="pb-card-img">
           ${c.image_url
