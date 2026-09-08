@@ -1139,7 +1139,7 @@ img { max-width: 100%; }
 .filter-drawer-body a:hover, .filter-drawer-body a.active-cat { color: var(--primary); font-weight: 600; }
 
 /* Vue LISTE */
-.products-grid.list-view { grid-template-columns: 1fr; gap: 12px; }
+.products-grid.list-view { grid-template-columns: 1fr !important; gap: 12px; }
 .products-grid.list-view .product-card { display: flex; flex-direction: row; border-radius: var(--radius); }
 .products-grid.list-view .product-img { width: 130px; height: 130px; flex-shrink: 0; border-radius: var(--radius) 0 0 var(--radius); }
 .products-grid.list-view .product-info { flex: 1; padding: 14px 16px; display: flex; flex-direction: column; justify-content: center; }
@@ -1149,6 +1149,23 @@ img { max-width: 100%; }
 .products-grid.list-view .add-to-cart { display: flex; max-width: 200px; padding: 8px 16px; font-size: 13px; }
 .products-grid.list-view .product-actions { display: none; }
 .product-list-details { display: none; }
+
+/* Vue LISTE — puppy cards (shop) */
+.products-grid.list-view .puppy-card { display: flex; flex-direction: row; }
+.products-grid.list-view .puppy-img { width: 140px; min-width: 140px; height: auto; flex-shrink: 0; border-radius: 0; }
+.products-grid.list-view .puppy-img img { height: 100%; width: 140px; object-fit: cover; }
+.products-grid.list-view .puppy-info { flex: 1; padding: 14px 16px; display: flex; flex-direction: column; justify-content: center; }
+.products-grid.list-view .puppy-breed { font-size: 15px; }
+.products-grid.list-view .puppy-enquire { max-width: 180px; }
+.products-grid.list-view .puppy-wishlist { top: 8px; right: 8px; }
+
+@media (max-width: 600px) {
+  .products-grid.list-view .puppy-img { width: 110px; min-width: 110px; }
+  .products-grid.list-view .puppy-img img { width: 110px; }
+  .products-grid.list-view .puppy-info { padding: 10px 12px; }
+  .products-grid.list-view .puppy-breed { font-size: 13px; }
+  .products-grid.list-view .puppy-enquire { font-size: 11px; padding: 6px 10px; }
+}
 
 @media (max-width: 768px) {
   .view-toggle { display: flex; }

@@ -5,16 +5,16 @@
   <title id="page-title">Puppy for Sale - Paw Puppies</title>
   <meta id="meta-description" name="description" content="Purebred puppy for sale at Paw Puppies. Health guaranteed, worldwide delivery to 110+ countries. Reserve today with free 24h cancellation.">
   <meta name="robots" content="index, follow">
-  <link id="meta-canonical" rel="canonical" href="https://Paw Puppies.com/shop.html">
+  <link id="meta-canonical" rel="canonical" href="https://paw-puppies.com/shop.html">
   <meta id="og-title" property="og:title" content="Puppy for Sale — Paw Puppies">
   <meta id="og-description" property="og:description" content="Purebred puppy with health guarantee. Worldwide delivery.">
-  <meta id="og-url" property="og:url" content="https://Paw Puppies.com/shop.html">
-  <meta id="og-image" property="og:image" content="https://Paw Puppies.com/images/hero-dachshund.jpg">
+  <meta id="og-url" property="og:url" content="https://paw-puppies.com/shop.html">
+  <meta id="og-image" property="og:image" content="https://paw-puppies.com/images/hero-dachshund.jpg">
   <meta property="og:type" content="product">
   <meta property="og:site_name" content="Paw Puppies">
   <meta name="twitter:card" content="summary_large_image">
   <meta id="tw-title" name="twitter:title" content="Puppy for Sale — Paw Puppies">
-  <meta id="tw-image" name="twitter:image" content="https://Paw Puppies.com/images/hero-dachshund.jpg">
+  <meta id="tw-image" name="twitter:image" content="https://paw-puppies.com/images/hero-dachshund.jpg">
   <link rel="stylesheet" href="/css/style.css">
   <style>
     /* ══ BREADCRUMB ══ */
@@ -517,8 +517,8 @@ async function loadProduct() {  try {
     const metaDesc  = p.meta_description || p.short_description
       ? `${p.name} puppy for sale. ${(p.meta_description || p.short_description || '').slice(0,120)}. Health guaranteed, worldwide delivery. Reserve today.`
       : `${p.name} puppy for sale at Paw Puppies. Health guaranteed, worldwide delivery to 110+ countries. Reserve your puppy today with free 24h cancellation.`;
-    const canonical = `https://Paw Puppies.com/product.html?id=${p.id}`;
-    const img = (p.images && p.images[0]) || 'https://Paw Puppies.com/images/hero-dachshund.jpg';
+    const canonical = `https://paw-puppies.com/product.html?id=${p.id}`;
+    const img = (p.images && p.images[0]) || 'https://paw-puppies.com/images/hero-dachshund.jpg';
 
     document.title = metaTitle;
     document.getElementById('page-title').textContent = metaTitle;
@@ -553,8 +553,8 @@ async function loadProduct() {  try {
       "breadcrumb": {
         "@type": "BreadcrumbList",
         "itemListElement": [
-          {"@type":"ListItem","position":1,"name":"Home","item":"https://Paw Puppies.com"},
-          {"@type":"ListItem","position":2,"name":"Available Puppies","item":"https://Paw Puppies.com/shop.html"},
+          {"@type":"ListItem","position":1,"name":"Home","item":"https://paw-puppies.com"},
+          {"@type":"ListItem","position":2,"name":"Available Puppies","item":"https://paw-puppies.com/shop.html"},
           {"@type":"ListItem","position":3,"name":p.name,"item":canonical}
         ]
       }

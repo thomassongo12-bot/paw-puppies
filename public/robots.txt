@@ -8,4 +8,4 @@ Disallow: /checkout.html
 Disallow: /reserve.html
 
 # Sitemap
-Sitemap: https://pawshop.com/sitemap.xml
+Sitemap: https://paw-puppies.com/sitemap.xml

@@ -6,16 +6,16 @@
   <title id="page-title">Dog Breed Guide - Paw Puppies | Puppies for Sale</title>
   <meta id="meta-description" name="description" content="Find purebred puppies for sale at Paw Puppies. Health guaranteed, worldwide delivery. Learn about temperament, size, care and see available puppies.">
   <meta name="robots" content="index, follow">
-  <link id="meta-canonical" rel="canonical" href="https://Paw Puppies.com/breeds.html">
+  <link id="meta-canonical" rel="canonical" href="https://paw-puppies.com/breeds.html">
   <meta id="og-title" property="og:title" content="Dog Breed Guide — Paw Puppies">
   <meta id="og-description" property="og:description" content="Learn about this breed and find available puppies with health guarantee.">
-  <meta id="og-url" property="og:url" content="https://Paw Puppies.com/breeds.html">
-  <meta id="og-image" property="og:image" content="https://Paw Puppies.com/images/hero-dachshund.jpg">
+  <meta id="og-url" property="og:url" content="https://paw-puppies.com/breeds.html">
+  <meta id="og-image" property="og:image" content="https://paw-puppies.com/images/hero-dachshund.jpg">
   <meta property="og:site_name" content="Paw Puppies">
   <meta property="og:type" content="website">
   <meta name="twitter:card" content="summary_large_image">
   <meta id="tw-title" name="twitter:title" content="Dog Breed Guide — Paw Puppies">
-  <meta id="tw-image" name="twitter:image" content="https://Paw Puppies.com/images/hero-dachshund.jpg">
+  <meta id="tw-image" name="twitter:image" content="https://paw-puppies.com/images/hero-dachshund.jpg">
   <link rel="stylesheet" href="/css/style.css">
   <style>
     /* ── Layout ── */
@@ -251,8 +251,8 @@ async function loadBreed() {
     const desc = b.description
       ? `${b.name} puppies for sale at Paw Puppies. ${b.description.slice(0,120)}. Health guaranteed, worldwide delivery.`
       : `Find ${b.name} puppies for sale. Health guaranteed, worldwide delivery to 110+ countries. Reserve your puppy today.`;
-    const canonical = `https://Paw Puppies.com/breed.html?slug=${b.slug}`;
-    const img = b.image_url || 'https://Paw Puppies.com/images/hero-dachshund.jpg';
+    const canonical = `https://paw-puppies.com/breed.html?slug=${b.slug}`;
+    const img = b.image_url || 'https://paw-puppies.com/images/hero-dachshund.jpg';
 
     document.getElementById('meta-description').content = desc;
     document.getElementById('meta-canonical').href = canonical;
@@ -276,8 +276,8 @@ async function loadBreed() {
       "breadcrumb": {
         "@type": "BreadcrumbList",
         "itemListElement": [
-          {"@type":"ListItem","position":1,"name":"Home","item":"https://Paw Puppies.com"},
-          {"@type":"ListItem","position":2,"name":"Explore Breeds","item":"https://Paw Puppies.com/breeds.html"},
+          {"@type":"ListItem","position":1,"name":"Home","item":"https://paw-puppies.com"},
+          {"@type":"ListItem","position":2,"name":"Explore Breeds","item":"https://paw-puppies.com/breeds.html"},
           {"@type":"ListItem","position":3,"name":b.name,"item":canonical}
         ]
       }
