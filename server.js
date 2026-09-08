@@ -30,6 +30,22 @@ app.use('/api/banners', require('./routes/banners'));
 app.use('/api/reviews', require('./routes/reviews'));
 app.use('/api/messages', require('./routes/messages'));
 
+// ── Admin: purge all demo data (products + categories) ──────────────────────
+const { authenticateToken } = require('./middleware/auth');
+const { run: dbRun } = require('./database/db');
+app.delete('/api/admin/purge-demo', authenticateToken, async (req, res) => {
+  try {
+    await dbRun('DELETE FROM products');
+    await dbRun('DELETE FROM categories');
+    // Reset autoincrement counters
+    try { await dbRun("DELETE FROM sqlite_sequence WHERE name='products'"); } catch {}
+    try { await dbRun("DELETE FROM sqlite_sequence WHERE name='categories'"); } catch {}
+    res.json({ success: true, message: 'All products and categories deleted.' });
+  } catch (e) {
+    res.status(500).json({ error: e.message });
+  }
+});
+
 // SPA fallback for admin
 app.get('/admin/*', (req, res) => {
   res.sendFile(path.join(__dirname, 'admin', 'index.html'));

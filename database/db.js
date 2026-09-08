@@ -172,37 +172,8 @@ async function init() {
     );
   }
 
-  // ── Catégories ──────────────────────────────────────────────────────────────
-  const catCnt = await get('SELECT COUNT(*) as c FROM categories');
-  if (!catCnt.c) {
-    const cats = [
-      ['Dry Food',          'dry-food',        'Premium dry kibble for all breeds and life stages',   1],
-      ['Wet Food',          'wet-food',         'Tasty wet food and pâtés for dogs',                  2],
-      ['Treats & Snacks',   'treats',           'Healthy treats, chews and training snacks',           3],
-      ['Toys',              'toys',             'Interactive and chew toys for dogs',                  4],
-      ['Health & Vitamins', 'health',           'Supplements, vitamins and health products',           5],
-      ['Grooming',          'grooming',         'Shampoos, brushes, nail clippers and more',           6],
-      ['Collars & Leashes', 'collars-leashes',  'Collars, leashes, harnesses and ID tags',             7],
-      ['Beds & Furniture',  'beds',             'Comfortable beds, crates and mats',                   8],
-      ['Travel & Outdoor',  'travel',           'Car accessories, carriers and outdoor gear',          9],
-      ['Clothing',          'clothing',         'Dog coats, boots and costumes',                      10],
-      ['Bowls & Feeders',   'bowls',            'Food and water bowls, slow feeders',                 11],
-      ['Training',          'training',         'Training aids, pads and clickers',                   12],
-    ];
-    for (const [n, s, d, o] of cats) {
-      await run(
-        'INSERT INTO categories (name,slug,description,sort_order) VALUES (?,?,?,?)',
-        [n, s, d, o]
-      );
-    }
-  }
-
-  // ── Produits de démonstration ───────────────────────────────────────────────
-  // Pas de produits par défaut — l'admin les crée via le panel
-  const prodCnt = await get('SELECT COUNT(*) as c FROM products');
-  if (!prodCnt.c) {
-    // No default products — add via admin panel
-  }
+  // ── Catégories & Produits ────────────────────────────────────────────────────
+  // Pas de données par défaut — tout est créé via le panel admin
 
   console.log('✅ Paw Puppies database initialised');
 }
